@@ -1,11 +1,12 @@
 import './index.css';
-import '../public/manifest.json'
+import '../public/manifest.json';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
-require("babel-polyfill");
+
+require('babel-polyfill');
 
 ReactDOM.render((
   <BrowserRouter>
