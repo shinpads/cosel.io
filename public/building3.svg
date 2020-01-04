@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="2000" width="400">
+
+  <rect x="100" y="0" width="180" height="100" fill="#a79c8c"/>
+  <rect x="50" y="100" width="290" height="2000" fill="#a79c8c"/>
+  <rect x="0" y="200" width="390" height="2000" fill="#a79c8c"/>
+  <rect x="130" y="22" width="122" height="50" fill="#c9c9c9"/>
+  <text x="150" y="60" style="font-size: 40px; font-family:Hobostd; text-shadow: 1px 1px 3px black">RWF</text>
+
+  <rect x="80" y="120" width="25" height="2000" style="fill:rgb(71, 71, 71)"/>
+  <rect x="130" y="90" width="25" height="2000" style="fill:rgb(71, 71, 71)"/>
+  <rect x="180" y="90" width="25" height="2000" style="fill:rgb(71, 71, 71)"/>
+  <rect x="230" y="90" width="25" height="2000" style="fill:rgb(71, 71, 71)"/>
+  <rect x="280" y="120" width="25" height="2000" style="fill:rgb(71, 71, 71)"/>
+
+
+
+
+
+</svg>

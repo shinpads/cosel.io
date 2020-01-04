@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100">
+
+  <circle  cx="50" cy="50" r="50" fill="rgba(#212121, 0.12)" opacity="0.1"/>
+  <circle  cx="50" cy="50" r="49" fill="#77cd6c" />
+  <clipPath id="circle">
+    <circle cx="50" cy="50" r="49" />
+  </clipPath>
+  <polygon points="43,90 47,91 100,0" fill="#000" opacity="0.2" clip-path="url(#circle)" />
+
+  <polygon points="43,90 47,91 68,15 64,14 " fill="#c3c3c3" clip-path="url(#circle)" />
+  <polygon points="64,14 35,7 27,31 57,40" fill="#d43a3a" clip-path="url(#circle)" />
+
+  <text fill="#fff" x="44" y="18" transform="rotate(15)" style="font-size: 22px">F</text>
+
+
+</svg>

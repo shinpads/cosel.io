@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="2000" width="500">
+  <polygon x="0" y="0" points="0,50 350,50 500,170 500,2000, 0,2000" width="500" height="2000" style="fill:rgb(125, 116, 103)"/>
+
+  <rect x="225" y="20" width="70" height="30" style="fill:#909090"/>
+
+  <rect x="20" y="90" width="350" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="140" width="400" height="25" style="fill:rgb(71, 71, 71)"/>
+
+  <rect x="20" y="190" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="240" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="290" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="340" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="390" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="440" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="490" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="540" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="590" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="640" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="690" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="740" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="790" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="840" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="890" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="940" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="990" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="1040" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="1090" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="1140" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="1190" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="1240" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+  <rect x="20" y="1290" width="460" height="25" style="fill:rgb(71, 71, 71)"/>
+
+
+
+
+</svg>

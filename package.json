@@ -1,0 +1,58 @@
+{
+  "name": "broken-picture",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.9.0",
+    "@material-ui/icons": "^3.0.2",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "chart.js": "^2.7.3",
+    "debug": "^4.1.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "google-spreadsheet": "^2.0.6",
+    "googleapis": "^27.0.0",
+    "jquery": "^3.3.1",
+    "path": "^0.12.7",
+    "react": "^16.6.3",
+    "react-chartjs-2": "^2.7.4",
+    "react-dom": "^16.6.3",
+    "react-reveal": "^1.2.2",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1"
+  },
+  "scripts": {
+    "start:dev": "NODE_ENV=production DEBUG=broken-picture:* npm run build && node ./dist/server.js",
+    "start": "npm run build:dev && NODE_ENV=production DEBUG=broken-picture:* node ./dist/server.js",
+    "build": "webpack --mode production --config webpack.server.config.js & webpack --mode production --config webpack.prod.config.js",
+    "build:dev": "webpack --mode development --config webpack.server.config.js & webpack --mode development --config webpack.dev.config.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
+    "clean-webpack-plugin": "^1.0.0",
+    "css-loader": "^1.0.1",
+    "eslint": "^6.8.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
