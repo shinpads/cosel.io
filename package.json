@@ -15,6 +15,7 @@
     "googleapis": "^27.0.0",
     "jquery": "^3.3.1",
     "path": "^0.12.7",
+    "prop-types": "^15.7.2",
     "react": "^16.6.3",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
