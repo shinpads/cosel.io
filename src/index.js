@@ -3,14 +3,20 @@ import '../public/manifest.json';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
 import App from './App';
+import configureStore from './store';
+
 import * as serviceWorker from './serviceWorker';
 
 require('babel-polyfill');
 
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <Provider store={configureStore()}>
+      <App />
+    </Provider>
   </BrowserRouter>
 ), document.getElementById('root'));
 

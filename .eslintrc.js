@@ -26,5 +26,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'react/require-default-props': 'off',
     'no-plusplus': 'off',
+    'arrow-parens': 'off',
+    'no-console': 'off',
   },
 };
