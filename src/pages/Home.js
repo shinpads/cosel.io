@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 // import Flip from 'react-reveal/Flip';
 import { withStyles } from '@material-ui/core/styles';
 
-// import api from '../api';
+import GameSetup from '../components/GameSetup';
+import api from '../api';
 // import colors from '../colors';
 
+import Header from '../components/Header';
+
 const styles = {
-  test: {
+  main: {
     fontSize: '22px',
   },
 };
@@ -23,11 +26,18 @@ class Home extends Component {
     window.scrollTo(0, 0);
   }
 
+  componentDidMount() {
+    api.test();
+  }
+
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.test}>
-        test 123
+      <div>
+        <Header />
+        <main className={classes.main}>
+          <GameSetup />
+        </main>
       </div>
     );
   }
