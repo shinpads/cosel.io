@@ -4,10 +4,6 @@ import {ColorSelector} from './ColorSelector.js';
 import {ChangeSize} from './ChangeSize.js';
 
 export class GameArea extends Component {
-    componentDidMount() {
-      
-    }
-
     eraser = () => {
       let drawBox = this.refs.drawBox;
       drawBox.changeColor("#DEF2F1");
