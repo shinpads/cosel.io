@@ -7,11 +7,6 @@ export class Eraser extends Component {
         outline: ''
     }
 
-    componentDidMount() {
-    }
-
-  
-
     render(){
         return (
         <div>

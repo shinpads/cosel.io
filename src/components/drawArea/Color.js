@@ -7,6 +7,31 @@ export class Color extends Component {
         selected: false
     }
 
+    componentDidMount() {
+        let canvas = this.refs.canv;
+        let ctx = canvas.getContext('2d');
+
+        canvas.width = 20;
+        canvas.height = 20;
+
+        ctx.fillStyle = this.props.color;
+        ctx.fillRect(0,0,20,20);
+
+        canvas.addEventListener('mousedown', (e) => {
+            this.props.changeColor(this.props.color);
+        }, false);
+        canvas.addEventListener('mouseover', (e) => {
+            if(!this.state.selected){
+                this.glow("onHover");
+            }
+        }, false);
+        canvas.addEventListener('mouseout', (e) => {
+            if(!this.state.selected){
+                this.unGlow();
+            }
+        }, false);
+    }
+
     glow = (c) => {
         let canvas = this.refs.canv;
         let ctx = canvas.getContext('2d');
@@ -38,33 +63,6 @@ export class Color extends Component {
         ctx.fillRect(0,0,20,20);
         ctx.stroke();
     }
-
-    componentDidMount() {
-        let canvas = this.refs.canv;
-        let ctx = canvas.getContext('2d');
-
-        canvas.width = 20;
-        canvas.height = 20;
-
-        ctx.fillStyle = this.props.color;
-        ctx.fillRect(0,0,20,20);
-
-        canvas.addEventListener('mousedown', (e) => {
-            this.props.changeColor(this.props.color);
-        }, false);
-        canvas.addEventListener('mouseover', (e) => {
-            if(!this.state.selected){
-                this.glow("onHover");
-            }
-        }, false);
-        canvas.addEventListener('mouseout', (e) => {
-            if(!this.state.selected){
-                this.unGlow();
-            }
-        }, false);
-    }
-
-  
 
     render(){
         return (
