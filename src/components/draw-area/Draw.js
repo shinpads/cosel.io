@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 export class Draw extends Component {
-
   componentDidMount() {
     const width = window.innerWidth / 3;
     const height = width;
@@ -21,12 +20,10 @@ export class Draw extends Component {
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'red';
 
-    document.addEventListener('mouseup', (e) => {
+    document.addEventListener('mouseup', () => {
       mouseStatus = 'up';
       finishLine();
     });
-
-  
 
     document.addEventListener('mousemove', (e) => {
       const rect = canvas.getBoundingClientRect();
@@ -38,7 +35,7 @@ export class Draw extends Component {
       }
     }, false);
 
-    canvas.addEventListener('mousedown', (e) => {
+    canvas.addEventListener('mousedown', () => {
       draw();
       mouseStatus = 'down';
     }, false);

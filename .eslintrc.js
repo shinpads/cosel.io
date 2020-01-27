@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
+  parser: "babel-eslint",
   extends: [
     'plugin:react/recommended',
     'airbnb',
@@ -25,8 +26,15 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/forbid-prop-types': 'off',
     'react/require-default-props': 'off',
+    'react/jsx-one-expression-per-line': 'off',
     'no-plusplus': 'off',
     'arrow-parens': 'off',
     'no-console': 'off',
+    'max-len': 'off',
+    'no-use-before-define': 'off',
+    'prefer-destructuring': 'warn',
+    'react/no-string-refs': 'warn',
+    'jsx-a11y/click-events-have-key-events': 'warn',
+    'jsx-a11y/no-noninteractive-element-interactions': 'warn',
   },
 };
