@@ -1,44 +1,47 @@
 import React, { Component } from 'react';
-import { Draw } from './Draw.js';
-import { BrushSelector } from './BrushOptions/BrushSelector.js';
-import { ChangeSize } from './ChangeSize.js';
-
-let x = "test";
+import { Draw } from './Draw';
+import { BrushSelector } from './BrushOptions/BrushSelector';
+import { ChangeSize } from './ChangeSize';
 
 export class GameArea extends Component {
-    selectDraw = (drawType, drawColor) => {
-      const { drawBox } = this.refs;
-      if (drawType === 'bucket') {
-        drawBox.setState({ bucket: true });
-      } else {
-        drawBox.setState({ bucket: false });
-      }
-      drawBox.changeColor(drawColor);
-    }
+  constructor(props) {
+    super(props);
+    this.drawBoxRef = React.createRef();
+  }
 
-    changeColor = (color) => {
-      const { drawBox } = this.refs;
-      drawBox.changeColor(color);
+  selectDraw = (drawType, drawColor) => {
+    const drawBox = this.drawBoxRef.current;
+    if (drawType === 'bucket') {
+      drawBox.setState({ bucket: true });
+    } else {
+      drawBox.setState({ bucket: false });
     }
+    drawBox.changeColor(drawColor);
+  }
 
-    changeSize = (size) => {
-      const { drawBox } = this.refs;
-      drawBox.changeSize(size);
-    }
+  changeColor = (color) => {
+    const drawBox = this.drawBoxRef.current;
+    drawBox.changeColor(color);
+  }
 
-    render() {
-      return (
-        <div>
-          <Draw ref="drawBox" />
-          <div style={horizontal}>
-            <BrushSelector selectDraw={this.selectDraw} changeColor={this.changeColor} />
-            <div style={onRight}>
-              <ChangeSize changeSize={this.changeSize} />
-            </div>
+  changeSize = (size) => {
+    const drawBox = this.drawBoxRef.current;
+    drawBox.changeSize(size);
+  }
+
+  render() {
+    return (
+      <div>
+        <Draw ref={this.drawBoxRef} />
+        <div style={horizontal}>
+          <BrushSelector selectDraw={this.selectDraw} changeColor={this.changeColor} />
+          <div style={onRight}>
+            <ChangeSize changeSize={this.changeSize} />
           </div>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 let horizontal = {

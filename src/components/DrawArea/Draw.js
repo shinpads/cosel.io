@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 
 export class Draw extends Component {
-  state = {
-    bucket: false,
-    currentColor: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      bucket: false,
+      currentColor: '',
+    };
+    this.canvasRef = React.createRef();
   }
 
+
   componentDidMount() {
+    const { bucket } = this.state;
     const width = Math.floor(window.innerWidth / 3);
     const height = width;
 
-    const canvas = this.refs.mainCanvas;
+    const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
 
     const mouse = { x: 0, y: 0 };
@@ -25,8 +31,8 @@ export class Draw extends Component {
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'red';
 
-    document.addEventListener('mouseup', (e) => {
-      if (!this.state.bucket) {
+    document.addEventListener('mouseup', () => {
+      if (!bucket) {
         mouseStatus = 'up';
         finishLine();
       }
@@ -37,13 +43,13 @@ export class Draw extends Component {
       mouse.x = e.clientX - Math.round(rect.left);
       mouse.y = e.clientY - Math.round(rect.top);
 
-      if (mouseStatus === 'down' && !this.state.bucket) {
+      if (mouseStatus === 'down' && !bucket) {
         draw();
       }
     }, false);
 
-    canvas.addEventListener('mousedown', (e) => {
-      if (!this.state.bucket) {
+    canvas.addEventListener('mousedown', () => {
+      if (!bucket) {
         draw();
         mouseStatus = 'down';
       } else {
@@ -71,85 +77,10 @@ export class Draw extends Component {
     };
 
     const fill = () => {
-      const canvas = this.refs.mainCanvas;
-      const ctx = canvas.getContext('2d');
-      const fillX = mouse.x;
-      const fillY = mouse.y;
-      const imgData = ctx.getImageData(0, 0, width, height);
-      const pixels = [[fillX, fillY]];
-      const mem = [[fillX, fillY]];
-
-      const firstFillColor = getColorFromImgData(fillX, fillY, imgData);
-
-      while (pixels.length > 0) {
-        const [curX, curY] = pixels.shift();
-        const left = [curX - 1, curY];
-        const right = [curX + 1, curY];
-        const up = [curX, curY - 1];
-        const down = [curX, curY + 1];
-        if (left[0] > 0) {
-          if (colorMatch(firstFillColor, getColorFromImgData(left[0], left[1], imgData))) {
-            if (!arrayWithinArray(mem, left)) {
-              imgData.data.set(drawPixel(this.state.currentColor, left[0], left[1], imgData));
-              pixels.push(left);
-              mem.push(left);
-            }
-          }
-        }
-        if (right[0] < width) {
-          if (colorMatch(firstFillColor, getColorFromImgData(right[0], right[1], imgData))) {
-            if (!arrayWithinArray(mem, right)) {
-              imgData.data.set(drawPixel(this.state.currentColor, right[0], right[1], imgData));
-              pixels.push(right);
-              mem.push(right);
-            }
-          }
-        }
-        /*
-        if(up[1] > 0){
-          console.log(up[1]);
-          if(colorMatch(firstFillColor, getColorFromImgData(up[0], up[1], imgData))){
-            if (!arrayWithinArray(mem, up)){
-              imgData.data.set(drawPixel(this.state.currentColor, up[0], up[1], imgData));
-              pixels.push(up);
-              mem.push(up);
-            }
-          }
-        } */
-
-        if (down[1] < height) {
-          if (colorMatch(firstFillColor, getColorFromImgData(down[0], down[1], imgData))) {
-            if (!arrayWithinArray(mem, down)) {
-              imgData.data.set(drawPixel(this.state.currentColor, down[0], down[1], imgData));
-              pixels.push(down);
-              mem.push(down);
-            }
-          }
-        }
-      }
-
-      ctx.putImageData(imgData, 0, 0);
+      const { currentColor } = this.state;
+      console.log(currentColor);
     };
-
-    const arrayWithinArray = (larger, smaller) => {
-      let good = false;
-      for (const i in larger) {
-        if (larger[i].length === smaller.length) {
-          for (const j in larger[i]) {
-            good = true;
-
-            if (larger[i][j] !== smaller[j]) {
-              good = false;
-              break;
-            }
-          }
-          if (good === true) {
-            return true;
-          }
-        }
-      }
-      return false;
-    };
+    /*
 
     const findOffsetInImageData = (x, y) => (((y - 1) * width) * 4) + ((x - 1) * 4);
 
@@ -186,7 +117,7 @@ export class Draw extends Component {
       }
 
       return false;
-    };
+    }; */
 
     const finishLine = () => {
       allPoints.push({ points, color: ctx.strokeStyle, size: ctx.lineWidth });
@@ -195,14 +126,14 @@ export class Draw extends Component {
   }
 
   changeColor = (color) => {
-    const canvas = this.refs.mainCanvas;
+    const { canvas } = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.strokeStyle = color;
     this.setState({ currentColor: ctx.strokeStyle });
   }
 
   changeSize = (size) => {
-    const canvas = this.refs.mainCanvas;
+    const { canvas } = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = size;
   }
@@ -210,7 +141,7 @@ export class Draw extends Component {
   render() {
     return (
       <div id="drawArea">
-        <canvas id="canvas" ref="mainCanvas" style={{ border: '3px solid white' }} />
+        <canvas id="canvas" ref={this.canvasRef} style={{ border: '3px solid white' }} />
       </div>
     );
   }

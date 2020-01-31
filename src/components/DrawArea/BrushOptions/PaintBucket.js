@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 export class PaintBucket extends Component {
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       outline: '',
-    }
+    };
+  }
 
-    render() {
-      return (
-        <div>
-          <img alt="paint bucket" onClick={(e) => { this.props.selectDraw('bucket'); }} style={{ outline: this.state.outline }} />
-        </div>
-      );
-    }
+  render() {
+    const { selectDraw } = this.props;
+    const { outline } = this.state;
+    return (
+      <div>
+        <input type="image" alt="paint bucket" onClick={() => { selectDraw('bucket'); }} style={{ outline }} />
+      </div>
+    );
+  }
 }
+
+PaintBucket.propTypes = {
+  selectDraw: PropTypes.func.isRequired,
+};
+
 export default PaintBucket;

@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 export class Eraser extends Component {
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       outline: '',
-    }
+    };
+  }
 
-    render() {
-      return (
-        <div>
-          <img onClick={(e) => { this.props.selectDraw('eraser'); }} style={{ outline: this.state.outline }} alt="eraser" />
-        </div>
-      );
-    }
+  render() {
+    const { selectDraw } = this.props;
+    const { outline } = this.state;
+    return (
+      <div>
+        <input type="image" onClick={() => { selectDraw('eraser'); }} style={{ outline }} alt="eraser" />
+      </div>
+    );
+  }
 }
+Eraser.propTypes = {
+  selectDraw: PropTypes.func.isRequired,
+};
+
 export default Eraser;
