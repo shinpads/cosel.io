@@ -1,10 +1,8 @@
 require('babel-polyfill');
-require('dotenv').config({ path: '.env.production' });
 const debug = require('debug');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const database = require('./database');
 
 const log = debug('robfarlow.net:sever');
 
@@ -14,7 +12,7 @@ const html = path.join(__dirname, 'index.html');
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use('/static', express.static(__dirname));
-app.use('*/js',express.static(__dirname));
+app.use('*/js', express.static(__dirname));
 app.enable('trust proxy', true);
 
 

@@ -14,17 +14,17 @@ const onRight = {
 
 export class GameArea extends Component {
     eraser = () => {
-      const drawBox = this.refs.drawBox;
+      const { drawBox } = this.refs;
       drawBox.changeColor('#DEF2F1');
     }
 
     changeColor = (color) => {
-      const drawBox = this.refs.drawBox;
+      const { drawBox } = this.refs;
       drawBox.changeColor(color);
     }
 
     newSize = (size) => {
-      const drawBox = this.refs.drawBox;
+      const { drawBox } = this.refs;
       drawBox.changeSize(size);
     }
 
