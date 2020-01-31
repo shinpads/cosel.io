@@ -3,6 +3,8 @@ import { Draw } from './Draw.js';
 import { BrushSelector } from './BrushOptions/BrushSelector.js';
 import { ChangeSize } from './ChangeSize.js';
 
+let x = "test";
+
 export class GameArea extends Component {
     selectDraw = (drawType, drawColor) => {
       const { drawBox } = this.refs;
