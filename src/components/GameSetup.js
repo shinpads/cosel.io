@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { createGame, findGame } from '../actions/gameActions';
 
 const styles = {
   root: {
@@ -26,6 +28,16 @@ class GameSetup extends Component {
     };
   }
 
+  createGame = () => {
+    const { dispatch } = this.props;
+    dispatch(createGame());
+  }
+
+  findGame = () => {
+    const { dispatch } = this.props;
+    dispatch(findGame());
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -35,8 +47,8 @@ class GameSetup extends Component {
           <div className={classes.form}>
             <TextField label="Name" />
             <div className={classes.buttonsContainer}>
-              <Button>Create Room</Button>
-              <Button>Find Room</Button>
+              <Button onClick={this.createGame}>Create Room</Button>
+              <Button onClick={this.findGame}>Find Room</Button>
             </div>
           </div>
         </form>
@@ -45,8 +57,13 @@ class GameSetup extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return state;
+}
+
 GameSetup.propTypes = {
   classes: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
-export default withStyles(styles)(GameSetup);
+export default connect(mapStateToProps)(withStyles(styles)(GameSetup));

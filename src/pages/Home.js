@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import GameSetup from '../components/GameSetup';
-import api from '../api';
 // import colors from '../colors';
 
 import Header from '../components/Header';
@@ -27,7 +26,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    api.test();
   }
 
   render() {
