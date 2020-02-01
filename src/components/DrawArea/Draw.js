@@ -126,14 +126,14 @@ export class Draw extends Component {
   }
 
   changeColor = (color) => {
-    const { canvas } = this.canvasRef.current;
+    const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.strokeStyle = color;
     this.setState({ currentColor: ctx.strokeStyle });
   }
 
   changeSize = (size) => {
-    const { canvas } = this.canvasRef.current;
+    const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.lineWidth = size;
   }

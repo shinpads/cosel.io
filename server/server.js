@@ -16,7 +16,7 @@ app.use('*/js', express.static(__dirname));
 app.enable('trust proxy', true);
 
 
-app.get('/', (req, res, next) => {
+app.use('*', (req, res, next) => {
   res.sendFile(html);
   next();
 });

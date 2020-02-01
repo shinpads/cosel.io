@@ -3,7 +3,7 @@ import { Draw } from './Draw';
 import { BrushSelector } from './BrushOptions/BrushSelector';
 import { ChangeSize } from './ChangeSize';
 
-export class GameArea extends Component {
+class GameArea extends Component {
   constructor(props) {
     super(props);
     this.drawBoxRef = React.createRef();
