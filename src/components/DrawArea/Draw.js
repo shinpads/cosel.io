@@ -78,9 +78,20 @@ export class Draw extends Component {
 
     const fill = () => {
       const { currentColor } = this.state;
-      console.log(currentColor);
+      const xStart = mouse.x;
+      const yStart = mouse.y;
+      const xPos = mouse.x;
+      let yPos = mouse.y;
+      let curPos = findOffsetInImageData(xPos, yPos);
+
+      while (yPos > 0 && colorMatch(hexToRGB(currentColor), getColorFromImgData(xStart, yStart))) {
+        yPos -= 1;
+        curPos -= width * 4;
+      }
+
+      console.log(currentColor, curPos);
     };
-    /*
+
 
     const findOffsetInImageData = (x, y) => (((y - 1) * width) * 4) + ((x - 1) * 4);
 
@@ -100,6 +111,8 @@ export class Draw extends Component {
       return [r, g, b];
     };
 
+    /*
+
     const drawPixel = (color, x, y, imgData) => {
       const { data } = imgData;
       const offset = findOffsetInImageData(x, y);
@@ -111,13 +124,15 @@ export class Draw extends Component {
       return data;
     };
 
+    */
+
     const colorMatch = (firstColor, secondColor) => {
       if (JSON.stringify(firstColor) === JSON.stringify(secondColor)) {
         return true;
       }
 
       return false;
-    }; */
+    };
 
     const finishLine = () => {
       allPoints.push({ points, color: ctx.strokeStyle, size: ctx.lineWidth });
