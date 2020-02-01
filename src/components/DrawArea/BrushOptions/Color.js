@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 
 export class Color extends Component {
   constructor(props) {
@@ -8,13 +8,14 @@ export class Color extends Component {
       border: '',
       selected: false,
     };
+    this.canvasRef = React.createRef();
   }
 
-  componentDidMount() {
-    const { color, changeColor } = this.props;
-    const { selected } = this.state;
 
-    const canvas = this.refs.canv;
+  componentDidMount() {
+    const { selected } = this.state;
+    const canvas = this.canvasRef.current;
+    const { color, selectColor } = this.props;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 20;
@@ -23,25 +24,25 @@ export class Color extends Component {
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, 20, 20);
 
-    canvas.addEventListener('mousedown', () => changeColor(color), false);
-
+    canvas.addEventListener('mousedown', () => {
+      selectColor(color);
+    }, false);
     canvas.addEventListener('mouseover', () => {
       if (!selected) {
         this.glow('onHover');
       }
     }, false);
-
     canvas.addEventListener('mouseout', () => {
       if (!selected) {
-        this.unGlow();
+        this.glow('unGlow');
       }
     }, false);
   }
 
   glow = (c) => {
-    const canvas = this.refs.canv;
+    const { color } = this.props;
+    const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
-
     if (c === 'onHover') {
       ctx.strokeStyle = '#DEF2F1';
       ctx.lineWidth = 4;
@@ -55,34 +56,29 @@ export class Color extends Component {
       ctx.fillRect(0, 0, 20, 20);
       ctx.rect(1, 1, 18, 18);
       ctx.stroke();
+    } else if (c === 'unGlow') {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.fillRect(0, 0, 20, 20);
+      ctx.stroke();
     }
-  }
-
-  unGlow = () => {
-    const { color } = this.props;
-    const canvas = this.refs.canv;
-    const ctx = canvas.getContext('2d');
-
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.fillRect(0, 0, 20, 20);
-    ctx.stroke();
   }
 
   render() {
     const { border } = this.state;
     return (
       <div>
-        <canvas ref="canv" style={{ border }} />
+        <canvas ref={this.canvasRef} style={{ border }} />
       </div>
     );
   }
 }
 
 Color.propTypes = {
-  color: PropTypes.string,
-  changeColor: PropTypes.func,
+  color: PropTypes.string.isRequired,
+  selectColor: PropTypes.func.isRequired,
+
 };
 
 export default Color;

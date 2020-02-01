@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-// import untitled from './untitled.png';
+import { PropTypes } from 'prop-types';
 
 export class Eraser extends Component {
   constructor(props) {
@@ -11,18 +10,17 @@ export class Eraser extends Component {
   }
 
   render() {
-    const { erase } = this.props;
+    const { selectDraw } = this.props;
     const { outline } = this.state;
     return (
       <div>
-        <img onClick={erase} style={{ width: '24px', height: '24px', outline }} alt="eraser" />
+        <input type="image" onClick={() => { selectDraw('eraser'); }} style={{ outline }} alt="eraser" />
       </div>
     );
   }
 }
-
 Eraser.propTypes = {
-  erase: PropTypes.func,
+  selectDraw: PropTypes.func.isRequired,
 };
 
 export default Eraser;
