@@ -27,7 +27,7 @@ class Header extends Component {
     const { classes } = this.props;
     return (
       <header className={classes.root}>
-        <div className={classes.title}>piken.io</div>
+        <div className={classes.title}>picken.io</div>
       </header>
     );
   }

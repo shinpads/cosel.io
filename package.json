@@ -1,5 +1,5 @@
 {
-  "name": "broken-picture",
+  "name": "picken.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,8 +29,8 @@
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
-    "start:dev": "NODE_ENV=development DEBUG=broken-picture:* npm run build:dev & node ./dist/server.js",
-    "start": "npm run build:dev && NODE_ENV=production DEBUG=broken-picture:* node ./dist/server.js",
+    "start:dev": "NODE_ENV=development DEBUG=picken:* npm run build:dev & node ./dist/server.js",
+    "start": "npm run build:dev && NODE_ENV=production DEBUG=picken:* node ./dist/server.js",
     "build": "webpack --mode production --config webpack.server.config.js & webpack --mode production --config webpack.prod.config.js",
     "build:dev": "webpack --mode development --config webpack.server.config.js & webpack --mode development --config webpack.dev.config.js",
     "lint": "./node_modules/.bin/eslint ./src --fix"
