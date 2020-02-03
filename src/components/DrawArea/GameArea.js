@@ -9,16 +9,6 @@ class GameArea extends Component {
     this.drawBoxRef = React.createRef();
   }
 
-  selectDraw = (drawType, drawColor) => {
-    const drawBox = this.drawBoxRef.current;
-    if (drawType === 'bucket') {
-      drawBox.setState({ bucket: true });
-    } else {
-      drawBox.setState({ bucket: false });
-    }
-    drawBox.changeColor(drawColor);
-  }
-
   changeColor = (color) => {
     const drawBox = this.drawBoxRef.current;
     drawBox.changeColor(color);
