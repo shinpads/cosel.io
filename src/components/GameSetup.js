@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { createGame, findGame } from '../actions/gameActions';
-import GameArea from './DrawArea/GameArea';
 
 const styles = {
   root: {
@@ -53,7 +52,6 @@ class GameSetup extends Component {
             </div>
           </div>
         </form>
-        <GameArea />
       </div>
     );
   }

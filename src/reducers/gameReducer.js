@@ -1,13 +1,25 @@
-import { SET_GAME } from '../actions/gameActions';
+import { SET_GAME, SET_ERROR } from '../actions/gameActions';
 
-const initalState = {};
+const initalState = {
+  loaded: false,
+  error: null,
+  game: {},
+};
 
 export default (state = initalState, action) => {
   switch (action.type) {
     case SET_GAME:
       return {
         ...state,
-        ...action.payload,
+        loaded: true,
+        error: null,
+        game: action.game,
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: true,
+        loaded: true,
       };
     default:
       return state;

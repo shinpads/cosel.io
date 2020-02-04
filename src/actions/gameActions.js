@@ -1,17 +1,43 @@
 import axios from '../util/axios';
 
 export const SET_GAME = 'SET_GAME';
+export const SET_ERROR = 'SET_ERROR';
 
 export const createGame = () => async (dispatch) => {
-  const res = await axios.post('/api/games');
-  if (res && res.data.success) {
-    dispatch(res.data.game);
-  } else {
-    // do something
+  try {
+    const res = await axios.post('/api/games');
+    if (res.data.success) {
+      dispatch({
+        type: SET_GAME,
+        game: res.data.game,
+      });
+    } else {
+      throw new Error();
+    }
+  } catch {
+    dispatch({
+      type: SET_ERROR,
+      message: 'failed to create game',
+    });
   }
 };
 
-export const findGame = () => async () => {
-  const res = await axios.get('/api/games/5e35c6dc15d94b670202ebb4');
-  console.log('findGame done', res);
+export const findGame = (hash) => async (dispatch) => {
+  try {
+    const res = await axios.get(`api/games/${hash}`);
+    console.log(res);
+    if (res.data.success) {
+      dispatch({
+        type: SET_GAME,
+        game: res.data.game,
+      });
+    } else {
+      throw new Error();
+    }
+  } catch {
+    dispatch({
+      type: SET_ERROR,
+      message: 'failed to load game',
+    });
+  }
 };

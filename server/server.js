@@ -16,10 +16,8 @@ app.use('*/js', express.static(__dirname));
 app.enable('trust proxy', true);
 
 
-app.use('*', (req, res, next) => {
-  res.sendFile(html);
-  next();
-});
+app.all('*', sendHtml);
+app.all('/', sendHtml);
 
 app.post('/log-visit', (req, res) => {
   const now = new Date();
@@ -31,3 +29,9 @@ app.post('/log-visit', (req, res) => {
 app.listen(3000, () => {
   log('listening on port 3000');
 });
+
+
+function sendHtml(req, res) {
+  res.sendFile(html);
+  // next();
+}
