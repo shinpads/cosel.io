@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Color } from './Color';
 import { Eraser } from './Eraser';
 import { Pencil } from './Pencil';
+import colors from '../../../colors';
 
 export class BrushSelector extends Component {
   constructor(props) {
@@ -11,17 +12,17 @@ export class BrushSelector extends Component {
     this.eraserRef = React.createRef();
     this.pencilRef = React.createRef();
     this.colorRefs = {};
-    for (let i = 0; i < colors.length; i++) {
-      this.colorRefs[colors[i]] = React.createRef();
+    for (let i = 0; i < canvasColors.length; i++) {
+      this.colorRefs[canvasColors[i]] = React.createRef();
     }
   }
 
   componentDidMount() {
-    const curColor = this.colorRefs[colors[0]].current;
+    const curColor = this.colorRefs[canvasColors[0]].current;
     const pencil = this.pencilRef.current;
     const { changeColor } = this.props;
 
-    changeColor(colors[0]);
+    changeColor(canvasColors[0]);
     curColor.glow('onClick');
     curColor.setState({ selected: true });
 
@@ -34,7 +35,7 @@ export class BrushSelector extends Component {
       const { changeColor } = this.props;
 
       if (drawType === 'eraser') {
-        const eraserColor = '#DEF2F1';
+        const eraserColor = colors.background;
         eraser.setState({ outline: '2px solid black' });
         pencil.setState({ outline: '0px solid black' });
         changeColor(eraserColor);
@@ -46,8 +47,8 @@ export class BrushSelector extends Component {
 
     selectColor = (c) => {
       const { changeColor } = this.props;
-      for (let i = 0; i < colors.length; i++) {
-        const color = colors[i];
+      for (let i = 0; i < canvasColors.length; i++) {
+        const color = canvasColors[i];
         const curColorComp = this.colorRefs[color].current;
         if (c === color) {
           curColorComp.glow('onClick');
@@ -66,7 +67,7 @@ export class BrushSelector extends Component {
       return (
         <div style={horizontal}>
           <div style={flexBox}>
-            {colors.map((c) => this.createColor(c))}
+            {canvasColors.map((c) => this.createColor(c))}
           </div>
           <Eraser ref={this.eraserRef} selectDraw={this.selectDraw} />
           <Pencil ref={this.pencilRef} selectDraw={this.selectDraw} />
@@ -91,6 +92,6 @@ let flexBox = {
   width: '10vmax',
 };
 
-let colors = ['purple', 'red', 'blue', 'green', 'yellow', 'pink', 'orange', 'violet'];
+let canvasColors = ['purple', 'red', 'blue', 'green', 'yellow', 'pink', 'orange', 'violet'];
 
 export default BrushSelector;
