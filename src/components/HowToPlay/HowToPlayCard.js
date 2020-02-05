@@ -6,12 +6,6 @@ const cardStyle = {
   width: '350px',
 };
 
-const divStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  flexGrow: '1',
-};
-
 export class HowToPlayCard extends Component {
   componentDidMount() {
 
@@ -19,7 +13,7 @@ export class HowToPlayCard extends Component {
 
   render() {
     return (
-      <div style={divStyle}>
+      <div>
         <Card style={cardStyle}>
           <CardContent>
             <Typography variant="h4" color="textPrimary" gutterBottom>

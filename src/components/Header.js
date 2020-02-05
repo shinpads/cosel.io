@@ -6,6 +6,7 @@ import colors from '../colors';
 const styles = {
   root: {
     height: '100px',
+    textAlign: 'center',
   },
   title: {
     margin: '0.5rem',

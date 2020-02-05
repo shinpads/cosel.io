@@ -4,12 +4,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
 import { createGame, findGame } from '../actions/gameActions';
 import { HowToPlay } from './HowToPlay/HowToPlay';
 
 const styles = {
   root: {
-
+    textAlign: 'center',
+    marginTop: '75px',
+  },
+  card: {
+    width: '350px',
+    paddingTop: '30px',
+    paddingBottom: '30px',
   },
   form: {
     display: 'flex',
@@ -43,16 +51,22 @@ class GameSetup extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        Game Setup
-        <form>
-          <div className={classes.form}>
-            <TextField label="Name" />
-            <div className={classes.buttonsContainer}>
-              <Button onClick={this.createGame}>Create Room</Button>
-              <Button onClick={this.findGame}>Find Room</Button>
-            </div>
-          </div>
-        </form>
+        <Grid container justify="center">
+          <Card className={classes.card}>
+            Game Setup
+            <form>
+              <Grid container justify="center">
+                <div className={classes.form}>
+                  <TextField label="Name" />
+                  <div className={classes.buttonsContainer}>
+                    <Button onClick={this.createGame}>Create Room</Button>
+                    <Button onClick={this.findGame}>Find Room</Button>
+                  </div>
+                </div>
+              </Grid>
+            </form>
+          </Card>
+        </Grid>
         <HowToPlay />
       </div>
     );
