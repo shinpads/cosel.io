@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grow } from '@material-ui/core';
+import { PropTypes } from 'prop-types';
 import { HowToPlayCard } from './HowToPlayCard';
 
 const flexBox = {
@@ -28,6 +29,11 @@ export class HowToPlayCardArea extends Component {
 
   }
 
+  componentDidUpdate() {
+    const { scrollToInstructions } = this.props;
+    scrollToInstructions();
+  }
+
   render() {
     const { showCards } = this.state;
     return (
@@ -51,5 +57,9 @@ export class HowToPlayCardArea extends Component {
     );
   }
 }
+
+HowToPlayCardArea.propTypes = {
+  scrollToInstructions: PropTypes.func.isRequired,
+};
 
 export default HowToPlayCardArea;

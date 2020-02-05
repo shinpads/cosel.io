@@ -26,7 +26,7 @@ export class HowToPlay extends Component {
 
   }
 
-  componentDidUpdate() {
+  scrollToInstructions = () => {
     const cardsDiv = this.cardsDiv.current;
     cardsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -48,7 +48,7 @@ export class HowToPlay extends Component {
         <HowToPlaySummary expandDetails={this.expandDetails} />
         <Collapse in={collapseCards} timeout={0}>
           <div style={cardMargin} ref={this.cardsDiv}>
-            <HowToPlayCardArea ref={this.cards} />
+            <HowToPlayCardArea ref={this.cards} scrollToInstructions={this.scrollToInstructions} />
           </div>
         </Collapse>
       </div>
