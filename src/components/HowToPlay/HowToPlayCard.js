@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardContent, Typography } from '@material-ui/core';
+import { PropTypes } from 'prop-types';
 
 const cardStyle = {
   border: '1px solid #DCDCDC',
@@ -12,12 +13,13 @@ export class HowToPlayCard extends Component {
   }
 
   render() {
+    const { text } = this.props;
     return (
       <div>
         <Card style={cardStyle}>
           <CardContent>
-            <Typography variant="h4" color="textPrimary" gutterBottom>
-              Test
+            <Typography variant="body1" color="textPrimary" gutterBottom>
+              {text}
             </Typography>
           </CardContent>
         </Card>
@@ -25,5 +27,9 @@ export class HowToPlayCard extends Component {
     );
   }
 }
+
+HowToPlayCard.propTypes = {
+  text: PropTypes.string,
+};
 
 export default HowToPlayCard;

@@ -8,6 +8,10 @@ const center = {
   margin: '10px',
 };
 
+const buttonStyle = {
+  marginTop: '15px',
+};
+
 export class HowToPlaySummary extends Component {
   componentDidMount() {
 
@@ -18,7 +22,7 @@ export class HowToPlaySummary extends Component {
     return (
       <div style={center}>
         <Typography variant="h6">Guess what the previous person drew, and re-create it for the next person to do the same.</Typography>
-        <Button color={colors.primary} variant="contained" disableElevation onClick={() => expandDetails()}>More Details Please</Button>
+        <Button style={buttonStyle} color={colors.primary} variant="contained" disableElevation onClick={() => expandDetails()}>More Details Please</Button>
       </div>
     );
   }
