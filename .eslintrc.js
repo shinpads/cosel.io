@@ -11,6 +11,8 @@ module.exports = {
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    WARHOL_HOST: 'readonly',
+    WARHOL_PORT: 'readonly',
   },
   parserOptions: {
     ecmaFeatures: {

@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import GameArea from '../components/DrawArea/GameArea';
 import Header from '../components/Header';
+import WaitingToStart from '../components/Game/WaitingToStart';
 import { findGame } from '../actions/gameActions';
 
 const styles = {
@@ -44,13 +45,24 @@ class Game extends Component {
       );
     }
 
+    // ERROR
+    if (game.error) {
+      return (
+        <div>
+          <Header />
+          <div>
+            Error finding this game
+          </div>
+        </div>
+      );
+    }
+
     // LOADED
     return (
       <div>
         <Header />
         <main className={classes.main}>
-          {game.error && 'Game not found'}
-          {!game.error && `Game with hash ${game.game.hash} found`}
+          {game.game.state === 'PRE_START' && <WaitingToStart />}
           <GameArea />
         </main>
       </div>

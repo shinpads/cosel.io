@@ -1,3 +1,4 @@
+import io from 'socket.io-client';
 import axios from '../util/axios';
 
 export const SET_GAME = 'SET_GAME';
@@ -27,10 +28,17 @@ export const findGame = (hash) => async (dispatch) => {
     const res = await axios.get(`api/games/${hash}`);
     console.log(res);
     if (res.data.success) {
-      dispatch({
+      await dispatch({
         type: SET_GAME,
         game: res.data.game,
       });
+      const socket = io(`${WARHOL_HOST}:${WARHOL_PORT}`, {
+        query: {
+          hash: res.data.game.hash,
+          sessionId: window.localStorage.getItem('sessionId'),
+        },
+      });
+      setupSocket(socket);
     } else {
       throw new Error();
     }
@@ -41,3 +49,7 @@ export const findGame = (hash) => async (dispatch) => {
     });
   }
 };
+
+function setupSocket(socket) {
+  socket.on('udpdate-game', () => {});
+}
