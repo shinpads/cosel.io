@@ -8,9 +8,9 @@ const WaitingToStart = ({
 }) => (
   <div>
     <div>Waiting for host to start game</div>
-    <div>{users.length} / {game.capacity} Players</div>
+    <div>{users.length} Players</div>
     <div>
-      {users.map(user => <div>{user.username}</div>)}
+      {users.map(user => <div>{user.username} {user._id === game.host ? '[Host]' : ''}</div>)}
     </div>
   </div>
 );
