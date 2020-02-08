@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import App from './App';
-import configureStore from './store';
+import { store } from './store';
 
 import * as serviceWorker from './serviceWorker';
 import colors from './colors';
@@ -34,7 +34,7 @@ const theme = createMuiTheme({
 ReactDOM.render((
   <BrowserRouter>
     <MuiThemeProvider theme={theme}>
-      <Provider store={configureStore()}>
+      <Provider store={store}>
         <App />
       </Provider>
     </MuiThemeProvider>

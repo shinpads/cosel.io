@@ -1,8 +1,7 @@
-import io from 'socket.io-client';
 import axios from '../util/axios';
+import clientSocket from '../clientSocket';
 
-export const SET_GAME = 'SET_GAME';
-export const SET_ERROR = 'SET_ERROR';
+import { SET_GAME, SET_ERROR } from './actionTypes';
 
 export const createGame = () => async (dispatch) => {
   try {
@@ -32,13 +31,8 @@ export const findGame = (hash) => async (dispatch) => {
         type: SET_GAME,
         game: res.data.game,
       });
-      const socket = io(`${WARHOL_HOST}:${WARHOL_PORT}`, {
-        query: {
-          hash: res.data.game.hash,
-          sessionId: window.localStorage.getItem('sessionId'),
-        },
-      });
-      setupSocket(socket);
+
+      clientSocket(res.data.game.hash, dispatch);
     } else {
       throw new Error();
     }
@@ -49,7 +43,3 @@ export const findGame = (hash) => async (dispatch) => {
     });
   }
 };
-
-function setupSocket(socket) {
-  socket.on('udpdate-game', () => {});
-}

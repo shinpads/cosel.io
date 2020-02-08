@@ -32,9 +32,15 @@ class Game extends Component {
   }
 
   render() {
-    const { classes, game } = this.props;
+    const {
+      classes,
+      loaded,
+      error,
+      game,
+    } = this.props;
+
     // LOADING
-    if (!game.loaded) {
+    if (!loaded) {
       return (
         <div>
           <Header />
@@ -46,7 +52,7 @@ class Game extends Component {
     }
 
     // ERROR
-    if (game.error) {
+    if (error) {
       return (
         <div>
           <Header />
@@ -62,7 +68,7 @@ class Game extends Component {
       <div>
         <Header />
         <main className={classes.main}>
-          {game.game.state === 'PRE_START' && <WaitingToStart />}
+          {game.state === 'PRE_START' && <WaitingToStart />}
           <GameArea />
         </main>
       </div>
@@ -75,11 +81,15 @@ Game.propTypes = {
   match: PropTypes.object,
   game: PropTypes.object,
   dispatch: PropTypes.func,
+  loaded: PropTypes.bool,
+  error: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
   return {
-    game: state.game,
+    loaded: state.game.loaded,
+    error: state.game.error,
+    game: state.game.game,
   };
 }
 

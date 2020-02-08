@@ -1,4 +1,4 @@
-import { SET_GAME, SET_ERROR } from '../actions/gameActions';
+import { SET_GAME, SET_ERROR } from '../actions/actionTypes';
 
 const initalState = {
   loaded: false,
@@ -13,7 +13,10 @@ export default (state = initalState, action) => {
         ...state,
         loaded: true,
         error: null,
-        game: action.game,
+        game: {
+          ...state.game,
+          ...action.game,
+        },
       };
     case SET_ERROR:
       return {
