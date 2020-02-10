@@ -1,7 +1,7 @@
 import axios from '../util/axios';
 import clientSocket from '../clientSocket';
 
-import { SET_GAME, SET_ERROR } from './actionTypes';
+import { SET_GAME, SET_GAME_LOAD_ERROR } from './actionTypes';
 
 export const createGame = () => async (dispatch) => {
   try {
@@ -16,7 +16,7 @@ export const createGame = () => async (dispatch) => {
     }
   } catch {
     dispatch({
-      type: SET_ERROR,
+      type: SET_GAME_LOAD_ERROR,
       message: 'failed to create game',
     });
   }
@@ -38,7 +38,7 @@ export const findGame = (hash) => async (dispatch) => {
     }
   } catch {
     dispatch({
-      type: SET_ERROR,
+      type: SET_GAME_LOAD_ERROR,
       message: 'failed to load game',
     });
   }
