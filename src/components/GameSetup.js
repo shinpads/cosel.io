@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { createGame, findGame } from '../actions/gameActions';
 import { HowToPlay } from './HowToPlay/HowToPlay';
+import GameArea from './DrawArea/GameArea';
 
 const styles = {
   root: {
@@ -68,6 +69,9 @@ class GameSetup extends Component {
           </Card>
         </Grid>
         <HowToPlay />
+        <div>
+          <GameArea />
+        </div>
       </div>
     );
   }
