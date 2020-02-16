@@ -66,23 +66,8 @@ export class Draw extends Component {
     };
     const finishLine = () => {
       allPoints.push({ points, color: ctx.strokeStyle, size: ctx.lineWidth });
-      console.log(JSON.stringify(allPoints).length);
       points = [];
     };
-  }
-
-  drawFromPointsList = (pointsList) => {
-    const canvas = this.canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    for(let i = 0; i < pointsList.length; i++){
-      curPoints = pointsList[i];
-      ctx.strokeStyle = curPoints.color;
-      ctx.lineWidth = curPoints.size;
-      for(let j = 0; j < curPoints.points.length; j++){
-        curPoint = curPoints.points[j];
-      }
-    }
   }
 
   changeColor = (color) => {
@@ -100,7 +85,7 @@ export class Draw extends Component {
   render() {
     return (
       <div id="drawArea">
-        <canvas id="canvas" ref={this.canvasRef} style={{ border: '3px solid white' }} />
+        <canvas id="canvas" ref={this.canvasRef} style={{ border: '3px solid black' }} />
       </div>
     );
   }
