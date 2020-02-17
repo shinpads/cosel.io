@@ -4,9 +4,11 @@ const initalState = {
   loaded: false,
   error: null,
   game: {},
+  startGameLoading: false,
 };
 
 export default (state = initalState, action) => {
+  if (!action.payload) return state;
   switch (action.type) {
     case SET_GAME:
       return {
@@ -15,7 +17,7 @@ export default (state = initalState, action) => {
         error: null,
         game: {
           ...state.game,
-          ...action.game,
+          ...action.payload.game,
         },
       };
     case SET_GAME_LOAD_ERROR:
