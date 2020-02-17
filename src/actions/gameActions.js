@@ -1,7 +1,9 @@
 import axios from '../util/axios';
-import clientSocket from '../clientSocket';
+import socketio from '../util/socketio';
 
 import { SET_GAME, SET_GAME_LOAD_ERROR } from './actionTypes';
+
+let socket;
 
 export const createGame = () => async (dispatch) => {
   try {
@@ -9,7 +11,9 @@ export const createGame = () => async (dispatch) => {
     if (res.data.success) {
       dispatch({
         type: SET_GAME,
-        game: res.data.game,
+        payload: {
+          game: res.data.game,
+        }
       });
     } else {
       throw new Error();
@@ -29,10 +33,20 @@ export const findGame = (hash) => async (dispatch) => {
     if (res.data.success) {
       await dispatch({
         type: SET_GAME,
-        game: res.data.game,
+        payload: {
+          game: res.data.game,
+        }
       });
 
-      clientSocket(res.data.game.hash, dispatch);
+      socket = socketio(res.data.game.hash);
+      socket.on('update-game', (game) => {
+        dispatch({
+          type: SET_GAME,
+          payload: {
+            game,
+          }
+        })
+      });
     } else {
       throw new Error();
     }
@@ -41,5 +55,11 @@ export const findGame = (hash) => async (dispatch) => {
       type: SET_GAME_LOAD_ERROR,
       message: 'failed to load game',
     });
+  }
+};
+
+export const startGame = () => async () => {
+  if (socket) {
+    socket.emit('start-game');
   }
 };

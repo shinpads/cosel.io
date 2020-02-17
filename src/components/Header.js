@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import colors from '../colors';
 
@@ -13,6 +14,9 @@ const styles = {
     fontSize: '64px',
     color: colors.darkGrey,
     fontFamily: "'Didact Gothic', sans-serif",
+  },
+  link: {
+    textDecoration: 'none',
   },
 };
 
@@ -28,7 +32,9 @@ class Header extends Component {
     const { classes } = this.props;
     return (
       <header className={classes.root}>
-        <div className={classes.title}>picken.io</div>
+        <NavLink className={classes.link} to="/">
+          <div className={classes.title}>picken.io</div>
+        </NavLink>
       </header>
     );
   }

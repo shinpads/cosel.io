@@ -14,6 +14,7 @@
     "express-session": "^1.17.0",
     "google-spreadsheet": "^2.0.8",
     "googleapis": "^27.0.0",
+    "history": "^4.10.1",
     "jquery": "^3.4.1",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
@@ -32,7 +33,7 @@
     "start:dev": "NODE_ENV=development DEBUG=picken:* npm run build:dev & NODE_ENV=development DEBUG=picken:* node ./dist/server.js",
     "start": "npm run build:dev && NODE_ENV=production DEBUG=picken:* node ./dist/server.js",
     "build": "webpack --mode production --config webpack.server.config.js & webpack --mode production --config webpack.prod.config.js",
-    "build:dev": "webpack --mode development --config webpack.server.config.js & webpack --mode development --config webpack.dev.config.js",
+    "build:dev": "webpack --mode development --config webpack.dev.config.js & webpack --mode development --config webpack.server.config.js",
     "lint": "./node_modules/.bin/eslint ./src --fix"
   },
   "eslintConfig": {

@@ -3,20 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
+import { startGame } from '../../actions/gameActions';
+
 const WaitingToStart = ({
   game,
   users,
   user,
+  dispatch,
 }) => {
   const isHost = game.host === user._id;
 
-  const startGame = () => {
+  const sendStartGame = () => {
+    dispatch(startGame());
   };
 
   return (
     <div>
       {!isHost && <div>Waiting for host to start game</div>}
-      {isHost && <Button disableRipple variant="outlined" onClick={startGame}>Start Game</Button>}
+      {isHost && <Button disableRipple variant="outlined" onClick={sendStartGame}>Start Game</Button>}
       <div>{users.length} Players</div>
       <div>
         {users.map(u => <div>{u.username} {u._id === game.host ? '[Host]' : ''}</div>)}
@@ -29,6 +33,7 @@ WaitingToStart.propTypes = {
   game: PropTypes.object,
   users: PropTypes.array,
   user: PropTypes.object,
+  dispatch: PropTypes.func,
 };
 
 function mapStateToProps(state) {
