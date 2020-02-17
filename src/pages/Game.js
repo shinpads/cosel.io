@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import GameArea from '../components/DrawArea/GameArea';
 import Header from '../components/Header';
 import WaitingToStart from '../components/Game/WaitingToStart';
+import GameStep from '../components/Game/GameStep';
 import { findGame } from '../actions/gameActions';
 
 const styles = {
@@ -37,8 +38,21 @@ class Game extends Component {
       loaded,
       error,
       game,
+      userId,
     } = this.props;
-
+    let gameStep;
+    if (game.state === 'IN_PROGRESS') {
+      // find gameStep
+      if (game.gameChains && game.gameChains.length) {
+        game.gameChains.forEach(gameChain => {
+          if (gameChain.gameSteps && gameChain.gameSteps.length) {
+            if (gameChain.gameSteps[gameChain.gameSteps.length - 1].user === userId) {
+              gameStep = gameChain.gameSteps[gameChain.gameSteps.length - 1];
+            }
+          }
+        });
+      }
+    }
     // LOADING
     if (!loaded) {
       return (
@@ -68,7 +82,9 @@ class Game extends Component {
       <div>
         <Header />
         <main className={classes.main}>
+          <div>Round: {game.round} / {game.rounds}</div>
           {game.state === 'PRE_START' && <WaitingToStart />}
+          {game.state === 'IN_PROGRESS' && gameStep && <GameStep gameStep={gameStep} />}
           <GameArea />
         </main>
       </div>
@@ -83,6 +99,7 @@ Game.propTypes = {
   dispatch: PropTypes.func,
   loaded: PropTypes.bool,
   error: PropTypes.bool,
+  userId: PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -90,6 +107,7 @@ function mapStateToProps(state) {
     loaded: state.game.loaded && state.user.loaded,
     error: state.game.error,
     game: state.game.game,
+    userId: state.user.user._id,
   };
 }
 
