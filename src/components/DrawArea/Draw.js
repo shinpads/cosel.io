@@ -16,7 +16,7 @@ export class Draw extends Component {
 
     const mouse = { x: 0, y: 0 };
     let points = [];
-    const allPoints = [];
+    const allPoints = { width, strokes: [] };
     let mouseStatus = 'up';
 
     canvas.width = width;
@@ -65,8 +65,11 @@ export class Draw extends Component {
       }
     };
     const finishLine = () => {
-      allPoints.push({ points, color: ctx.strokeStyle, size: ctx.lineWidth });
-      points = [];
+      if (points.length > 0) {
+        allPoints.strokes.push({ points, color: ctx.strokeStyle, size: ctx.lineWidth });
+        points = [];
+        console.log(JSON.stringify(allPoints));
+      }
     };
   }
 

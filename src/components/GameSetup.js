@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { createGame, findGame } from '../actions/gameActions';
 import { HowToPlay } from './HowToPlay/HowToPlay';
+import { Replay } from './Replay';
 import GameArea from './DrawArea/GameArea';
 
 const styles = {
@@ -33,6 +34,7 @@ const styles = {
 class GameSetup extends Component {
   constructor(props) {
     super(props);
+    this.replayRef = React.createRef();
     this.state = {
 
     };
@@ -71,6 +73,7 @@ class GameSetup extends Component {
         <HowToPlay />
         <div>
           <GameArea />
+          <Replay width={300} />
         </div>
       </div>
     );
