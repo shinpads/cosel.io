@@ -87,7 +87,7 @@ Game.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    loaded: state.game.loaded,
+    loaded: state.game.loaded && state.user.loaded,
     error: state.game.error,
     game: state.game.game,
   };
