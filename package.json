@@ -33,7 +33,7 @@
     "start:dev": "NODE_ENV=development DEBUG=picken:* npm run build:dev & NODE_ENV=development DEBUG=picken:* node ./dist/server.js",
     "start": "npm run build:dev && NODE_ENV=production DEBUG=picken:* node ./dist/server.js",
     "build": "webpack --mode production --config webpack.server.config.js & webpack --mode production --config webpack.prod.config.js",
-    "build:dev": "webpack --mode development --config webpack.server.config.js & webpack --mode development --config webpack.dev.config.js",
+    "build:dev": "webpack --mode development --config webpack.dev.config.js & webpack --mode development --config webpack.server.config.js",
     "lint": "./node_modules/.bin/eslint ./src --fix"
   },
   "eslintConfig": {
