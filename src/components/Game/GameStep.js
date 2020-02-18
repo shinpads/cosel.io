@@ -21,7 +21,15 @@ class GameStep extends Component {
     };
   }
 
-  onSubmit = () => {
+  onSubmitGuess = () => {
+    const { dispatch, gameStep } = this.props;
+    const { guess } = this.state;
+    gameStep.guess = guess;
+    dispatch(submitStep(gameStep));
+    this.setState({ submitted: true });
+  }
+
+  onSubmitDrawing = () => {
     const { dispatch, gameStep } = this.props;
     const { guess } = this.state;
     gameStep.guess = guess;
@@ -30,20 +38,40 @@ class GameStep extends Component {
   }
 
   render() {
-    const { gameStep, previousGameStep, classes } = this.props;
+    const {
+      gameStep,
+      previousGameStep,
+      classes,
+      gameChain,
+      users,
+    } = this.props;
     const { guess, submitted } = this.state;
     if (submitted) {
       return (
         <div>waiting for other players to submit</div>
       );
     }
-    return (
-      <div className={classes.root}>
-        <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
-        <Button onClick={this.onSubmit}>Submit</Button>
-        <GameArea />
-      </div>
-    );
+    if (gameStep.type === 'GUESS') {
+      const prevUser = users.find(user => user._id === previousGameStep.user);
+      return (
+        <div className={classes.root}>
+          <div>Guess what {prevUser.username} drew</div>
+          <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
+          <Button onClick={this.onSubmitGuess}>Submit</Button>
+        </div>
+      );
+    }
+
+    if (gameStep.type === 'DRAWING') {
+      return (
+        <div className={classes.root}>
+          <div>{`Draw "${previousGameStep ? previousGameStep.guess : gameChain.originalWord}"`}</div>
+          <GameArea />
+          <Button onClick={this.onSubmitDrawing}>Submit</Button>
+        </div>
+      );
+    }
+    return <div />;
   }
 }
 
@@ -52,6 +80,14 @@ GameStep.propTypes = {
   previousGameStep: PropTypes.object,
   classes: PropTypes.object,
   dispatch: PropTypes.func,
+  gameChain: PropTypes.object,
+  users: PropTypes.object,
 };
 
-export default connect()(withStyles(styles)(GameStep));
+function mapStateToProps(state) {
+  return {
+    users: state.game.game.users,
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(GameStep));
