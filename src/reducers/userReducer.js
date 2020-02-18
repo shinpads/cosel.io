@@ -2,7 +2,7 @@ import { SET_USER } from '../actions/actionTypes';
 
 const initalState = {
   loaded: false,
-  user: null,
+  user: {},
 };
 
 export default (state = initalState, action) => {

@@ -13,7 +13,7 @@ export const createGame = () => async (dispatch) => {
         type: SET_GAME,
         payload: {
           game: res.data.game,
-        }
+        },
       });
     } else {
       throw new Error();
@@ -35,17 +35,17 @@ export const findGame = (hash) => async (dispatch) => {
         type: SET_GAME,
         payload: {
           game: res.data.game,
-        }
+        },
       });
-
+      if (res.data.game.state === 'COMPLETE') return;
       socket = socketio(res.data.game.hash);
       socket.on('update-game', (game) => {
         dispatch({
           type: SET_GAME,
           payload: {
             game,
-          }
-        })
+          },
+        });
       });
     } else {
       throw new Error();
@@ -61,5 +61,11 @@ export const findGame = (hash) => async (dispatch) => {
 export const startGame = () => async () => {
   if (socket) {
     socket.emit('start-game');
+  }
+};
+
+export const submitStep = (step) => async () => {
+  if (socket) {
+    socket.emit('submit-step', step);
   }
 };

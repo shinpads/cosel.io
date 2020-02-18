@@ -6,9 +6,10 @@ import { connect } from 'react-redux';
 // import Flip from 'react-reveal/Flip';
 import { withStyles } from '@material-ui/core/styles';
 
-import GameArea from '../components/DrawArea/GameArea';
 import Header from '../components/Header';
 import WaitingToStart from '../components/Game/WaitingToStart';
+import GameStep from '../components/Game/GameStep';
+import GameResults from '../components/Game/GameResults';
 import { findGame } from '../actions/gameActions';
 
 const styles = {
@@ -37,8 +38,25 @@ class Game extends Component {
       loaded,
       error,
       game,
+      userId,
     } = this.props;
-
+    let gameStep;
+    let previousGameStep;
+    let gameChain;
+    if (game.state === 'IN_PROGRESS') {
+      // find gameStep
+      if (game.gameChains && game.gameChains.length) {
+        game.gameChains.forEach(gc => {
+          if (gc.gameSteps && gc.gameSteps.length) {
+            if (gc.gameSteps[gc.gameSteps.length - 1].user === userId) {
+              gameStep = gc.gameSteps[gc.gameSteps.length - 1];
+              previousGameStep = gc.gameSteps[gc.gameSteps.length - 2];
+              gameChain = gc;
+            }
+          }
+        });
+      }
+    }
     // LOADING
     if (!loaded) {
       return (
@@ -68,8 +86,10 @@ class Game extends Component {
       <div>
         <Header />
         <main className={classes.main}>
+          <div>Round: {game.round} / {game.rounds}</div>
           {game.state === 'PRE_START' && <WaitingToStart />}
-          <GameArea />
+          {game.state === 'IN_PROGRESS' && gameStep && <GameStep key={gameStep._id} gameStep={gameStep} previousGameStep={previousGameStep} gameChain={gameChain} />}
+          {game.state === 'COMPLETE' && <GameResults />}
         </main>
       </div>
     );
@@ -83,6 +103,7 @@ Game.propTypes = {
   dispatch: PropTypes.func,
   loaded: PropTypes.bool,
   error: PropTypes.bool,
+  userId: PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -90,6 +111,7 @@ function mapStateToProps(state) {
     loaded: state.game.loaded && state.user.loaded,
     error: state.game.error,
     game: state.game.game,
+    userId: state.user.user._id,
   };
 }
 
