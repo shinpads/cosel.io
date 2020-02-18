@@ -37,7 +37,7 @@ export const findGame = (hash) => async (dispatch) => {
           game: res.data.game,
         },
       });
-
+      if (res.data.game.state === 'COMPLETE') return;
       socket = socketio(res.data.game.hash);
       socket.on('update-game', (game) => {
         dispatch({

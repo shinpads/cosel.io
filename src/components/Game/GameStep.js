@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { submitStep } from '../../actions/gameActions';
+import GameArea from '../DrawArea/GameArea';
+
 
 const styles = {
   root: {
@@ -39,6 +41,7 @@ class GameStep extends Component {
       <div className={classes.root}>
         <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
         <Button onClick={this.onSubmit}>Submit</Button>
+        <GameArea />
       </div>
     );
   }

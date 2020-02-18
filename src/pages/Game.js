@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 // import Flip from 'react-reveal/Flip';
 import { withStyles } from '@material-ui/core/styles';
 
-import GameArea from '../components/DrawArea/GameArea';
 import Header from '../components/Header';
 import WaitingToStart from '../components/Game/WaitingToStart';
 import GameStep from '../components/Game/GameStep';
+import GameResults from '../components/Game/GameResults';
 import { findGame } from '../actions/gameActions';
 
 const styles = {
@@ -41,6 +41,7 @@ class Game extends Component {
       userId,
     } = this.props;
     let gameStep;
+    let previousGameStep;
     if (game.state === 'IN_PROGRESS') {
       // find gameStep
       if (game.gameChains && game.gameChains.length) {
@@ -85,7 +86,7 @@ class Game extends Component {
           <div>Round: {game.round} / {game.rounds}</div>
           {game.state === 'PRE_START' && <WaitingToStart />}
           {game.state === 'IN_PROGRESS' && gameStep && <GameStep gameStep={gameStep} />}
-          <GameArea />
+          {game.state === 'COMPLETE' && <GameResults />}
         </main>
       </div>
     );
