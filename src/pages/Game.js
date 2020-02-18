@@ -42,13 +42,16 @@ class Game extends Component {
     } = this.props;
     let gameStep;
     let previousGameStep;
+    let gameChain;
     if (game.state === 'IN_PROGRESS') {
       // find gameStep
       if (game.gameChains && game.gameChains.length) {
-        game.gameChains.forEach(gameChain => {
-          if (gameChain.gameSteps && gameChain.gameSteps.length) {
-            if (gameChain.gameSteps[gameChain.gameSteps.length - 1].user === userId) {
-              gameStep = gameChain.gameSteps[gameChain.gameSteps.length - 1];
+        game.gameChains.forEach(gc => {
+          if (gc.gameSteps && gc.gameSteps.length) {
+            if (gc.gameSteps[gc.gameSteps.length - 1].user === userId) {
+              gameStep = gc.gameSteps[gc.gameSteps.length - 1];
+              previousGameStep = gc.gameSteps[gc.gameSteps.length - 2];
+              gameChain = gc;
             }
           }
         });
@@ -85,7 +88,7 @@ class Game extends Component {
         <main className={classes.main}>
           <div>Round: {game.round} / {game.rounds}</div>
           {game.state === 'PRE_START' && <WaitingToStart />}
-          {game.state === 'IN_PROGRESS' && gameStep && <GameStep gameStep={gameStep} />}
+          {game.state === 'IN_PROGRESS' && gameStep && <GameStep key={gameStep._id} gameStep={gameStep} previousGameStep={previousGameStep} gameChain={gameChain} />}
           {game.state === 'COMPLETE' && <GameResults />}
         </main>
       </div>
