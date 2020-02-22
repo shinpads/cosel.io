@@ -39,7 +39,7 @@ class GameSetup extends Component {
     };
   }
 
-  createGame = () => {
+  createNewGame = () => {
     const { dispatch } = this.props;
     dispatch(createGame());
   }
@@ -60,7 +60,7 @@ class GameSetup extends Component {
               <Grid container justify="center">
                 <div className={classes.form}>
                   <div className={classes.buttonsContainer}>
-                    <Button onClick={this.createGame}>Create Room</Button>
+                    <Button onClick={this.createNewGame}>Create Room</Button>
                     <Button onClick={this.findGame}>Find Room</Button>
                   </div>
                 </div>
