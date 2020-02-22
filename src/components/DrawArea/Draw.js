@@ -15,8 +15,14 @@ export class Draw extends Component {
     const ctx = canvas.getContext('2d');
 
     const mouse = { x: 0, y: 0 };
-    let points = [];
-    const allPoints = { width, strokes: [] };
+    window.drawData = {
+      width,
+      strokes: [{
+        points: [],
+        size: '',
+        color: '',
+      }],
+    };
     let mouseStatus = 'up';
 
     canvas.width = width;
@@ -47,16 +53,27 @@ export class Draw extends Component {
     }, false);
 
     const draw = () => {
-      points.push({ x: mouse.x, y: mouse.y });
-      if (points.length === 1) {
+      const numStrokes = window.drawData.strokes.length;
+      if (window.drawData.strokes[numStrokes - 1].points.length === 0) {
+        window.drawData.strokes[numStrokes - 1] = {
+          points: [{ x: mouse.x, y: mouse.y }],
+          size: ctx.lineWidth,
+          color: ctx.strokeStyle,
+        };
+        const curPoint = window.drawData.strokes[numStrokes - 1].points[0];
+
         ctx.beginPath();
-        ctx.moveTo(points[0].x, points[0].y);
-        ctx.lineTo(points[0].x, points[0].y);
+        ctx.moveTo(curPoint.x, curPoint.y);
+        ctx.lineTo(curPoint.x, curPoint.y);
         ctx.stroke();
         ctx.closePath();
       } else {
-        const lastPoint = points[points.length - 2];
-        const curPoint = points[points.length - 1];
+        window.drawData.strokes[numStrokes - 1].points.push({ x: mouse.x, y: mouse.y });
+        const curStroke = window.drawData.strokes[numStrokes - 1];
+        const pointsLen = curStroke.points.length;
+        const lastPoint = curStroke.points[pointsLen - 2];
+        const curPoint = curStroke.points[pointsLen - 1];
+
         ctx.beginPath();
         ctx.moveTo(lastPoint.x, lastPoint.y);
         ctx.lineTo(curPoint.x, curPoint.y);
@@ -65,10 +82,13 @@ export class Draw extends Component {
       }
     };
     const finishLine = () => {
-      if (points.length > 0) {
-        allPoints.strokes.push({ points, color: ctx.strokeStyle, size: ctx.lineWidth });
-        points = [];
-        console.log(JSON.stringify(allPoints));
+      const numStrokes = window.drawData.strokes.length;
+      if (window.drawData.strokes[numStrokes - 1].points.length > 0) {
+        window.drawData.strokes.push({
+          points: [],
+          size: '',
+          color: '',
+        });
       }
     };
   }
