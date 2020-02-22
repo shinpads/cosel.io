@@ -9,8 +9,9 @@ module.exports = {
   watch: true,
   watchOptions: {
     poll: true,
-    ignored: /node_modules/
+    ignored: /node_modules/,
   },
+  devtool: 'eval-source-map',
   entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.join(__dirname, outputDirectory),

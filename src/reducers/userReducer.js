@@ -13,7 +13,7 @@ export default (state = initalState, action) => {
         loaded: true,
         user: {
           ...state.user,
-          ...action.user,
+          ...action.payload.user,
         },
       };
     default:

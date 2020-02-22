@@ -1,14 +1,16 @@
-import { SET_GAME, SET_GAME_LOAD_ERROR } from '../actions/actionTypes';
+import { isValid } from '../util/helperFunctions';
+import { SET_GAME, SET_GAME_LOAD_ERROR, SET_USERNAME_NOT_SET } from '../actions/actionTypes';
 
 const initalState = {
   loaded: false,
   error: null,
   game: {},
   startGameLoading: false,
+  showUsernameNotSet: false,
 };
 
 export default (state = initalState, action) => {
-  if (!action.payload) return state;
+  if (!isValid(action.payload)) return state;
   switch (action.type) {
     case SET_GAME:
       return {
@@ -25,6 +27,11 @@ export default (state = initalState, action) => {
         ...state,
         error: true,
         loaded: true,
+      };
+    case SET_USERNAME_NOT_SET:
+      return {
+        ...state,
+        showUsernameNotSet: action.payload,
       };
     default:
       return state;

@@ -17,3 +17,7 @@ export function generateSID() {
   }
   return sid;
 }
+
+export function isValid(value) {
+  return !(value === undefined || value === null);
+}
