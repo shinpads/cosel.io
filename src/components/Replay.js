@@ -14,7 +14,7 @@ export class Replay extends Component {
 
     canvas.width = width;
     canvas.height = width;
-    
+
     ctx.lineCap = 'round';
   }
 

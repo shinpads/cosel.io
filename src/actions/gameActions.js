@@ -21,7 +21,7 @@ export const createGame = () => async (dispatch) => {
   } catch {
     dispatch({
       type: SET_GAME_LOAD_ERROR,
-      message: 'failed to create game',
+      payload: 'failed to create game',
     });
   }
 };
@@ -37,25 +37,35 @@ export const findGame = (hash) => async (dispatch) => {
           game: res.data.game,
         },
       });
-      if (res.data.game.state === 'COMPLETE') return;
-      socket = socketio(res.data.game.hash);
-      socket.on('update-game', (game) => {
-        dispatch({
-          type: SET_GAME,
-          payload: {
-            game,
-          },
-        });
-      });
     } else {
-      throw new Error();
+      throw new Error('Could not find game');
     }
+    dispatch(joinGame());
   } catch {
     dispatch({
       type: SET_GAME_LOAD_ERROR,
-      message: 'failed to load game',
+      payload: 'failed to load game',
     });
   }
+};
+
+export const joinGame = () => async (dispatch, getState) => {
+  const { user } = getState();
+  if (!user.loaded) {
+    await new Promise(resolve => { window.resolveUser = resolve; });
+  }
+  const { game } = getState();
+  if (game.showUsernameNotSet || !game.loaded || game.game.state === 'COMPLETE') return;
+  const { hash } = game.game;
+  socket = socketio(hash);
+  socket.on('update-game', (gameUpdate) => {
+    dispatch({
+      type: SET_GAME,
+      payload: {
+        game: gameUpdate,
+      },
+    });
+  });
 };
 
 export const startGame = () => async () => {

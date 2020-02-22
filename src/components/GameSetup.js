@@ -60,7 +60,6 @@ class GameSetup extends Component {
             <form>
               <Grid container justify="center">
                 <div className={classes.form}>
-                  <TextField label="Name" />
                   <div className={classes.buttonsContainer}>
                     <Button onClick={this.createGame}>Create Room</Button>
                     <Button onClick={this.findGame}>Find Room</Button>
