@@ -2,6 +2,7 @@ import axios from '../util/axios';
 import socketio from '../util/socketio';
 
 import { SET_GAME, SET_GAME_LOAD_ERROR } from './actionTypes';
+import history from '../history';
 
 let socket;
 
@@ -15,6 +16,7 @@ export const createGame = () => async (dispatch) => {
           game: res.data.game,
         },
       });
+      history.push(`/game/${res.data.game.hash}`);
     } else {
       throw new Error();
     }
