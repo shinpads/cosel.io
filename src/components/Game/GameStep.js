@@ -84,7 +84,7 @@ class GameStep extends Component {
     if (gameStep.type === 'DRAWING') {
       return (
         <div className={classes.root}>
-          <DrawingPage onSubmitDrawing={this.onSubmitDrawing} word={previousGameStep ? previousGameStep.guess : gameChain.originalWord}/>
+          <DrawingPage onSubmitDrawing={this.onSubmitDrawing} word={previousGameStep ? previousGameStep.guess : gameChain.originalWord} />
         </div>
       );
     }
