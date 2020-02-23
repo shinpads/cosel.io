@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { createGame, findGame } from '../actions/gameActions';
 import { HowToPlay } from './HowToPlay/HowToPlay';
-import { Replay } from './Replay';
 import GameArea from './DrawArea/GameArea';
 
 const styles = {
@@ -39,7 +38,7 @@ class GameSetup extends Component {
     };
   }
 
-  createGame = () => {
+  createNewGame = () => {
     const { dispatch } = this.props;
     dispatch(createGame());
   }
@@ -60,7 +59,7 @@ class GameSetup extends Component {
               <Grid container justify="center">
                 <div className={classes.form}>
                   <div className={classes.buttonsContainer}>
-                    <Button onClick={this.createGame}>Create Room</Button>
+                    <Button onClick={this.createNewGame}>Create Room</Button>
                     <Button onClick={this.findGame}>Find Room</Button>
                   </div>
                 </div>
@@ -71,7 +70,6 @@ class GameSetup extends Component {
         <HowToPlay />
         <div>
           <GameArea />
-          <Replay width={300} />
         </div>
       </div>
     );

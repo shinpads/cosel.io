@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { Button } from '@material-ui/core';
 
-export class Replay extends Component {
+class Replay extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
   }
 
   componentDidMount() {
-    const { width } = this.props;
+    const { width, drawData } = this.props;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
 
@@ -17,9 +16,11 @@ export class Replay extends Component {
     canvas.height = width;
 
     ctx.lineCap = 'round';
+    this.drawFromPointsList(drawData);
   }
 
   drawFromPointsList = async (pointsObj) => {
+    console.log(pointsObj);
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     const { width } = this.props;
@@ -53,7 +54,6 @@ export class Replay extends Component {
   render() {
     return (
       <div>
-        <Button onClick={() => { this.drawFromPointsList(window.drawData); }}> Show replay </Button>
         <canvas ref={this.canvasRef} />
       </div>
     );
@@ -62,6 +62,7 @@ export class Replay extends Component {
 
 Replay.propTypes = {
   width: PropTypes.number,
+  drawData: PropTypes.object,
 };
 
 export default Replay;
