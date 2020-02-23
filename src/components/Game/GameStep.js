@@ -5,7 +5,8 @@ import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { submitStep } from '../../actions/gameActions';
 import GameArea from '../DrawArea/GameArea';
-
+import Replay from '../Replay';
+import { getDrawing } from '../../api';
 
 const styles = {
   root: {
@@ -18,7 +19,21 @@ class GameStep extends Component {
     this.state = {
       guess: '',
       submitted: false,
+      loadingDrawData: true,
+      drawData: null,
     };
+  }
+
+  async componentDidMount() {
+    const { gameStep, previousGameStep } = this.props;
+    if (gameStep.type === 'GUESS') {
+      if (previousGameStep && previousGameStep.drawing) {
+        const drawData = await getDrawing(previousGameStep.drawing);
+        this.setState({ drawData, loadingDrawData: false });
+      } else {
+        console.error('PREVIOUS GAME STEP DOESNT HAVE DRAWING');
+      }
+    }
   }
 
   onSubmitGuess = () => {
@@ -31,8 +46,7 @@ class GameStep extends Component {
 
   onSubmitDrawing = () => {
     const { dispatch, gameStep } = this.props;
-    const { guess } = this.state;
-    gameStep.guess = guess;
+    gameStep.drawData = window.drawData;
     dispatch(submitStep(gameStep));
     this.setState({ submitted: true });
   }
@@ -43,19 +57,24 @@ class GameStep extends Component {
       previousGameStep,
       classes,
       gameChain,
-      users,
     } = this.props;
-    const { guess, submitted } = this.state;
+    const {
+      guess,
+      submitted,
+      loadingDrawData,
+      drawData,
+    } = this.state;
     if (submitted) {
       return (
         <div>waiting for other players to submit</div>
       );
     }
     if (gameStep.type === 'GUESS') {
-      const prevUser = users.find(user => user._id === previousGameStep.user);
       return (
         <div className={classes.root}>
-          <div>Guess what {prevUser.username} drew</div>
+          <div>Guess what {previousGameStep.user.username} drew</div>
+          {loadingDrawData && <div>Loading...</div>}
+          {!loadingDrawData && <Replay width={300} drawData={drawData} />}
           <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
           <Button onClick={this.onSubmitGuess}>Submit</Button>
         </div>
@@ -81,13 +100,6 @@ GameStep.propTypes = {
   classes: PropTypes.object,
   dispatch: PropTypes.func,
   gameChain: PropTypes.object,
-  users: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-  return {
-    users: state.game.game.users,
-  };
-}
-
-export default connect(mapStateToProps)(withStyles(styles)(GameStep));
+export default connect()(withStyles(styles)(GameStep));

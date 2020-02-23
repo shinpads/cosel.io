@@ -52,20 +52,6 @@ class Game extends Component {
     let gameStep;
     let previousGameStep;
     let gameChain;
-    if (game.state === 'IN_PROGRESS') {
-      // find gameStep
-      if (game.gameChains && game.gameChains.length) {
-        game.gameChains.forEach(gc => {
-          if (gc.gameSteps && gc.gameSteps.length) {
-            if (gc.gameSteps[gc.gameSteps.length - 1].user === userId) {
-              gameStep = gc.gameSteps[gc.gameSteps.length - 1];
-              previousGameStep = gc.gameSteps[gc.gameSteps.length - 2];
-              gameChain = gc;
-            }
-          }
-        });
-      }
-    }
     // LOADING
     if (!loaded) {
       return (
@@ -76,6 +62,21 @@ class Game extends Component {
           </div>
         </div>
       );
+    }
+
+    if (game.state === 'IN_PROGRESS') {
+      // find gameStep
+      if (game.gameChains && game.gameChains.length) {
+        game.gameChains.forEach(gc => {
+          if (gc.gameSteps && gc.gameSteps.length) {
+            if (gc.gameSteps[gc.gameSteps.length - 1].user._id === userId) {
+              gameStep = gc.gameSteps[gc.gameSteps.length - 1];
+              previousGameStep = gc.gameSteps[gc.gameSteps.length - 2];
+              gameChain = gc;
+            }
+          }
+        });
+      }
     }
 
     // ERROR
