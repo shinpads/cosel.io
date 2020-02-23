@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { submitStep } from '../../actions/gameActions';
-import GameArea from '../DrawArea/GameArea';
+import DrawingPage from '../DrawingPage/DrawingPage';
 
 
 const styles = {
@@ -65,9 +65,7 @@ class GameStep extends Component {
     if (gameStep.type === 'DRAWING') {
       return (
         <div className={classes.root}>
-          <div>{`Draw "${previousGameStep ? previousGameStep.guess : gameChain.originalWord}"`}</div>
-          <GameArea />
-          <Button onClick={this.onSubmitDrawing}>Submit</Button>
+          <DrawingPage onSubmitDrawing={this.onSubmitDrawing} word={previousGameStep ? previousGameStep.guess : gameChain.originalWord}/>
         </div>
       );
     }
