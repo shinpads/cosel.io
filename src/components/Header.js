@@ -33,7 +33,7 @@ class Header extends Component {
     return (
       <header className={classes.root}>
         <NavLink className={classes.link} to="/">
-          <div className={classes.title}>picken.io</div>
+          <div className={classes.title}>cosel.io</div>
         </NavLink>
       </header>
     );
