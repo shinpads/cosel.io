@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const log = debug('picken:sever');
+const log = debug('cosel:sever');
 
 const app = express();
 const html = path.join(__dirname, 'index.html');
