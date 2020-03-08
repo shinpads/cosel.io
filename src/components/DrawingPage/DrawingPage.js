@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { Button } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import GameArea from '../DrawArea/GameArea';
-import { withStyles } from '@material-ui/core';
+
 
 const styles = {
   root: {
@@ -11,6 +11,10 @@ const styles = {
 };
 
 class DrawingPage extends Component {
+  componentDidMount() {
+
+  }
+
   render() {
     const { onSubmitDrawing, word, classes } = this.props;
     return (
@@ -26,6 +30,7 @@ class DrawingPage extends Component {
 DrawingPage.propTypes = {
   onSubmitDrawing: PropTypes.func.isRequired,
   word: PropTypes.string.isRequired,
+  classes: PropTypes.object,
 };
 
 export default withStyles(styles)(DrawingPage);

@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+import { PrimaryButton } from './Base/Button';
+// import Button from '@material-ui/core/Button';
 import { createGame, findGame } from '../actions/gameActions';
-import { HowToPlay } from './HowToPlay/HowToPlay';
-import GameArea from './DrawArea/GameArea';
 
 const styles = {
   root: {
@@ -49,29 +46,10 @@ class GameSetup extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <Grid container justify="center">
-          <Card className={classes.card}>
-            Game Setup
-            <form>
-              <Grid container justify="center">
-                <div className={classes.form}>
-                  <div className={classes.buttonsContainer}>
-                    <Button onClick={this.createNewGame}>Create Room</Button>
-                    <Button onClick={this.findGame}>Find Room</Button>
-                  </div>
-                </div>
-              </Grid>
-            </form>
-          </Card>
-        </Grid>
-        <HowToPlay />
-        <div>
-          <GameArea />
-        </div>
-      </div>
+      <form>
+        <PrimaryButton variant="contained" onClick={this.createNewGame}>Primary</PrimaryButton>
+      </form>
     );
   }
 }
@@ -81,7 +59,6 @@ function mapStateToProps(state) {
 }
 
 GameSetup.propTypes = {
-  classes: PropTypes.object,
   dispatch: PropTypes.func,
 };
 

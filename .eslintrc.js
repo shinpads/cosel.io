@@ -40,5 +40,6 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 'warn',
     'no-underscore-dangle': 'off',
     'no-await-in-loop': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };
