@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// import Fade from 'react-reveal/Fade';
-// import Flip from 'react-reveal/Flip';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 // import colors from '../colors';
 import { createGame, findGame } from '../actions/gameActions';
@@ -74,4 +73,4 @@ Home.propTypes = {
   dispatch: PropTypes.func,
 };
 
-export default withStyles(styles)(Home);
+export default connect()(withStyles(styles)(Home));

@@ -21,18 +21,49 @@ class GameStep extends Component {
       submitted: false,
       loadingDrawData: true,
       drawData: null,
+      timeRemaining: 0,
     };
+    this.timeout = null;
   }
 
   async componentDidMount() {
-    const { gameStep, previousGameStep } = this.props;
+    const {
+      gameStep,
+      previousGameStep,
+      guessTimeLimit,
+      drawingTimeLimit,
+    } = this.props;
     if (gameStep.type === 'GUESS') {
+      // get drawing
       if (previousGameStep && previousGameStep.drawing) {
         const drawData = await getDrawing(previousGameStep.drawing);
         this.setState({ drawData, loadingDrawData: false });
       } else {
         console.error('PREVIOUS GAME STEP DOESNT HAVE DRAWING');
       }
+      this.timeout = setTimeout(this.submitGameStep, guessTimeLimit);
+      this.setState({ timeRemaining: guessTimeLimit });
+    } else if (gameStep.type === 'DRAWING') {
+      this.timeout = setTimeout(this.submitGameStep, drawingTimeLimit);
+      this.setState({ timeRemaining: drawingTimeLimit });
+    }
+    const interval = setInterval(() => {
+      this.setState(prevState => ({ timeRemaining: prevState.timeRemaining - 1 })).then(() => {
+        const { timeRemaining } = this.state;
+        if (timeRemaining <= 0) {
+          clearInterval(interval);
+        }
+      });
+    }, 1000);
+  }
+
+  submitGameStep = () => {
+    const { gameStep } = this.props;
+    if (this.timeout) clearTimeout(this.timeout);
+    if (gameStep.type === 'GUESS') {
+      this.onSubmitGuess();
+    } else if (gameStep.type === 'DRAWING') {
+      this.onSubmitDrawing();
     }
   }
 
@@ -63,6 +94,7 @@ class GameStep extends Component {
       submitted,
       loadingDrawData,
       drawData,
+      timeRemaining,
     } = this.state;
     if (submitted) {
       return (
@@ -73,10 +105,11 @@ class GameStep extends Component {
       return (
         <div className={classes.root}>
           <div>Guess what {previousGameStep.user.username} drew</div>
+          <div>Time: {timeRemaining}</div>
           {loadingDrawData && <div>Loading...</div>}
           {!loadingDrawData && <Replay width={300} drawData={drawData} />}
           <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
-          <Button onClick={this.onSubmitGuess}>Submit</Button>
+          <Button onClick={this.submitGameStep}>Submit</Button>
         </div>
       );
     }
@@ -84,7 +117,7 @@ class GameStep extends Component {
     if (gameStep.type === 'DRAWING') {
       return (
         <div className={classes.root}>
-          <DrawingPage onSubmitDrawing={this.onSubmitDrawing} word={previousGameStep ? previousGameStep.guess : gameChain.originalWord} />
+          <DrawingPage onSubmitDrawing={this.submitGameStep} word={previousGameStep ? previousGameStep.guess : gameChain.originalWord} />
         </div>
       );
     }
@@ -98,6 +131,15 @@ GameStep.propTypes = {
   classes: PropTypes.object,
   dispatch: PropTypes.func,
   gameChain: PropTypes.object,
+  guessTimeLimit: PropTypes.number,
+  drawingTimeLimit: PropTypes.number,
 };
 
-export default connect()(withStyles(styles)(GameStep));
+function mapStateToProps(state) {
+  return {
+    drawTimeLimit: state.game.game.drawTimeLimit,
+    guessTimeLimit: state.game.game.guessTimeLimit,
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(GameStep));
