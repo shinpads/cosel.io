@@ -48,14 +48,19 @@ class GameStep extends Component {
       this.timeout = setTimeout(this.submitGameStep, drawTimeLimit * 1000);
       this.setState({ timeRemaining: drawTimeLimit });
     }
-    const interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.setState(prevState => {
         if (prevState.timeRemaining <= 1) {
-          clearInterval(interval);
+          if (this.interval) clearInterval(this.interval);
         }
         return { timeRemaining: prevState.timeRemaining - 1 };
       });
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval);
+    if (this.timeout) clearTimeout(this.timeout);
   }
 
   submitGameStep = () => {
