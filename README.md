@@ -1,5 +1,5 @@
-# picken.io
-picken.io web
+# cosel.io
+cosel.io web
 
 ## Setup
 First, clone and run warhol
