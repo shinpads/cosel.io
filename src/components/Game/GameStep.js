@@ -61,7 +61,6 @@ class GameStep extends Component {
   }
 
   submitGameStep = () => {
-    console.log('submit-step');
     const { gameStep } = this.props;
     if (this.timeout) clearTimeout(this.timeout);
     if (gameStep.type === 'GUESS') {
@@ -144,7 +143,6 @@ GameStep.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log('state', state.game.game.guessTimeLimit);
   return {
     drawTimeLimit: state.game.game.drawTimeLimit,
     guessTimeLimit: state.game.game.guessTimeLimit,
