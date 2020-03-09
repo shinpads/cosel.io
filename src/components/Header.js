@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import colors from '../colors';
 
 const styles = {
   root: {
-    height: '100px',
     textAlign: 'center',
   },
   title: {
     margin: '0.5rem',
-    fontSize: '64px',
-    color: colors.darkGrey,
-    fontFamily: "'Didact Gothic', sans-serif",
+    fontSize: '7rem',
+    fontWeight: 400,
+    color: '#fff',
   },
   link: {
     textDecoration: 'none',

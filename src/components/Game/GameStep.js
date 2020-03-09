@@ -23,7 +23,6 @@ class GameStep extends Component {
       drawData: null,
       timeRemaining: 0,
     };
-    this.timeout = null;
   }
 
   async componentDidMount() {
@@ -41,16 +40,14 @@ class GameStep extends Component {
       } else {
         console.error('PREVIOUS GAME STEP DOESNT HAVE DRAWING');
       }
-      this.timeout = setTimeout(this.submitGameStep, guessTimeLimit * 1000);
       this.setState({ timeRemaining: guessTimeLimit });
     } else if (gameStep.type === 'DRAWING') {
-      console.log('setting timeout for ', this.props);
-      this.timeout = setTimeout(this.submitGameStep, drawTimeLimit * 1000);
       this.setState({ timeRemaining: drawTimeLimit });
     }
     this.interval = setInterval(() => {
       this.setState(prevState => {
         if (prevState.timeRemaining <= 1) {
+          this.submitGameStep();
           if (this.interval) clearInterval(this.interval);
         }
         return { timeRemaining: prevState.timeRemaining - 1 };

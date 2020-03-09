@@ -6,8 +6,8 @@ import colors from '../../colors';
 const styles = {
   button: {
     width: '100%',
-    fontSize: '2rem',
-    padding: '1rem',
+    fontSize: '2.5rem',
+    padding: '2rem',
     fontWeight: 600,
     border: 0,
     textTransform: 'uppercase',
