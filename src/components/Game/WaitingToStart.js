@@ -1,15 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-
+import { PrimaryButton } from '../Base/Button';
 import { startGame } from '../../actions/gameActions';
 
-const WaitingToStart = ({
+const styles = {
+  info: {
+    flexGrow: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+};
+const WaitingToStart = withStyles(styles)(({
   game,
   users,
   user,
   dispatch,
+  classes,
 }) => {
   const isHost = game.host === user._id;
 
@@ -18,16 +28,21 @@ const WaitingToStart = ({
   };
 
   return (
-    <div>
+    <>
       {!isHost && <div>Waiting for host to start game</div>}
-      {isHost && <Button disableRipple variant="outlined" onClick={sendStartGame}>Start Game</Button>}
-      <div>{users.length} Players</div>
-      <div>
+      <div className={classes.info}>
+        <div>{users.length} Players</div>
         {users.map(u => <div>{u.username} {u._id === game.host ? '[Host]' : ''}</div>)}
       </div>
-    </div>
+      <div>
+        {isHost && <PrimaryButton variant="contained" onClick={sendStartGame}>Start Game</PrimaryButton>}
+      </div>
+      <div>
+        {isHost && <PrimaryButton variant="contained" onClick={sendStartGame}>{game.hash}</PrimaryButton>}
+      </div>
+    </>
   );
-};
+});
 
 WaitingToStart.propTypes = {
   game: PropTypes.object,

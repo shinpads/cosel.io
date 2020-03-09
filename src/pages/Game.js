@@ -17,6 +17,14 @@ import { setUsername } from '../actions/userActions';
 const styles = {
   main: {
     fontSize: '22px',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  root: {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
   },
 };
 
@@ -108,7 +116,7 @@ class Game extends Component {
 
     // LOADED
     return (
-      <div>
+      <div className={classes.root}>
         <Header />
         <main className={classes.main}>
           <div>Round: {game.round} / {game.rounds}</div>
