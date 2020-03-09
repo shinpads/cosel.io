@@ -7,13 +7,13 @@ export const getUser = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/users/from-session');
     if (res.data && res.data.success) {
-      dispatch({
+      await dispatch({
         type: SET_USER,
         payload: {
           user: res.data.user,
         },
       });
-      dispatch({
+      await dispatch({
         type: SET_USERNAME_NOT_SET,
         payload: !res.data.user.username,
       });

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-// import colors from '../colors';
+import colors from '../colors';
 import { createGame, findGame } from '../actions/gameActions';
 import { PrimaryButton } from '../components/Base/Button';
 
@@ -27,6 +27,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color: 'white',
+    fontSize: '3rem',
+    padding: '0 0.5rem',
   },
 };
 
@@ -61,7 +64,13 @@ class Home extends Component {
           <div className={classes.info}>
             <div style={{ textAlign: 'center' }}>Draw a picture and have other people guess it</div>
           </div>
-          <PrimaryButton variant="contained" onClick={this.createNewGame}>Create Game</PrimaryButton>
+          <PrimaryButton
+            variant="contained"
+            onClick={this.createNewGame}
+            style={{ backgroundColor: 'white', color: colors.primary }}
+          >
+            Create Game
+          </PrimaryButton>
         </main>
       </div>
     );

@@ -16,10 +16,16 @@ class DrawingPage extends Component {
   }
 
   render() {
-    const { onSubmitDrawing, word, classes } = this.props;
+    const {
+      onSubmitDrawing,
+      word,
+      classes,
+      timeRemaining,
+    } = this.props;
     return (
       <div className={classes.root}>
         <div>{`Draw "${word}"`}</div>
+        <div>Time {timeRemaining}</div>
         <GameArea />
         <Button onClick={onSubmitDrawing}>Submit</Button>
       </div>
@@ -31,6 +37,7 @@ DrawingPage.propTypes = {
   onSubmitDrawing: PropTypes.func.isRequired,
   word: PropTypes.string.isRequired,
   classes: PropTypes.object,
+  timeRemaining: PropTypes.number,
 };
 
 export default withStyles(styles)(DrawingPage);

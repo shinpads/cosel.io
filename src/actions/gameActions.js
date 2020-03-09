@@ -28,8 +28,13 @@ export const createGame = () => async (dispatch) => {
   }
 };
 
-export const findGame = (hash) => async (dispatch) => {
+export const findGame = (hash) => async (dispatch, getState) => {
+  const { user } = getState();
   try {
+    if (!user.loaded) {
+      window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
+      await window.resolveUserPromise;
+    }
     const res = await axios.get(`api/games/${hash}`);
     console.log(res);
     if (res.data.success) {
@@ -43,7 +48,8 @@ export const findGame = (hash) => async (dispatch) => {
       throw new Error('Could not find game');
     }
     dispatch(joinGame());
-  } catch {
+  } catch (err) {
+    console.error(err);
     dispatch({
       type: SET_GAME_LOAD_ERROR,
       payload: 'failed to load game',
@@ -54,7 +60,10 @@ export const findGame = (hash) => async (dispatch) => {
 export const joinGame = () => async (dispatch, getState) => {
   const { user } = getState();
   if (!user.loaded) {
-    await new Promise(resolve => { window.resolveUser = resolve; });
+    if (!window.resolveUserPromise) {
+      window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
+    }
+    await window.resolveUserPromise;
   }
   const { game } = getState();
   if (game.showUsernameNotSet || !game.loaded || game.game.state === 'COMPLETE') return;
