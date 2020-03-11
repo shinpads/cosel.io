@@ -9,7 +9,7 @@ const styles = {
   },
   title: {
     margin: '0.5rem',
-    fontSize: '7rem',
+    fontSize: '6rem',
     fontWeight: 400,
     color: '#fff',
   },

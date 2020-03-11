@@ -13,6 +13,7 @@ import GameStep from '../components/Game/GameStep';
 import GameResults from '../components/Game/GameResults';
 import { findGame } from '../actions/gameActions';
 import { setUsername } from '../actions/userActions';
+import Spinner from '../components/Spinner';
 
 const styles = {
   main: {
@@ -64,10 +65,7 @@ class Game extends Component {
     if (!loaded) {
       return (
         <div>
-          <Header />
-          <div>
-            Loading...
-          </div>
+          <Spinner />
         </div>
       );
     }
@@ -119,7 +117,7 @@ class Game extends Component {
       <div className={classes.root}>
         <Header />
         <main className={classes.main}>
-          <div>Round: {game.round} / {game.rounds}</div>
+          {game.state === 'IN_PROGRESS' && <div>Round: {game.round} / {game.rounds}</div>}
           {game.state === 'PRE_START' && <WaitingToStart />}
           {game.state === 'IN_PROGRESS' && gameStep && <GameStep key={gameStep._id} gameStep={gameStep} previousGameStep={previousGameStep} gameChain={gameChain} />}
           {game.state === 'COMPLETE' && <GameResults />}
@@ -142,7 +140,7 @@ Game.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    loaded: state.game.loaded && state.user.loaded,
+    loaded: state.game.loaded && state.user.loaded && state.game.game.host,
     error: state.game.error,
     game: state.game.game,
     showUsernameNotSet: state.game.showUsernameNotSet,
