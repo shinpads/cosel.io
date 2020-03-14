@@ -13,7 +13,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    color: 'white',
+    color: colors.backgroundContrast,
     fontSize: '2rem',
   },
   playerList: {
@@ -58,7 +58,7 @@ const WaitingToStart = withStyles(styles)(({
         </div>
       </div>
       <div>
-        {isHost && <PrimaryButton style={{ backgroundColor: 'white', color: colors.primary }} onClick={sendStartGame}>Start Game</PrimaryButton>}
+        {isHost && <PrimaryButton onClick={sendStartGame}>Start Game</PrimaryButton>}
       </div>
     </>
   );

@@ -8,7 +8,7 @@ export class Draw extends Component {
 
 
   componentDidMount() {
-    const width = Math.floor(window.innerWidth / 3);
+    const width = Math.floor(window.innerWidth);
     const height = width;
 
     const canvas = this.canvasRef.current;
@@ -30,7 +30,7 @@ export class Draw extends Component {
 
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = '#000';
 
     document.addEventListener('mouseup', () => {
       mouseStatus = 'up';
@@ -108,7 +108,7 @@ export class Draw extends Component {
   render() {
     return (
       <div id="drawArea">
-        <canvas id="canvas" ref={this.canvasRef} style={{ border: '3px solid black' }} />
+        <canvas id="canvas" ref={this.canvasRef} />
       </div>
     );
   }

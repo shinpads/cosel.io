@@ -23,9 +23,14 @@ const styles = {
     flexDirection: 'column',
   },
   root: {
-    height: '100vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
+  },
+  loader: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
   },
 };
 
@@ -64,7 +69,7 @@ class Game extends Component {
     // LOADING
     if (!loaded) {
       return (
-        <div>
+        <div className={classes.loader}>
           <Spinner />
         </div>
       );
@@ -117,7 +122,6 @@ class Game extends Component {
       <div className={classes.root}>
         <Header />
         <main className={classes.main}>
-          {game.state === 'IN_PROGRESS' && <div>Round: {game.round} / {game.rounds}</div>}
           {game.state === 'PRE_START' && <WaitingToStart />}
           {game.state === 'IN_PROGRESS' && gameStep && <GameStep key={gameStep._id} gameStep={gameStep} previousGameStep={previousGameStep} gameChain={gameChain} />}
           {game.state === 'COMPLETE' && <GameResults />}

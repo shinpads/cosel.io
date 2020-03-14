@@ -13,8 +13,8 @@ const styles = {
     textTransform: 'uppercase',
   },
   primaryButton: {
-    backgroundColor: colors.primary,
-    color: colors.primaryContrast,
+    color: colors.primary,
+    backgroundColor: colors.primaryContrast,
   },
   secondaryButton: {
     backgroundColor: colors.secondary,

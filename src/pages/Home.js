@@ -27,7 +27,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'white',
+    color: colors.backgroundContrast,
     fontSize: '3rem',
     padding: '0 0.5rem',
   },
@@ -67,7 +67,6 @@ class Home extends Component {
           <PrimaryButton
             variant="contained"
             onClick={this.createNewGame}
-            style={{ backgroundColor: 'white', color: colors.primary }}
           >
             Create Game
           </PrimaryButton>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Draw } from './Draw';
-import { BrushSelector } from './BrushOptions/BrushSelector';
-import { ChangeSize } from './ChangeSize';
+// import { BrushSelector } from './BrushOptions/BrushSelector';
+// import { ChangeSize } from './ChangeSize';
 
 class GameArea extends Component {
   constructor(props) {
@@ -20,14 +21,15 @@ class GameArea extends Component {
   }
 
   render() {
+    const { style } = this.props;
     return (
-      <div>
+      <div style={style || {}}>
         <Draw ref={this.drawBoxRef} />
         <div style={horizontal}>
-          <BrushSelector selectDraw={this.selectDraw} changeColor={this.changeColor} />
-          <div style={onRight}>
+          {/* <BrushSelector selectDraw={this.selectDraw} changeColor={this.changeColor} /> */}
+          {/* <div style={onRight}>
             <ChangeSize changeSize={this.changeSize} />
-          </div>
+          </div> */}
         </div>
       </div>
     );
@@ -39,8 +41,8 @@ let horizontal = {
   flexDirection: 'row',
 };
 
-let onRight = {
-  marginLeft: 'auto',
+GameArea.propTypes = {
+  style: PropTypes.object,
 };
 
 export default GameArea;

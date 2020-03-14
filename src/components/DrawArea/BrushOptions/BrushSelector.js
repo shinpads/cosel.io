@@ -35,7 +35,7 @@ export class BrushSelector extends Component {
       const { changeColor } = this.props;
 
       if (drawType === 'eraser') {
-        const eraserColor = colors.background;
+        const eraserColor = colors.canvas;
         eraser.setState({ outline: '2px solid black' });
         pencil.setState({ outline: '0px solid black' });
         changeColor(eraserColor);
@@ -92,6 +92,6 @@ let flexBox = {
   width: '10vmax',
 };
 
-let canvasColors = ['purple', 'red', 'blue', 'green', 'yellow', 'pink', 'orange', 'violet'];
+let canvasColors = ['#000'];
 
 export default BrushSelector;

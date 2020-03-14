@@ -89,7 +89,6 @@ class GameStep extends Component {
     const {
       gameStep,
       previousGameStep,
-      classes,
       gameChain,
     } = this.props;
     const {
@@ -106,26 +105,26 @@ class GameStep extends Component {
     }
     if (gameStep.type === 'GUESS') {
       return (
-        <div className={classes.root}>
+        <>
           <div>Guess what {previousGameStep.user.username} drew</div>
           <div>Time: {timeRemaining}</div>
           {loadingDrawData && <div>Loading...</div>}
           {!loadingDrawData && <Replay width={300} drawData={drawData} />}
           <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
           <Button onClick={this.submitGameStep}>Submit</Button>
-        </div>
+        </>
       );
     }
 
     if (gameStep.type === 'DRAWING') {
       return (
-        <div className={classes.root}>
+        <>
           <DrawingPage
             onSubmitDrawing={this.submitGameStep}
             word={previousGameStep ? previousGameStep.guess : gameChain.originalWord}
             timeRemaining={timeRemaining}
           />
-        </div>
+        </>
       );
     }
     return <div />;
@@ -135,7 +134,6 @@ class GameStep extends Component {
 GameStep.propTypes = {
   gameStep: PropTypes.object,
   previousGameStep: PropTypes.object,
-  classes: PropTypes.object,
   dispatch: PropTypes.func,
   gameChain: PropTypes.object,
   guessTimeLimit: PropTypes.number,

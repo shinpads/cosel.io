@@ -1,12 +1,36 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { Button, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
+import { connect } from 'react-redux';
 import GameArea from '../DrawArea/GameArea';
+import { PrimaryButton } from '../Base/Button';
 
 
 const styles = {
   root: {
 
+  },
+  info: {
+    display: 'grid',
+    width: '100%',
+    gridTemplateColumns: '1fr 1fr 1fr',
+  },
+  word: {
+    fontWeight: 600,
+    fontSize: '2rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  time: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  round: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 };
 
@@ -21,14 +45,19 @@ class DrawingPage extends Component {
       word,
       classes,
       timeRemaining,
+      round,
+      rounds,
     } = this.props;
     return (
-      <div className={classes.root}>
-        <div>{`Draw "${word}"`}</div>
-        <div>Time {timeRemaining}</div>
-        <GameArea />
-        <Button onClick={onSubmitDrawing}>Submit</Button>
-      </div>
+      <>
+        <div className={classes.info}>
+          <div className={classes.round}>{round}/{rounds}</div>
+          <div className={classes.word}>{word}</div>
+          <div className={classes.time}>{timeRemaining}s</div>
+        </div>
+        <GameArea style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }} />
+        <PrimaryButton onClick={onSubmitDrawing}>Submit</PrimaryButton>
+      </>
     );
   }
 }
@@ -38,6 +67,15 @@ DrawingPage.propTypes = {
   word: PropTypes.string.isRequired,
   classes: PropTypes.object,
   timeRemaining: PropTypes.number,
+  round: PropTypes.number,
+  rounds: PropTypes.number,
 };
 
-export default withStyles(styles)(DrawingPage);
+function mapStateToProps(state) {
+  return {
+    round: state.game.game.round,
+    rounds: state.game.game.round,
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(DrawingPage));

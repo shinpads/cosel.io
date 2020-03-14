@@ -11,7 +11,7 @@ const styles = {
     margin: '0.5rem',
     fontSize: '6rem',
     fontWeight: 400,
-    color: '#fff',
+    color: '#000',
   },
   link: {
     textDecoration: 'none',
