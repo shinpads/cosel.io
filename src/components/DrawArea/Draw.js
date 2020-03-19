@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+const canvasStyle = {
+  borderTop: '1px inset black',
+  borderBottom: '1px inset black',
+};
+
 export class Draw extends Component {
   constructor(props) {
     super(props);
@@ -8,8 +13,8 @@ export class Draw extends Component {
 
 
   componentDidMount() {
-    const width = Math.floor(window.innerWidth);
-    const height = width;
+    const height = Math.min(document.getElementById('drawArea').parentElement.offsetHeight, document.getElementById('drawArea').parentElement.offsetWidth);
+    const width = height;
 
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -32,55 +37,78 @@ export class Draw extends Component {
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
 
-    document.addEventListener('mouseup', () => {
+    const startStroke = (event) => {
+      let e;
+      if (event.touches) {
+        event.preventDefault();
+        e = event.touches[0];
+      } else {
+        e = event;
+      }
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - Math.round(rect.left);
+      mouse.y = e.clientY - Math.round(rect.top);
+      const numStrokes = window.drawData.strokes.length;
+
+      window.drawData.strokes[numStrokes - 1] = {
+        points: [{ x: mouse.x, y: mouse.y }, { x: mouse.x, y: mouse.y }],
+        size: ctx.lineWidth,
+        color: ctx.strokeStyle,
+      };
+
+      ctx.beginPath();
+      ctx.moveTo(mouse.x, mouse.y);
+      ctx.lineTo(mouse.x, mouse.y);
+      ctx.stroke();
+      ctx.closePath();
+
+      mouseStatus = 'down';
+    };
+
+    const endStroke = () => {
       mouseStatus = 'up';
       finishLine();
-    });
+    };
 
-    document.addEventListener('mousemove', (e) => {
+    const movePosition = (event) => {
+      let e;
+      if (event.touches) {
+        event.preventDefault();
+        e = event.touches[0];
+      } else {
+        e = event;
+      }
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - Math.round(rect.left);
       mouse.y = e.clientY - Math.round(rect.top);
 
       if (mouseStatus === 'down') {
-        draw();
-      }
-    }, false);
+        const numStrokes = window.drawData.strokes.length;
+        if (window.drawData.strokes[numStrokes - 1].points.length >= 2) {
+          window.drawData.strokes[numStrokes - 1].points.push({ x: mouse.x, y: mouse.y });
+          const curStroke = window.drawData.strokes[numStrokes - 1];
+          const pointsLen = curStroke.points.length;
+          const lastPoint = curStroke.points[pointsLen - 2];
+          const curPoint = curStroke.points[pointsLen - 1];
 
-    canvas.addEventListener('mousedown', () => {
-      draw();
-      mouseStatus = 'down';
-    }, false);
-
-    const draw = () => {
-      const numStrokes = window.drawData.strokes.length;
-      if (window.drawData.strokes[numStrokes - 1].points.length === 0) {
-        window.drawData.strokes[numStrokes - 1] = {
-          points: [{ x: mouse.x, y: mouse.y }],
-          size: ctx.lineWidth,
-          color: ctx.strokeStyle,
-        };
-        const curPoint = window.drawData.strokes[numStrokes - 1].points[0];
-
-        ctx.beginPath();
-        ctx.moveTo(curPoint.x, curPoint.y);
-        ctx.lineTo(curPoint.x, curPoint.y);
-        ctx.stroke();
-        ctx.closePath();
-      } else {
-        window.drawData.strokes[numStrokes - 1].points.push({ x: mouse.x, y: mouse.y });
-        const curStroke = window.drawData.strokes[numStrokes - 1];
-        const pointsLen = curStroke.points.length;
-        const lastPoint = curStroke.points[pointsLen - 2];
-        const curPoint = curStroke.points[pointsLen - 1];
-
-        ctx.beginPath();
-        ctx.moveTo(lastPoint.x, lastPoint.y);
-        ctx.lineTo(curPoint.x, curPoint.y);
-        ctx.stroke();
-        ctx.closePath();
+          ctx.beginPath();
+          ctx.moveTo(lastPoint.x, lastPoint.y);
+          ctx.lineTo(curPoint.x, curPoint.y);
+          ctx.stroke();
+          ctx.closePath();
+        }
       }
     };
+
+    document.addEventListener('mouseup', endStroke);
+    canvas.addEventListener('touchend', endStroke);
+
+    document.addEventListener('mousemove', movePosition, false);
+    canvas.addEventListener('touchmove', movePosition, { passive: false });
+
+    canvas.addEventListener('mousedown', startStroke, false);
+    canvas.addEventListener('touchstart', startStroke, { passive: false });
+
     const finishLine = () => {
       const numStrokes = window.drawData.strokes.length;
       if (window.drawData.strokes[numStrokes - 1].points.length > 0) {
@@ -107,8 +135,16 @@ export class Draw extends Component {
 
   render() {
     return (
-      <div id="drawArea">
-        <canvas id="canvas" ref={this.canvasRef} />
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        id="drawArea"
+      >
+        <canvas id="canvas" ref={this.canvasRef} style={canvasStyle} />
       </div>
     );
   }

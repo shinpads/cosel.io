@@ -41,5 +41,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-await-in-loop': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
   },
 };

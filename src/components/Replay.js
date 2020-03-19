@@ -8,22 +8,20 @@ class Replay extends Component {
   }
 
   componentDidMount() {
-    const { width, drawData } = this.props;
+    const { drawData } = this.props;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
-
-    canvas.width = width;
-    canvas.height = width;
+    canvas.height = Math.min(document.getElementById('replayArea').parentElement.offsetHeight, document.getElementById('replayArea').parentElement.offsetWidth);
+    canvas.width = canvas.height;
 
     ctx.lineCap = 'round';
     this.drawFromPointsList(drawData);
   }
 
   drawFromPointsList = async (pointsObj) => {
-    console.log(pointsObj);
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
-    const { width } = this.props;
+    const { width } = canvas;
     const oldCanvasWidth = pointsObj.width;
 
     ctx.clearRect(0, 0, width, width);
@@ -39,7 +37,7 @@ class Replay extends Component {
         ctx.moveTo(newX, newY);
       }
       for (let j = 0; j < curStroke.points.length; j++) {
-        await new Promise(resolve => setTimeout(resolve, 0.01));
+        await new Promise(resolve => setTimeout(resolve, 0.025));
         const curPoint = curStroke.points[j];
         const newX = (curPoint.x / oldCanvasWidth) * width;
         const newY = (curPoint.y / oldCanvasWidth) * width;
@@ -53,7 +51,15 @@ class Replay extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        id="replayArea"
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <canvas ref={this.canvasRef} />
       </div>
     );
@@ -61,7 +67,6 @@ class Replay extends Component {
 }
 
 Replay.propTypes = {
-  width: PropTypes.number,
   drawData: PropTypes.object,
 };
 

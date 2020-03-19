@@ -6,11 +6,15 @@ import colors from '../../colors';
 const styles = {
   button: {
     width: '100%',
-    fontSize: '2.5rem',
-    padding: '2rem',
+    fontSize: '2rem',
+    padding: '1.5rem',
     fontWeight: 600,
     border: 0,
     textTransform: 'uppercase',
+    '@media (min-height: 600px)': {
+      fontSize: '2.5rem',
+      padding: '2rem',
+    },
   },
   primaryButton: {
     color: colors.primary,

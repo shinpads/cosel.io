@@ -1,5 +1,10 @@
 import { isValid } from '../util/helperFunctions';
-import { SET_GAME, SET_GAME_LOAD_ERROR, SET_USERNAME_NOT_SET } from '../actions/actionTypes';
+import {
+  SET_GAME,
+  SET_GAME_LOAD_ERROR,
+  SET_USERNAME_NOT_SET,
+  CLEAR_GAME,
+} from '../actions/actionTypes';
 
 const initalState = {
   loaded: false,
@@ -32,6 +37,13 @@ export default (state = initalState, action) => {
       return {
         ...state,
         showUsernameNotSet: action.payload,
+      };
+    case CLEAR_GAME:
+      return {
+        ...state,
+        game: {},
+        loaded: false,
+        error: false,
       };
     default:
       return state;

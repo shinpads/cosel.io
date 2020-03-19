@@ -39,7 +39,6 @@ const WaitingToStart = withStyles(styles)(({
   dispatch,
   classes,
 }) => {
-  console.log(game, users, user);
   const isHost = game.host === user._id;
 
   const sendStartGame = () => {

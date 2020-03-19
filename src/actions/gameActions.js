@@ -1,7 +1,7 @@
 import axios from '../util/axios';
 import socketio from '../util/socketio';
 
-import { SET_GAME, SET_GAME_LOAD_ERROR } from './actionTypes';
+import { SET_GAME, SET_GAME_LOAD_ERROR, CLEAR_GAME } from './actionTypes';
 import history from '../history';
 
 let socket;
@@ -68,6 +68,7 @@ export const joinGame = () => async (dispatch, getState) => {
   const { game } = getState();
   if (game.showUsernameNotSet || !game.loaded || game.game.state === 'COMPLETE') return;
   const { hash } = game.game;
+  if (socket) socket.disconnect();
   socket = socketio(hash);
   socket.on('update-game', (gameUpdate) => {
     dispatch({
@@ -88,5 +89,15 @@ export const startGame = () => async () => {
 export const submitStep = (step) => async () => {
   if (socket) {
     socket.emit('submit-step', step);
+  }
+};
+
+export const disconnectSocket = () => (dispatch) => {
+  if (socket) {
+    socket.disconnect();
+    socket = null;
+    dispatch({
+      type: CLEAR_GAME,
+    });
   }
 };

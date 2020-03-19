@@ -9,9 +9,12 @@ const styles = {
   },
   title: {
     margin: '0.5rem',
-    fontSize: '6rem',
+    fontSize: '3rem',
     fontWeight: 400,
     color: '#000',
+    '@media (min-height: 600px)': {
+      fontSize: '5rem',
+    },
   },
   link: {
     textDecoration: 'none',

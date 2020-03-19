@@ -5,15 +5,14 @@ import { connect } from 'react-redux';
 // import Fade from 'react-reveal/Fade';
 // import Flip from 'react-reveal/Flip';
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
 
 import Header from '../components/Header';
 import WaitingToStart from '../components/Game/WaitingToStart';
 import GameStep from '../components/Game/GameStep';
 import GameResults from '../components/Game/GameResults';
 import { findGame } from '../actions/gameActions';
-import { setUsername } from '../actions/userActions';
 import Spinner from '../components/Spinner';
+import SetUsername from '../components/Game/SetUsername';
 
 const styles = {
   main: {
@@ -45,13 +44,8 @@ class Game extends Component {
   componentDidMount() {
     const { match, dispatch } = this.props;
     const { hash } = match.params;
+    hash.toUpperCase();
     dispatch(findGame(hash));
-  }
-
-  submitUsername = () => {
-    const { dispatch } = this.props;
-    const { username } = this.state;
-    dispatch(setUsername(username));
   }
 
   render() {
@@ -66,6 +60,19 @@ class Game extends Component {
     let gameStep;
     let previousGameStep;
     let gameChain;
+
+    // ERROR
+    if (error) {
+      return (
+        <div className={classes.root}>
+          <Header />
+          <div>
+            Error finding this game
+          </div>
+        </div>
+      );
+    }
+
     // LOADING
     if (!loaded) {
       return (
@@ -90,29 +97,11 @@ class Game extends Component {
       }
     }
 
-    // ERROR
-    if (error) {
-      return (
-        <div>
-          <Header />
-          <div>
-            Error finding this game
-          </div>
-        </div>
-      );
-    }
-
     if (showUsernameNotSet) {
-      const { username } = this.state;
       return (
-        <div>
+        <div className={classes.root}>
           <Header />
-          <div>
-            <form onSubmit={e => { e.preventDefault(); this.submitUsername(); }}>
-              <TextField label="username" value={username || ''} onChange={e => this.setState({ username: e.currentTarget.value })} />
-              <Button onClick={this.submitUsername}>join game</Button>
-            </form>
-          </div>
+          <SetUsername />
         </div>
       );
     }
@@ -144,7 +133,7 @@ Game.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    loaded: state.game.loaded && state.user.loaded && state.game.game.host,
+    loaded: state.game.loaded && state.user.loaded && (state.game.game.host || state.game.showUsernameNotSet),
     error: state.game.error,
     game: state.game.game,
     showUsernameNotSet: state.game.showUsernameNotSet,

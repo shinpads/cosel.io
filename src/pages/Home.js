@@ -12,7 +12,7 @@ import Header from '../components/Header';
 
 const styles = {
   root: {
-    height: '100vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
   },

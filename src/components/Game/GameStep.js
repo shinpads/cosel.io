@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { submitStep } from '../../actions/gameActions';
-import DrawingPage from '../DrawingPage/DrawingPage';
+import DrawingPage from './DrawingPage';
 import Replay from '../Replay';
 import { getDrawing } from '../../api';
+import { PrimaryButton } from '../Base/Button';
+import { PrimaryInput } from '../Base/Input';
 
 const styles = {
-  root: {
+  replayContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexGrow: 1,
+    borderTop: '1px solid black',
+  },
+  info: {
+    display: 'grid',
+    padding: '0.5rem',
+    width: 'calc(100% - 1rem)',
+    gridTemplateColumns: '2fr 1fr',
   },
 };
-
 class GameStep extends Component {
   constructor(props) {
     super(props);
@@ -90,6 +101,7 @@ class GameStep extends Component {
       gameStep,
       previousGameStep,
       gameChain,
+      classes,
     } = this.props;
     const {
       guess,
@@ -106,25 +118,31 @@ class GameStep extends Component {
     if (gameStep.type === 'GUESS') {
       return (
         <>
-          <div>Guess what {previousGameStep.user.username} drew</div>
-          <div>Time: {timeRemaining}</div>
+          <div className={classes.info}>
+            <div>{previousGameStep.user.username} drew:</div>
+            <div style={{ textAlign: 'right' }}>{timeRemaining}s</div>
+          </div>
           {loadingDrawData && <div>Loading...</div>}
-          {!loadingDrawData && <Replay width={300} drawData={drawData} />}
-          <TextField label="guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
-          <Button onClick={this.submitGameStep}>Submit</Button>
+          {!loadingDrawData && (
+            <div className={classes.replayContainer}>
+              <Replay width={300} drawData={drawData} />
+            </div>
+          )}
+          <div style={{ margin: '1rem 2rem' }}>
+            <PrimaryInput placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
+          </div>
+          <PrimaryButton onClick={this.submitGameStep}>Submit</PrimaryButton>
         </>
       );
     }
 
     if (gameStep.type === 'DRAWING') {
       return (
-        <>
-          <DrawingPage
-            onSubmitDrawing={this.submitGameStep}
-            word={previousGameStep ? previousGameStep.guess : gameChain.originalWord}
-            timeRemaining={timeRemaining}
-          />
-        </>
+        <DrawingPage
+          onSubmitDrawing={this.submitGameStep}
+          word={previousGameStep ? previousGameStep.guess : gameChain.originalWord}
+          timeRemaining={timeRemaining}
+        />
       );
     }
     return <div />;
@@ -132,6 +150,7 @@ class GameStep extends Component {
 }
 
 GameStep.propTypes = {
+  classes: PropTypes.object,
   gameStep: PropTypes.object,
   previousGameStep: PropTypes.object,
   dispatch: PropTypes.func,

@@ -12,7 +12,8 @@ const styles = {
   },
   info: {
     display: 'grid',
-    width: '100%',
+    padding: '0.5rem',
+    width: 'calc(100% - 1rem)',
     gridTemplateColumns: '1fr 1fr 1fr',
   },
   word: {
@@ -55,7 +56,7 @@ class DrawingPage extends Component {
           <div className={classes.word}>{word}</div>
           <div className={classes.time}>{timeRemaining}s</div>
         </div>
-        <GameArea style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }} />
+        <GameArea style={{ flexGrow: 1, display: 'flex' }} />
         <PrimaryButton onClick={onSubmitDrawing}>Submit</PrimaryButton>
       </>
     );

@@ -9,12 +9,20 @@ import colors from './colors';
 import Home from './pages/Home';
 import Game from './pages/Game';
 import { getUser } from './actions/userActions';
+import { disconnectSocket } from './actions/gameActions';
 
 class App extends Component {
   componentDidMount() {
     document.body.style.background = colors.background;
     const { dispatch } = this.props;
     dispatch(getUser());
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location, dispatch } = this.props;
+    if (prevProps.location.pathname !== location.pathname) {
+      dispatch(disconnectSocket());
+    }
   }
 
   render() {
@@ -31,6 +39,7 @@ class App extends Component {
 
 App.propTypes = {
   dispatch: PropTypes.func,
+  location: PropTypes.string,
 };
 
 export default withRouter(connect()(App));
