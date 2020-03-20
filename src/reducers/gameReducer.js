@@ -4,6 +4,7 @@ import {
   SET_GAME_LOAD_ERROR,
   SET_USERNAME_NOT_SET,
   CLEAR_GAME,
+  SET_DRAWING_MAP,
 } from '../actions/actionTypes';
 
 const initalState = {
@@ -12,6 +13,7 @@ const initalState = {
   game: {},
   startGameLoading: false,
   showUsernameNotSet: false,
+  drawingMap: {},
 };
 
 export default (state = initalState, action) => {
@@ -44,6 +46,11 @@ export default (state = initalState, action) => {
         game: {},
         loaded: false,
         error: false,
+      };
+    case SET_DRAWING_MAP:
+      return {
+        ...state,
+        drawingMap: action.payload,
       };
     default:
       return state;

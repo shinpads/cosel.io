@@ -8,11 +8,16 @@ class Replay extends Component {
   }
 
   componentDidMount() {
-    const { drawData } = this.props;
+    const { drawData, width } = this.props;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
-    canvas.height = Math.min(document.getElementById('replayArea').parentElement.offsetHeight, document.getElementById('replayArea').parentElement.offsetWidth);
-    canvas.width = canvas.height;
+    if (width) {
+      canvas.width = width;
+      canvas.height = width;
+    } else {
+      canvas.height = Math.min(document.getElementById('replayArea').parentElement.offsetHeight, document.getElementById('replayArea').parentElement.offsetWidth);
+      canvas.width = canvas.height;
+    }
 
     ctx.lineCap = 'round';
     this.drawFromPointsList(drawData);
@@ -67,6 +72,7 @@ class Replay extends Component {
 }
 
 Replay.propTypes = {
+  width: PropTypes.number,
   drawData: PropTypes.object,
 };
 

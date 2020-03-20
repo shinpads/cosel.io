@@ -16,6 +16,7 @@ const styles = {
     justifyContent: 'center',
     flexGrow: 1,
     borderTop: '1px solid black',
+    borderBottom: '1px solid black',
   },
   info: {
     display: 'grid',
@@ -125,7 +126,7 @@ class GameStep extends Component {
           {loadingDrawData && <div>Loading...</div>}
           {!loadingDrawData && (
             <div className={classes.replayContainer}>
-              <Replay width={300} drawData={drawData} />
+              <Replay drawData={drawData} />
             </div>
           )}
           <div style={{ margin: '1rem 2rem' }}>

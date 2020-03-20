@@ -1,7 +1,12 @@
 import axios from '../util/axios';
 import socketio from '../util/socketio';
 
-import { SET_GAME, SET_GAME_LOAD_ERROR, CLEAR_GAME } from './actionTypes';
+import {
+  SET_GAME,
+  SET_GAME_LOAD_ERROR,
+  CLEAR_GAME,
+  SET_DRAWING_MAP,
+} from './actionTypes';
 import history from '../history';
 
 let socket;
@@ -38,6 +43,12 @@ export const findGame = (hash) => async (dispatch, getState) => {
     const res = await axios.get(`api/games/${hash}`);
     console.log(res);
     if (res.data.success) {
+      if (res.data.drawingMap) {
+        await dispatch({
+          type: SET_DRAWING_MAP,
+          payload: res.data.drawingMap,
+        });
+      }
       await dispatch({
         type: SET_GAME,
         payload: {
@@ -76,6 +87,12 @@ export const joinGame = () => async (dispatch, getState) => {
       payload: {
         game: gameUpdate,
       },
+    });
+  });
+  socket.on('drawing-map', (drawingMap) => {
+    dispatch({
+      type: SET_DRAWING_MAP,
+      payload: drawingMap,
     });
   });
 };

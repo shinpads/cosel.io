@@ -14,7 +14,8 @@ const styles = {
     display: 'grid',
     padding: '0.5rem',
     width: 'calc(100% - 1rem)',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 3fr 1fr',
+    borderBottom: '1px solid',
   },
   word: {
     fontWeight: 600,

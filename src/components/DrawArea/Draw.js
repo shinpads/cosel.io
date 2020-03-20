@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import colors from '../../colors';
 
 const canvasStyle = {
-  borderTop: '1px inset black',
-  borderBottom: '1px inset black',
+  borderLeft: '1px dashed',
+  borderRight: '1px dashed',
+  backgroundColor: colors.canvas,
 };
 
 export class Draw extends Component {
