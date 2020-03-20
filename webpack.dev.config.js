@@ -59,7 +59,7 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new webpack.DefinePlugin({
-      WARHOL_HOST: JSON.stringify('http://10.30.67.69'),
+      WARHOL_HOST: JSON.stringify('http://127.0.0.1,'),
       WARHOL_PORT: JSON.stringify('3030'),
     }),
   ],
