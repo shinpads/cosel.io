@@ -35,7 +35,7 @@ const styles = {
     width: '100%',
     height: '2px',
     backgroundColor: '#000',
-  }
+  },
 };
 
 class GameChainResult extends Component {
