@@ -25,6 +25,7 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'hidden',
   },
   loader: {
     height: '100%',

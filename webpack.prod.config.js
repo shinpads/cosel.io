@@ -77,8 +77,8 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new webpack.DefinePlugin({
-      WARHOL_HOST: JSON.stringify('http://35.203.102.184'),
-      WARHOL_PORT: JSON.stringify('3030'),
+      WARHOL_HOST: JSON.stringify('https://warhol.cosel.io'),
+      WARHOL_PORT: JSON.stringify('443'),
     }),
   ],
 };

@@ -44,6 +44,10 @@ class GameStep extends Component {
       guessTimeLimit,
       drawTimeLimit,
     } = this.props;
+    if (gameStep.submitted) {
+      this.setState({ submitted: true });
+      return;
+    }
     if (gameStep.type === 'GUESS') {
       // get drawing
       if (previousGameStep && previousGameStep.drawing) {
