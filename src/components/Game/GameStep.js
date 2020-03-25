@@ -8,6 +8,7 @@ import Replay from '../Replay';
 import { getDrawing } from '../../api';
 import { PrimaryButton } from '../Base/Button';
 import { PrimaryInput } from '../Base/Input';
+import WaitingForNextRound from './WaitingForNextRound';
 
 const styles = {
   replayContainer: {
@@ -116,9 +117,7 @@ class GameStep extends Component {
       timeRemaining,
     } = this.state;
     if (submitted) {
-      return (
-        <div>waiting for other players to submit</div>
-      );
+      return <WaitingForNextRound />;
     }
     if (gameStep.type === 'GUESS') {
       return (
@@ -134,7 +133,9 @@ class GameStep extends Component {
             </div>
           )}
           <div style={{ margin: '1rem 2rem' }}>
-            <PrimaryInput placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
+            <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
+              <PrimaryInput placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
+            </form>
           </div>
           <PrimaryButton onClick={this.submitGameStep}>Submit</PrimaryButton>
         </>

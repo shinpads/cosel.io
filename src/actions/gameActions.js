@@ -6,6 +6,7 @@ import {
   SET_GAME_LOAD_ERROR,
   CLEAR_GAME,
   SET_DRAWING_MAP,
+  SET_USER_SUBMITTED_MAP,
 } from './actionTypes';
 import history from '../history';
 
@@ -49,6 +50,12 @@ export const findGame = (hash) => async (dispatch, getState) => {
           payload: res.data.drawingMap,
         });
       }
+      if (res.data.userSubmittedMap) {
+        await dispatch({
+          type: SET_USER_SUBMITTED_MAP,
+          payload: res.data.userSubmittedMap,
+        });
+      }
       await dispatch({
         type: SET_GAME,
         payload: {
@@ -89,10 +96,18 @@ export const joinGame = () => async (dispatch, getState) => {
       },
     });
   });
+
   socket.on('drawing-map', (drawingMap) => {
     dispatch({
       type: SET_DRAWING_MAP,
       payload: drawingMap,
+    });
+  });
+
+  socket.on('user-submitted-map', (userSubmittedMap) => {
+    dispatch({
+      type: SET_USER_SUBMITTED_MAP,
+      payload: userSubmittedMap,
     });
   });
 };
