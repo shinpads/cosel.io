@@ -6,7 +6,7 @@ import GameChainResult from './GameChainResult';
 
 const styles = {
   root: {
-
+    overflow: 'auto',
   },
   title: {
     fontSize: '2.5rem',
