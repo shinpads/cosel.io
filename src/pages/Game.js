@@ -27,6 +27,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
+    maxWidth: '900px',
+    margin: '0 auto',
   },
   loader: {
     height: '100%',
