@@ -5,6 +5,7 @@ import {
   SET_USERNAME_NOT_SET,
   CLEAR_GAME,
   SET_DRAWING_MAP,
+  SET_USER_SUBMITTED_MAP,
 } from '../actions/actionTypes';
 
 const initalState = {
@@ -14,6 +15,7 @@ const initalState = {
   startGameLoading: false,
   showUsernameNotSet: false,
   drawingMap: {},
+  userSubmittedMap: {},
 };
 
 export default (state = initalState, action) => {
@@ -51,6 +53,11 @@ export default (state = initalState, action) => {
       return {
         ...state,
         drawingMap: action.payload,
+      };
+    case SET_USER_SUBMITTED_MAP:
+      return {
+        ...state,
+        userSubmittedMap: action.payload,
       };
     default:
       return state;

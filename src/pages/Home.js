@@ -15,6 +15,8 @@ const styles = {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    maxWidth: '900px',
+    margin: '0 auto',
   },
   main: {
     fontSize: '22px',

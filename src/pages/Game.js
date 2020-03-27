@@ -20,11 +20,15 @@ const styles = {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
   },
   root: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'hidden',
+    maxWidth: '900px',
+    margin: '0 auto',
   },
   loader: {
     height: '100%',

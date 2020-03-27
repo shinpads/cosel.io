@@ -50,6 +50,7 @@ class SetUsername extends Component {
               spellcheck={false}
               autocomplete="off"
               value={username || ''}
+              maxlength={16}
               onChange={e => this.setState({ username: e.currentTarget.value })}
             />
           </div>

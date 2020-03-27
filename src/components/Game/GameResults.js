@@ -6,7 +6,7 @@ import GameResultBook from './GameResultBook';
 
 const styles = {
   root: {
-
+    overflow: 'auto',
   },
   title: {
     fontSize: '2.5rem',

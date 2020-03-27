@@ -100,3 +100,42 @@ body {
     opacity: 0;
   }
 }
+
+@keyframes dot-keyframes {
+  0% {
+    opacity: .6;
+    transform: scale(1, 1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2, 1.2);
+  }
+
+  100% {
+    opacity: .6;
+    transform: scale(1, 1);
+  }
+}
+
+.dotdotdot-container {
+  text-align: center;
+}
+
+.dotdotdot {
+  animation: dot-keyframes 1.2s infinite ease-in-out;
+  background-color: #000;
+  border-radius: 100%;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+  margin-right: 4px
+}
+
+.dotdotdot.two {
+  animation-delay: 0.4s
+}
+
+.dotdotdot.three {
+  animation-delay: 0.8s
+}
