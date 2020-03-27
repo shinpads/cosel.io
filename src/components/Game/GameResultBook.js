@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Carousel } from 'react-responsive-carousel';
 import PropTypes from 'prop-types';
 import Replay from '../Replay';
-import GameStep from './GameStep';
 
 const styles = {
   root: {
 
   },
   carouselItem: {
-    backgroundColor: "#F5F5F5",
-    height: "100%",
-  }
+    backgroundColor: '#F5F5F5',
+    height: '100%',
+  },
 };
 
 
@@ -22,57 +21,54 @@ class GameResultBook extends Component {
     super(props);
     this.state = {};
   }
-  
-  printPages = () => {
-    const { gameChain, drawingMap, classes } = this.props;
-    let pages = [];
 
-    for (let i = 0; i < gameChain.gameSteps.length; i++){
+  printPages = () => {
+    const { gameChain, drawingMap } = this.props;
+    const pages = [];
+
+    for (let i = 0; i < gameChain.gameSteps.length; i++) {
       const curStep = gameChain.gameSteps[i];
 
-      if (curStep.type === 'DRAWING'){
+      if (curStep.type === 'DRAWING') {
         let wordToDraw = '';
         const drawData = drawingMap[String(curStep.drawing)];
 
-        if (i < 2){
+        if (i < 2) {
           wordToDraw = gameChain.originalWord;
-        } 
-        else {
-          wordToDraw = gameChain.gameSteps[i-1].guess;
+        } else {
+          wordToDraw = gameChain.gameSteps[i - 1].guess;
         }
 
-        if (i+1 < gameChain.gameSteps.length){
+        if (i + 1 < gameChain.gameSteps.length) {
           pages.push(
             <div style={styles.carouselItem}>
-              <div>{curStep.user.username}'s drawing for {wordToDraw}</div>
+              <div>{curStep.user.username}{`'s drawing for ${wordToDraw}`}</div>
               <Replay width={300} drawData={drawData} />
-              <div>{gameChain.gameSteps[i+1].user.username} guessed: {gameChain.gameSteps[i+1].guess}</div>
-            </div>
+              <div>{gameChain.gameSteps[i + 1].user.username} guessed: {gameChain.gameSteps[i + 1].guess}</div>
+            </div>,
           );
-        }
-        else {
+        } else {
           pages.push(
             <div style={styles.carouselItem}>
-              <div>{curStep.user.username}'s drawing for {wordToDraw}</div>
+              <div>{curStep.user.username}{`'s drawing for ${wordToDraw}`}</div>
               <Replay width={300} drawData={drawData} />
-            </div>
+            </div>,
           );
         }
       }
     }
-    
+
     return pages;
   }
 
-  render() { 
-
-    const { gameChain, drawingMap, classes } = this.props;
+  render() {
+    const { gameChain } = this.props;
     return (
       <div>
         <div style={styles.carouselItem}>
           Original word: {gameChain.originalWord}
         </div>
-        <Carousel showThumbs={false} showStatus={false} >
+        <Carousel showThumbs={false} showStatus={false}>
           {this.printPages().map(page => page)}
         </Carousel>
         <hr />
@@ -83,7 +79,7 @@ class GameResultBook extends Component {
 
 GameResultBook.propTypes = {
   gameChain: PropTypes.object,
-  classes: PropTypes.object,
+  drawingMap: PropTypes.object,
 };
 
 function mapStateToProps(state) {

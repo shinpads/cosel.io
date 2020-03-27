@@ -9,7 +9,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import App from './App';
 import { store } from './store';
 import history from './history';
-import "react-responsive-carousel/lib/styles/carousel.css";
+import 'react-responsive-carousel/lib/styles/carousel.css';
 import * as serviceWorker from './serviceWorker';
 import colors from './colors';
 

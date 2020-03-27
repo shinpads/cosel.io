@@ -43,6 +43,7 @@ export class Draw extends Component {
       let e;
       if (event.touches) {
         event.preventDefault();
+        // eslint-disable-next-line prefer-destructuring
         e = event.touches[0];
       } else {
         e = event;
@@ -76,6 +77,7 @@ export class Draw extends Component {
       let e;
       if (event.touches) {
         event.preventDefault();
+        // eslint-disable-next-line prefer-destructuring
         e = event.touches[0];
       } else {
         e = event;
