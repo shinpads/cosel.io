@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import GameChainResult from './GameChainResult';
+import GameResultBook from './GameResultBook';
 
 const styles = {
   root: {
@@ -26,7 +26,7 @@ class GameResults extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.title}>Results</div>
-        {gameChains.map(gc => <GameChainResult gameChain={gc} />)}
+        {gameChains.map(gc => <GameResultBook gameChain={gc} />)}
       </div>
     );
   }
