@@ -12,7 +12,7 @@ import Header from '../components/Header';
 
 const styles = {
   root: {
-    height: '100%',
+    minHeight: '100%',
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '900px',
@@ -32,6 +32,10 @@ const styles = {
     color: colors.backgroundContrast,
     fontSize: '3rem',
     padding: '0 0.5rem',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 };
 
@@ -66,12 +70,14 @@ class Home extends Component {
           <div className={classes.info}>
             <div style={{ textAlign: 'center' }}>Draw a picture and have other people guess it</div>
           </div>
-          <PrimaryButton
-            variant="contained"
-            onClick={this.createNewGame}
-          >
-            Create Game
-          </PrimaryButton>
+          <div className={classes.buttonContainer}>
+            <PrimaryButton
+              variant="contained"
+              onClick={this.createNewGame}
+            >
+              Create Game
+            </PrimaryButton>
+          </div>
         </main>
       </div>
     );
