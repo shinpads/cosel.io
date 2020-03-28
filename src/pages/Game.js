@@ -23,7 +23,7 @@ const styles = {
     height: '100%',
   },
   root: {
-    height: '100%',
+    minHeight: '100%',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',

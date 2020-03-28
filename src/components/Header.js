@@ -15,6 +15,9 @@ const styles = {
     '@media (min-height: 600px)': {
       fontSize: '5rem',
     },
+    '@media (min-width: 960px)': {
+      fontSize: '7rem',
+    },
   },
   link: {
     textDecoration: 'none',
