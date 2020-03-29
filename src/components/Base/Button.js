@@ -3,28 +3,43 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import colors from '../../colors';
 
-const styles = {
+const styles = theme => ({
   button: {
     width: '100%',
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     padding: '1.5rem',
     fontWeight: 600,
-    border: 0,
+    border: '2px solid',
+    cursor: 'pointer',
     textTransform: 'uppercase',
+    margin: '1rem',
+    borderRadius: '4rem',
     '@media (min-height: 600px)': {
-      fontSize: '2.5rem',
-      padding: '2rem',
+      fontSize: '2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 'unset',
+      border: '2px solid',
+      borderRadius: '4rem',
+      padding: '1.5rem 8rem',
     },
   },
   primaryButton: {
-    color: colors.primary,
-    backgroundColor: colors.primaryContrast,
+    color: colors.primaryContrast,
+    backgroundColor: colors.primary,
+    transition: 'all 250ms ease',
+    '&:hover': {
+      color: colors.primary,
+      backgroundColor: colors.primaryContrast,
+    },
+    [theme.breakpoints.up('md')]: {
+    },
   },
   secondaryButton: {
     backgroundColor: colors.secondary,
     color: colors.secondaryContrast,
   },
-};
+});
 
 export const PrimaryButton = withStyles(styles)((props) => {
   const { classes, children } = props;

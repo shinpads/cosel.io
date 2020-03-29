@@ -132,12 +132,14 @@ class GameStep extends Component {
               <Replay drawData={drawData} />
             </div>
           )}
-          <div style={{ margin: '1rem 2rem' }}>
-            <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
+          <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
+            <div style={{ margin: '1rem 2rem' }}>
               <PrimaryInput placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
-            </form>
-          </div>
-          <PrimaryButton onClick={this.submitGameStep}>Submit</PrimaryButton>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <PrimaryButton onClick={this.submitGameStep}>Submit</PrimaryButton>
+            </div>
+          </form>
         </>
       );
     }

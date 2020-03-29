@@ -25,13 +25,16 @@ const styles = {
     flexGrow: 1,
   },
   info: {
-    flexGrow: 1,
+    minHeight: '50vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: colors.backgroundContrast,
-    fontSize: '3rem',
-    padding: '0 0.5rem',
+    fontSize: '2rem',
+    padding: '1rem',
+    '@media (min-height: 600px)': {
+      fontSize: '3rem',
+    },
   },
   buttonContainer: {
     display: 'flex',
@@ -65,7 +68,7 @@ class Home extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
+        <Header minimizable />
         <main className={classes.main}>
           <div className={classes.info}>
             <div style={{ textAlign: 'center' }}>Draw a picture and have other people guess it</div>
@@ -77,6 +80,9 @@ class Home extends Component {
             >
               Create Game
             </PrimaryButton>
+          </div>
+          <div>
+            <div>Recent Games</div>
           </div>
         </main>
       </div>

@@ -34,6 +34,10 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 };
 
 class DrawingPage extends Component {
@@ -58,7 +62,9 @@ class DrawingPage extends Component {
           <div className={classes.time}>{timeRemaining}s</div>
         </div>
         <GameArea style={{ flexGrow: 1, display: 'flex' }} />
-        <PrimaryButton onClick={onSubmitDrawing}>Submit</PrimaryButton>
+        <div className={classes.buttonContainer}>
+          <PrimaryButton onClick={onSubmitDrawing}>Submit</PrimaryButton>
+        </div>
       </>
     );
   }
