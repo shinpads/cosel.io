@@ -7,15 +7,16 @@ import { PrimaryButton } from '../Base/Button';
 import { startGame, sendReady } from '../../actions/gameActions';
 import colors from '../../colors';
 import CopyLink from './CopyLink';
+import { DotDotDot } from '../Base/Loader';
 
 const styles = {
   info: {
     flexGrow: 1,
     display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    color: colors.backgroundContrast,
+    color: colors.backgroundsContrast,
     fontSize: '2rem',
+    width: '100%',
+    justifyContent: 'center',
   },
   playerList: {
     flexGrow: 1,
@@ -23,6 +24,7 @@ const styles = {
     paddingBottom: '0rem',
     overflow: 'auto',
     width: '100%',
+    maxWidth: '500px',
   },
   waitingForHost: {
     color: colors.backgroundContrast,
@@ -81,7 +83,7 @@ class WaitingToStart extends Component {
             {users.map(u => (
               <div className={classes.playerContainer}>
                 <div className={classes.playerName}>{u.username}</div>
-                <div className={classes.playerStatus}>{userReadyMap[u._id] ? <Done /> : ''}</div>
+                <div className={classes.playerStatus}>{userReadyMap[u._id] ? <Done /> : <DotDotDot />}</div>
               </div>
             ))}
           </div>

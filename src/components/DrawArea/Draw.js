@@ -35,7 +35,7 @@ export class Draw extends Component {
     canvas.width = width;
     canvas.height = height;
 
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
 
