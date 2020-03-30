@@ -64,7 +64,7 @@ const RecentGame = ({
   classes,
 }) => {
   const { thumbnail } = game;
-  const timeAgo = moment(game.endTime).fromNow();
+  const timeAgo = moment(game.endTime ? game.endTime : game.createdAt).fromNow();
   const title = game.gameChains[0].originalWord;
   return (
     <div
@@ -73,7 +73,7 @@ const RecentGame = ({
     >
       <div className={classes.recentGameTitle}>{title}</div>
       <div
-        onClick={() => history.push(`/game/${game.hash}`)}
+        onClick={() => history.push(`/game/${game.hash}?view=true`)}
         role="button"
         tabIndex={0}
         style={{ cursor: 'pointer' }}

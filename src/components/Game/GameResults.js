@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import GameResultBook from './GameResultBook';
+import CopyLink from './CopyLink';
 
 const styles = {
   root: {
@@ -24,6 +25,7 @@ class GameResults extends Component {
     const { gameChains, classes } = this.props;
     return (
       <div className={classes.root}>
+        <CopyLink url={`${window.location.origin}${window.location.pathname}?view=true`} displayUrl={`${window.location.host}${window.location.pathname}`} />
         <h2 className={classes.title}>Results</h2>
         {gameChains.map(gc => <GameResultBook gameChain={gc} />)}
       </div>
