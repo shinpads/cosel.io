@@ -8,6 +8,7 @@ import {
   SET_DRAWING_MAP,
   SET_USER_SUBMITTED_MAP,
   SET_RECENT_GAMES,
+  SET_USER_READY_MAP,
 } from './actionTypes';
 import history from '../history';
 
@@ -56,6 +57,12 @@ export const findGame = (hash) => async (dispatch, getState) => {
         await dispatch({
           type: SET_USER_SUBMITTED_MAP,
           payload: res.data.userSubmittedMap,
+        });
+      }
+      if (res.data.userReadyMap) {
+        await dispatch({
+          type: SET_USER_READY_MAP,
+          payload: res.data.userReadyMap,
         });
       }
       await dispatch({
@@ -133,6 +140,13 @@ export const joinGame = () => async (dispatch, getState) => {
       payload: userSubmittedMap,
     });
   });
+
+  socket.on('user-ready-map', (userReadyMap) => {
+    dispatch({
+      type: SET_USER_READY_MAP,
+      payload: userReadyMap,
+    });
+  });
 };
 
 export const startGame = () => async () => {
@@ -144,6 +158,12 @@ export const startGame = () => async () => {
 export const submitStep = (step) => async () => {
   if (socket) {
     socket.emit('submit-step', step);
+  }
+};
+
+export const sendReady = (ready) => async () => {
+  if (socket) {
+    socket.emit('ready', ready);
   }
 };
 

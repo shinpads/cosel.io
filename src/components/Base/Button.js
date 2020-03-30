@@ -14,6 +14,7 @@ const styles = theme => ({
     textTransform: 'uppercase',
     margin: '1rem',
     borderRadius: '4rem',
+    outline: 0,
     '@media (min-height: 600px)': {
       fontSize: '2rem',
     },

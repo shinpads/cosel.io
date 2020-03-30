@@ -21,6 +21,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    maxWidth: '1000px',
+    margin: '0 auto',
   },
   info: {
     minHeight: '40vh',
