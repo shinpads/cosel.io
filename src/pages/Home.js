@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-
 import colors from '../colors';
-import { createGame, findGame } from '../actions/gameActions';
+import { createGame, findGame, getGames } from '../actions/gameActions';
 import { PrimaryButton } from '../components/Base/Button';
-
+import { Spinner } from '../components/Base/Loader';
 import Header from '../components/Header';
+import RecentGames from '../components/Home/RecentGames';
 
 const styles = {
   root: {
     minHeight: '100%',
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '900px',
     margin: '0 auto',
   },
   main: {
@@ -25,7 +23,7 @@ const styles = {
     flexGrow: 1,
   },
   info: {
-    minHeight: '50vh',
+    minHeight: '40vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -40,6 +38,14 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+  loader: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  recentGamesContainer: {
+    margin: '1rem 2rem',
+  },
 };
 
 class Home extends Component {
@@ -52,6 +58,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(getGames());
   }
 
   createNewGame = () => {
@@ -65,7 +73,14 @@ class Home extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, recentGames, recentGamesLoaded } = this.props;
+    if (!recentGamesLoaded) {
+      return (
+        <div className={classes.loader}>
+          <Spinner />
+        </div>
+      );
+    }
     return (
       <div className={classes.root}>
         <Header minimizable />
@@ -81,8 +96,9 @@ class Home extends Component {
               Create Game
             </PrimaryButton>
           </div>
-          <div>
-            <div>Recent Games</div>
+          <div className={classes.recentGamesContainer}>
+            <h2 style={{ borderBottom: '1px solid', fontWeight: 500 }}>Recent Games</h2>
+            <RecentGames recentGames={recentGames} />
           </div>
         </main>
       </div>
@@ -93,6 +109,15 @@ class Home extends Component {
 Home.propTypes = {
   classes: PropTypes.object,
   dispatch: PropTypes.func,
+  recentGamesLoaded: PropTypes.bool,
+  recentGames: PropTypes.array,
 };
 
-export default connect()(withStyles(styles)(Home));
+function mapStateToProps(state) {
+  return {
+    recentGames: state.game.recentGames,
+    recentGamesLoaded: state.game.recentGamesLoaded,
+  };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));

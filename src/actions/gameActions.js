@@ -7,6 +7,7 @@ import {
   CLEAR_GAME,
   SET_DRAWING_MAP,
   SET_USER_SUBMITTED_MAP,
+  SET_RECENT_GAMES,
 } from './actionTypes';
 import history from '../history';
 
@@ -36,6 +37,7 @@ export const createGame = () => async (dispatch) => {
 
 export const findGame = (hash) => async (dispatch, getState) => {
   const { user } = getState();
+  dispatch({ type: CLEAR_GAME });
   try {
     if (!user.loaded) {
       window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
@@ -71,6 +73,27 @@ export const findGame = (hash) => async (dispatch, getState) => {
     dispatch({
       type: SET_GAME_LOAD_ERROR,
       payload: 'failed to load game',
+    });
+  }
+};
+
+export const getGames = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/api/games');
+    if (res.data && res.data.success && res.data.games) {
+      const { games } = res.data;
+      dispatch({
+        type: SET_RECENT_GAMES,
+        payload: games,
+      });
+    } else {
+      throw Error('Failed to load recent games', res);
+    }
+  } catch (err) {
+    console.error(err);
+    dispatch({
+      type: SET_RECENT_GAMES,
+      payload: [],
     });
   }
 };

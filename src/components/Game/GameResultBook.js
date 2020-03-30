@@ -43,7 +43,7 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{`'s drawing for ${wordToDraw}`}</div>
-              <Replay width={300} drawData={drawData} />
+              <Replay width={300} drawData={drawData} key={curStep._id} />
               <div>{gameChain.gameSteps[i + 1].user.username} guessed: {gameChain.gameSteps[i + 1].guess}</div>
             </div>,
           );
@@ -51,7 +51,7 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{`'s drawing for ${wordToDraw}`}</div>
-              <Replay width={300} drawData={drawData} />
+              <Replay width={300} drawData={drawData} key={curStep._id} />
             </div>,
           );
         }

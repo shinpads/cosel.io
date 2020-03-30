@@ -6,6 +6,7 @@ import {
   CLEAR_GAME,
   SET_DRAWING_MAP,
   SET_USER_SUBMITTED_MAP,
+  SET_RECENT_GAMES,
 } from '../actions/actionTypes';
 
 const initalState = {
@@ -16,6 +17,8 @@ const initalState = {
   showUsernameNotSet: false,
   drawingMap: {},
   userSubmittedMap: {},
+  recentGames: [],
+  recentGamesLoaded: false,
 };
 
 export default (state = initalState, action) => {
@@ -58,6 +61,12 @@ export default (state = initalState, action) => {
       return {
         ...state,
         userSubmittedMap: action.payload,
+      };
+    case SET_RECENT_GAMES:
+      return {
+        ...state,
+        recentGames: action.payload,
+        recentGamesLoaded: true,
       };
     default:
       return state;

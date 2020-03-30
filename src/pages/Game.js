@@ -11,7 +11,7 @@ import WaitingToStart from '../components/Game/WaitingToStart';
 import GameStep from '../components/Game/GameStep';
 import GameResults from '../components/Game/GameResults';
 import { findGame } from '../actions/gameActions';
-import Spinner from '../components/Spinner';
+import { Spinner } from '../components/Base/Loader';
 import SetUsername from '../components/Game/SetUsername';
 
 const styles = {

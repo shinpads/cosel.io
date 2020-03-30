@@ -13,6 +13,14 @@ body {
   height: 100%;
 }
 
+main {
+  overflow-x: hidden;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
 .sk-folding-cube {
   margin: 20px auto;
   width: 40px;

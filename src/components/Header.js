@@ -7,13 +7,17 @@ import classNames from 'classnames';
 const styles = {
   root: {
     width: '100%',
+    color: '#000',
     backgroundColor: '#fff',
-    position: 'sticky',
+    position: 'fixed',
     left: 0,
     top: 0,
     textAlign: 'center',
     boxShadow: '0px 0px 0px',
     transition: '250ms ease',
+    display: 'flex',
+    justifyContent: 'center',
+    zIndex: 1000,
   },
   rootMinimized: {
     boxShadow: '0px 1px 10px',
@@ -51,9 +55,13 @@ const styles = {
       fontSize: '5rem',
     },
   },
+  headerWrapper: {
+    color: 'transparent',
+  },
 };
 
 const SCROLL_TOP_THRESHOLD = 25;
+const TITLE = 'cosel.io';
 
 class Header extends Component {
   constructor(props) {
@@ -78,24 +86,33 @@ class Header extends Component {
     const { classes, small } = this.props;
     const { minimized } = this.state;
     return (
-      <header className={classNames(
-        classes.root,
-        small ? classes.rootSmall : '',
-        minimized ? classes.rootMinimized : '',
+      <div className={classNames(
+        classes.title,
+        small ? classes.titleSmall : '',
+        minimized ? classes.titleMinimized : '',
+        classes.headerWrapper,
       )}
       >
-        <NavLink className={classes.link} to="/">
-          <div
-            className={classNames(
-              classes.title,
-              small ? classes.titleSmall : '',
-              minimized ? classes.titleMinimized : '',
-            )}
-          >
-            cosel.io
-          </div>
-        </NavLink>
-      </header>
+        {TITLE}
+        <header className={classNames(
+          classes.root,
+          small ? classes.rootSmall : '',
+          minimized ? classes.rootMinimized : '',
+        )}
+        >
+          <NavLink className={classes.link} to="/">
+            <div
+              className={classNames(
+                classes.title,
+                small ? classes.titleSmall : '',
+                minimized ? classes.titleMinimized : '',
+              )}
+            >
+              {TITLE}
+            </div>
+          </NavLink>
+        </header>
+      </div>
     );
   }
 }

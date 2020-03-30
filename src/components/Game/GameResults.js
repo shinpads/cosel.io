@@ -10,7 +10,6 @@ const styles = {
   },
   title: {
     fontSize: '2.5rem',
-    paddingLeft: '1rem',
     borderBottom: '1px solid #000',
   },
 };
@@ -25,7 +24,7 @@ class GameResults extends Component {
     const { gameChains, classes } = this.props;
     return (
       <div className={classes.root}>
-        <div className={classes.title}>Results</div>
+        <h2 className={classes.title}>Results</h2>
         {gameChains.map(gc => <GameResultBook gameChain={gc} />)}
       </div>
     );

@@ -8,12 +8,15 @@ class Replay extends Component {
   }
 
   componentDidMount() {
-    const { drawData, width } = this.props;
+    const { drawData, width, fullWidth } = this.props;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (width) {
       canvas.width = width;
       canvas.height = width;
+    } else if (fullWidth) {
+      canvas.height = document.getElementById('replayArea').parentElement.offsetWidth;
+      canvas.width = canvas.height;
     } else {
       canvas.height = Math.min(document.getElementById('replayArea').parentElement.offsetHeight, document.getElementById('replayArea').parentElement.offsetWidth);
       canvas.width = canvas.height;
@@ -55,6 +58,7 @@ class Replay extends Component {
   }
 
   render() {
+    const { className, canvasClassName } = this.props;
     return (
       <div
         id="replayArea"
@@ -64,8 +68,9 @@ class Replay extends Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}
+        className={className || ''}
       >
-        <canvas ref={this.canvasRef} />
+        <canvas ref={this.canvasRef} className={canvasClassName || ''} />
       </div>
     );
   }
@@ -73,7 +78,10 @@ class Replay extends Component {
 
 Replay.propTypes = {
   width: PropTypes.number,
+  fullWidth: PropTypes.bool,
   drawData: PropTypes.object,
+  className: PropTypes.string,
+  canvasClassName: PropTypes.string,
 };
 
 export default Replay;
