@@ -58,6 +58,7 @@ const styles = theme => ({
     justifyContent: 'center',
     fontSize: '1.25rem',
     fontWeight: 500,
+    outline: 0,
     [theme.breakpoints.up('sm')]: {
       fontSize: '1.5rem',
       borderRadius: '0rem 1rem 1rem 0rem',
