@@ -29,7 +29,7 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/game/:hash" component={Game} exact />
+        <Route path="/game/:hash" render={(props) => <Game {...props} key={props.match.params.hash} />} exact />
         <Redirect from="*" to="/" />
       </Switch>
     );

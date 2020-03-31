@@ -22,6 +22,7 @@ export const createGame = () => async (dispatch) => {
         type: SET_GAME,
         payload: {
           game: res.data.game,
+          userReadyMap: {},
         },
       });
       history.push(`/game/${res.data.game.hash}`);
@@ -38,14 +39,13 @@ export const createGame = () => async (dispatch) => {
 
 export const findGame = (hash) => async (dispatch, getState) => {
   const { user } = getState();
-  dispatch({ type: CLEAR_GAME });
+  await dispatch({ type: CLEAR_GAME, payload: '' });
   try {
     if (!user.loaded) {
       window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
       await window.resolveUserPromise;
     }
     const res = await axios.get(`api/games/${hash}`);
-    console.log(res);
     if (res.data.success) {
       if (res.data.drawingMap) {
         await dispatch({
@@ -116,9 +116,20 @@ export const joinGame = () => async (dispatch, getState) => {
   const { game } = getState();
   if (game.showUsernameNotSet || !game.loaded || game.game.state === 'COMPLETE') return;
   const { hash } = game.game;
-  if (socket) socket.disconnect();
-  socket = socketio(hash);
+  if (socket && socket.query.hash !== hash) {
+    socket.disconnect();
+    socket = socketio(hash);
+  } else if (!socket) {
+    socket = socketio(hash);
+  }
   socket.on('update-game', (gameUpdate) => {
+    if (gameUpdate._id && gameUpdate._id !== getState().game.game._id) return;
+    if (gameUpdate.state && gameUpdate.state === 'COMPLETE') {
+      if (gameUpdate.nextGame && gameUpdate.nextGame.hash) {
+        socket.disconnect();
+        socket = socketio(gameUpdate.nextGame.hash);
+      }
+    }
     dispatch({
       type: SET_GAME,
       payload: {

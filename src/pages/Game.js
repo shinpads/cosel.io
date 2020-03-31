@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import Fade from 'react-reveal/Fade';
 // import Flip from 'react-reveal/Flip';
 import { withStyles } from '@material-ui/core/styles';
+import queryString from 'query-string';
 
 import Header from '../components/Header';
 import WaitingToStart from '../components/Game/WaitingToStart';
@@ -60,11 +61,13 @@ class Game extends Component {
       game,
       userId,
       showUsernameNotSet,
+      location,
     } = this.props;
     let gameStep;
     let previousGameStep;
     let gameChain;
 
+    const query = queryString.parse(location.search);
     // ERROR
     if (error) {
       return (
@@ -109,7 +112,6 @@ class Game extends Component {
         </div>
       );
     }
-
     // LOADED
     return (
       <div className={classes.root}>
@@ -117,7 +119,7 @@ class Game extends Component {
         <main className={classes.main}>
           {game.state === 'PRE_START' && <WaitingToStart />}
           {game.state === 'IN_PROGRESS' && gameStep && <GameStep key={gameStep._id} gameStep={gameStep} previousGameStep={previousGameStep} gameChain={gameChain} />}
-          {game.state === 'COMPLETE' && <GameResults />}
+          {game.state === 'COMPLETE' && <GameResults view={query.view} />}
         </main>
       </div>
     );
@@ -133,6 +135,7 @@ Game.propTypes = {
   error: PropTypes.bool,
   userId: PropTypes.string,
   showUsernameNotSet: PropTypes.bool,
+  location: PropTypes.object,
 };
 
 function mapStateToProps(state) {

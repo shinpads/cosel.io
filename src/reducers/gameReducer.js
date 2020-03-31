@@ -53,6 +53,7 @@ export default (state = initalState, action) => {
         game: {},
         loaded: false,
         error: false,
+        userReadyMap: {},
       };
     case SET_DRAWING_MAP:
       return {
