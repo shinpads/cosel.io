@@ -3,12 +3,14 @@ const debug = require('debug');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const compression = require('compression');
 
 const log = debug('cosel:sever');
 
 const app = express();
 const html = path.join(__dirname, 'index.html');
 
+app.use(compression());
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use('/static', express.static(__dirname));
