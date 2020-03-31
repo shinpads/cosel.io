@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { NavLink } from 'react-router-dom';
 import Replay from '../Replay';
 import history from '../../history';
+import colors from '../../colors';
 
 const styles = theme => ({
   root: {
@@ -29,6 +31,7 @@ const styles = theme => ({
     fontWeight: 600,
     fontSize: '1.5rem',
     textAlign: 'center',
+    color: colors.primaryContrast,
   },
   recentGameDetails: {
     whiteSpace: 'nowrap',
@@ -71,7 +74,7 @@ const RecentGame = ({
       key={game._id}
       className={classes.recentGame}
     >
-      <div className={classes.recentGameTitle}>{title}</div>
+      <NavLink to={`/game/${game.hash}?view=true`} className={classes.recentGameTitle}>{title}</NavLink>
       <div
         onClick={() => history.push(`/game/${game.hash}?view=true`)}
         role="button"
