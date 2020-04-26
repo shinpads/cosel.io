@@ -36,6 +36,7 @@
     "react-swipeable-views": "^0.13.9",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.5",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^2.3.0"
   },

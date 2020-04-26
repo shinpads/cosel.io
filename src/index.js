@@ -1,5 +1,6 @@
 import './index.css';
 import '../public/manifest.json';
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
