@@ -1,97 +1,112 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { Color } from './Color';
-import { Eraser } from './Eraser';
-import { Pencil } from './Pencil';
-import colors from '../../../colors';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import ChangeSize from './ChangeSize';
 
-export class BrushSelector extends Component {
+export const BRUSH_SELECTOR_HEIGHT = 32;
+
+const canvasColors = ['#000', 'red', 'orange', 'yellow', 'green', 'blue'];
+
+const styles = {
+  root: {
+    display: 'flex',
+    height: `${BRUSH_SELECTOR_HEIGHT}px`,
+  },
+  colorsContainer: {
+    display: 'flex',
+    flexGrow: 1,
+  },
+  brushContainer: {
+    display: 'flex',
+    marginRight: '4px',
+  },
+  color: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '32px',
+    cursor: 'pointer',
+    margin: '0 4px',
+    transition: 'all 250ms ease',
+    userSelect: 'none',
+    transform: 'scale(1)',
+    boxShadow: '0px 0px 0px 0px transparent',
+  },
+  selected: {
+    transform: 'scale(1.1)',
+    boxShadow: '1px 1px 4px 0px #4d4d4d',
+  },
+};
+
+class BrushSelector extends Component {
   constructor(props) {
     super(props);
-    this.bucketRef = React.createRef();
-    this.eraserRef = React.createRef();
-    this.pencilRef = React.createRef();
-    this.colorRefs = {};
-    for (let i = 0; i < canvasColors.length; i++) {
-      this.colorRefs[canvasColors[i]] = React.createRef();
-    }
+    this.state = {};
   }
 
   componentDidMount() {
-    const curColor = this.colorRefs[canvasColors[0]].current;
-    const pencil = this.pencilRef.current;
     const { changeColor } = this.props;
-
     changeColor(canvasColors[0]);
-    curColor.glow('onClick');
-    curColor.setState({ selected: true });
-
-    pencil.setState({ outline: '2px solid black' });
   }
 
-    selectDraw = (drawType) => {
-      const eraser = this.eraserRef.current;
-      const pencil = this.pencilRef.current;
-      const { changeColor } = this.props;
+  setColor = (index) => () => {
+    const { changeColor } = this.props;
+    changeColor(canvasColors[index]);
+  }
 
-      if (drawType === 'eraser') {
-        const eraserColor = colors.canvas;
-        eraser.setState({ outline: '2px solid black' });
-        pencil.setState({ outline: '0px solid black' });
-        changeColor(eraserColor);
-      } else if (drawType === 'pencil') {
-        eraser.setState({ outline: '0px solid black' });
-        pencil.setState({ outline: '2px solid black' });
-      }
-    }
-
-    selectColor = (c) => {
-      const { changeColor } = this.props;
-      for (let i = 0; i < canvasColors.length; i++) {
-        const color = canvasColors[i];
-        const curColorComp = this.colorRefs[color].current;
-        if (c === color) {
-          curColorComp.glow('onClick');
-          curColorComp.setState({ selected: true });
-        } else {
-          curColorComp.glow('unGlow');
-          curColorComp.setState({ selected: false });
-        }
-      }
-      changeColor(c);
-    }
-
-    createColor = c => <div><Color color={c} id={c} ref={this.colorRefs[c]} selectColor={this.selectColor} /></div>
-
-    render() {
-      return (
-        <div style={horizontal}>
-          <div style={flexBox}>
-            {canvasColors.map((c) => this.createColor(c))}
-          </div>
-          <Eraser ref={this.eraserRef} selectDraw={this.selectDraw} />
-          <Pencil ref={this.pencilRef} selectDraw={this.selectDraw} />
+  render() {
+    const {
+      classes,
+      changeSize,
+      color,
+      size,
+    } = this.props;
+    return (
+      <div className={classes.root}>
+        <div className={classes.colorsContainer}>
+          {canvasColors.map((c, i) => (
+            <Color
+              color={c}
+              onClick={this.setColor(i)}
+              className={classNames(classes.color, c === color ? classes.selected : '')}
+            />
+          ))}
         </div>
-      );
-    }
+        <div className={classes.brushContainer}>
+          <ChangeSize changeSize={changeSize} size={size} />
+          <div>E</div>
+        </div>
+      </div>
+    );
+  }
 }
+
+const Color = ({
+  color,
+  onClick,
+  className,
+}) => (
+  <div
+    className={className}
+    onClick={onClick}
+    style={{
+      backgroundColor: color,
+    }}
+  />
+);
 
 BrushSelector.propTypes = {
   changeColor: PropTypes.func.isRequired,
+  changeSize: PropTypes.func.isRequired,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  classes: PropTypes.object,
 };
 
-let horizontal = {
-  display: 'flex',
-  flexDirection: 'row',
+Color.propTypes = {
+  color: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  className: PropTypes.object,
 };
 
-let flexBox = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  width: '10vmax',
-};
-
-let canvasColors = ['#000'];
-
-export default BrushSelector;
+export default withStyles(styles)(BrushSelector);

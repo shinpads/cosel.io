@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import colors from '../../colors';
+import { BRUSH_SELECTOR_HEIGHT } from './BrushOptions/BrushSelector';
 
 const canvasStyle = {
   borderLeft: '1px dashed',
@@ -15,7 +16,9 @@ export class Draw extends Component {
 
 
   componentDidMount() {
-    const height = Math.min(document.getElementById('drawArea').parentElement.offsetHeight, document.getElementById('drawArea').parentElement.offsetWidth);
+    const height = Math.min(document.getElementById('drawArea').parentElement.offsetHeight - BRUSH_SELECTOR_HEIGHT,
+      document.getElementById('drawArea').parentElement.offsetWidth);
+
     const width = height;
 
     const canvas = this.canvasRef.current;
@@ -139,17 +142,7 @@ export class Draw extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        id="drawArea"
-      >
-        <canvas id="canvas" ref={this.canvasRef} style={canvasStyle} />
-      </div>
+      <canvas id="canvas" ref={this.canvasRef} style={canvasStyle} />
     );
   }
 }

@@ -115,7 +115,7 @@ class Game extends Component {
     // LOADED
     return (
       <div className={classes.root}>
-        <Header small />
+        <Header minimizable small />
         <main className={classes.main}>
           {game.state === 'PRE_START' && <WaitingToStart />}
           {game.state === 'IN_PROGRESS' && gameStep && <GameStep key={gameStep._id} gameStep={gameStep} previousGameStep={previousGameStep} gameChain={gameChain} />}

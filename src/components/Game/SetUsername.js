@@ -21,6 +21,11 @@ const styles = {
     display: 'flex',
     padding: '0rem 2rem',
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 };
 
 
@@ -55,7 +60,9 @@ class SetUsername extends Component {
             />
           </div>
         </form>
-        <PrimaryButton onClick={this.submitUsername}>join game</PrimaryButton>
+        <div className={classes.buttonContainer}>
+          <PrimaryButton onClick={this.submitUsername}>join game</PrimaryButton>
+        </div>
       </>
     );
   }

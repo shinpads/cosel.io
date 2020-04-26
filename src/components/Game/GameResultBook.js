@@ -7,11 +7,35 @@ import Replay from '../Replay';
 
 const styles = {
   root: {
-
+    marginBottom: '2rem',
+    maxWidth: '400px',
+    margin: '0 auto',
   },
   carouselItem: {
     backgroundColor: '#F5F5F5',
     height: '100%',
+  },
+  originalWord: {
+    textAlign: 'center',
+    fontWeight: 600,
+    fontSize: '2rem',
+  },
+  guess: {
+    fontWeight: 600,
+    fontSize: '1.5rem',
+  },
+  indicator: {
+    width: '8px',
+    height: '8px',
+    borderRadius: '8px',
+    border: '1px solid #000',
+    margin: '0rem 1px',
+    transition: 'all 250ms ease',
+  },
+  indicators: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '1rem',
   },
 };
 
@@ -19,11 +43,13 @@ const styles = {
 class GameResultBook extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      index: 0,
+    };
   }
 
   printPages = () => {
-    const { gameChain, drawingMap } = this.props;
+    const { gameChain, drawingMap, classes } = this.props;
     const pages = [];
 
     for (let i = 0; i < gameChain.gameSteps.length; i++) {
@@ -42,36 +68,62 @@ class GameResultBook extends Component {
         if (i + 1 < gameChain.gameSteps.length) {
           pages.push(
             <div style={styles.carouselItem}>
-              <div>{curStep.user.username}{`'s drawing for ${wordToDraw}`}</div>
+              <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
               <Replay width={300} drawData={drawData} key={curStep._id} />
-              <div>{gameChain.gameSteps[i + 1].user.username} guessed: {gameChain.gameSteps[i + 1].guess}</div>
+              <div>
+                {gameChain.gameSteps[i + 1].user.username} guessed
+              </div>
+              <div className={classes.guess}>
+                {gameChain.gameSteps[i + 1].guess}
+              </div>
             </div>,
           );
         } else {
           pages.push(
             <div style={styles.carouselItem}>
-              <div>{curStep.user.username}{`'s drawing for ${wordToDraw}`}</div>
+              <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
               <Replay width={300} drawData={drawData} key={curStep._id} />
             </div>,
           );
         }
       }
     }
-
     return pages;
   }
 
-  render() {
-    const { gameChain } = this.props;
+  renderIndicators = (count) => {
+    const { classes } = this.props;
+    const { index } = this.state;
+    const indicators = [];
+    for (let i = 0; i < count; i++) {
+      indicators.push(<div
+        className={classes.indicator}
+        style={i === index ? { backgroundColor: '#000' } : { backgroundColor: '#fff' }}
+      />);
+    }
     return (
-      <div>
-        <div style={styles.carouselItem}>
-          Original word: {gameChain.originalWord}
+      <div className={classes.indicators}>
+        {indicators}
+      </div>
+    );
+  }
+
+  render() {
+    const { gameChain, classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <div className={classes.originalWord}>
+          {gameChain.originalWord}
         </div>
-        <Carousel showThumbs={false} showStatus={false}>
-          {this.printPages().map(page => page)}
+        <Carousel
+          showThumbs={false}
+          showStatus={false}
+          showIndicators={false}
+          onChange={(i) => this.setState({ index: i })}
+        >
+          {this.printPages()}
         </Carousel>
-        <hr />
+        {this.renderIndicators(Math.ceil(gameChain.gameSteps.length / 2))}
       </div>
     );
   }
@@ -80,6 +132,7 @@ class GameResultBook extends Component {
 GameResultBook.propTypes = {
   gameChain: PropTypes.object,
   drawingMap: PropTypes.object,
+  classes: PropTypes.object,
 };
 
 function mapStateToProps(state) {

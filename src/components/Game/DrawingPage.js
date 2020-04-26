@@ -61,7 +61,7 @@ class DrawingPage extends Component {
           <div className={classes.word}>{word}</div>
           <div className={classes.time}>{timeRemaining}s</div>
         </div>
-        <GameArea style={{ flexGrow: 1, display: 'flex' }} />
+        <GameArea style={{ flexGrow: 1 }} />
         <div className={classes.buttonContainer}>
           <PrimaryButton onClick={onSubmitDrawing}>Submit</PrimaryButton>
         </div>

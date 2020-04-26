@@ -13,15 +13,15 @@ const styles = theme => ({
     cursor: 'pointer',
     textTransform: 'uppercase',
     margin: '1rem',
-    borderRadius: '4rem',
+    borderRadius: '2rem',
     outline: 0,
+    userSelect: 'none',
     '@media (min-height: 600px)': {
       fontSize: '2rem',
     },
     [theme.breakpoints.up('md')]: {
       width: 'unset',
       border: '2px solid',
-      borderRadius: '4rem',
       padding: '1.5rem 8rem',
     },
   },

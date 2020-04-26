@@ -13,6 +13,14 @@ body {
   height: 100%;
 }
 
+div {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 main {
   overflow-x: hidden;
 }

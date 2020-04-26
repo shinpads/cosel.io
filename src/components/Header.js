@@ -7,32 +7,38 @@ import classNames from 'classnames';
 const styles = {
   root: {
     width: '100%',
-    color: '#000',
-    backgroundColor: '#fff',
+    color: '#fff',
+    backgroundColor: '#000',
     position: 'fixed',
     left: 0,
     top: 0,
     textAlign: 'center',
     boxShadow: '0px 0px 0px',
-    transition: '250ms ease',
+    transition: 'all 250ms ease',
     display: 'flex',
     justifyContent: 'center',
     zIndex: 1000,
+    '@media (min-width: 960px)': {
+      color: '#000',
+      backgroundColor: '#fff',
+    },
   },
   rootMinimized: {
-    boxShadow: '0px 1px 10px',
+    // boxShadow: '0px 1px 10px',
+    backgroundColor: '#000',
   },
   title: {
     margin: '0.5rem',
     fontSize: '4rem',
     fontWeight: 400,
-    color: '#000',
+    color: '#fff',
     transition: 'all 250ms ease',
     '@media (min-height: 600px)': {
       fontSize: '6rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '10rem',
+      fontSize: '6rem',
+      color: '#000',
     },
   },
   link: {
@@ -40,19 +46,20 @@ const styles = {
   },
   titleSmall: {
     '@media (min-height: 600px)': {
-      fontSize: '5rem',
+      fontSize: '4rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '7rem',
+      fontSize: '6rem',
     },
   },
   titleMinimized: {
     fontSize: '2rem',
+    color: '#fff',
     '@media (min-height: 600px)': {
       fontSize: '3rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '5rem',
+      fontSize: '6rem',
     },
   },
   headerWrapper: {
