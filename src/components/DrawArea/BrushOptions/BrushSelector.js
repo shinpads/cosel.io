@@ -74,7 +74,6 @@ class BrushSelector extends Component {
         </div>
         <div className={classes.brushContainer}>
           <ChangeSize changeSize={changeSize} size={size} />
-          <div>E</div>
         </div>
       </div>
     );
