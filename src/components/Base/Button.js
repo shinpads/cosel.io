@@ -16,6 +16,7 @@ const styles = theme => ({
     borderRadius: '2rem',
     outline: 0,
     userSelect: 'none',
+    fontFamily: 'coming soon',
     '@media (min-height: 600px)': {
       fontSize: '2rem',
     },
