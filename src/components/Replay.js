@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import colors from '../colors';
 
 class Replay extends Component {
   constructor(props) {
@@ -67,6 +68,7 @@ class Replay extends Component {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          backgroundColor: colors.canvas,
         }}
         className={className || ''}
       >

@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Carousel } from 'react-responsive-carousel';
 import PropTypes from 'prop-types';
+import ArrowForwardIcon from '@material-ui/icons/ChevronRight';
+import ArrowBackIcon from '@material-ui/icons/ChevronLeft';
+import IconButton from '@material-ui/core/IconButton';
 import Replay from '../Replay';
+import colors from '../../colors';
 
 const styles = {
   root: {
@@ -12,7 +16,7 @@ const styles = {
     margin: '0 auto',
   },
   carouselItem: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: colors.canvas,
     height: '100%',
   },
   originalWord: {
@@ -36,6 +40,15 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '1rem',
+  },
+  arrow: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    zIndex: 10,
+    padding: '2px',
   },
 };
 
@@ -119,6 +132,20 @@ class GameResultBook extends Component {
           showThumbs={false}
           showStatus={false}
           showIndicators={false}
+          renderArrowNext={(onClick, show) => (
+            <div className={classes.arrow} style={{ right: 0, zIndex: show ? 10 : -10 }}>
+              <IconButton disableRipple onClick={onClick} style={{ padding: '4px' }}>
+                <ArrowForwardIcon style={{ color: '#000' }} />
+              </IconButton>
+            </div>
+          )}
+          renderArrowPrev={(onClick, show) => (
+            <div className={classes.arrow} style={{ left: 0, zIndex: show ? 10 : -10 }}>
+              <IconButton disableRipple onClick={onClick} style={{ padding: '4px' }}>
+                <ArrowBackIcon style={{ color: '#000' }} />
+              </IconButton>
+            </div>
+          )}
           onChange={(i) => this.setState({ index: i })}
         >
           {this.printPages()}

@@ -8,7 +8,7 @@ const colors = {
   lightGrey: 'd2d2d2',
   background: '#fff',
   backgroundContrast: '#000',
-  canvas: '#dfdfdf',
+  canvas: '#ececec',
 };
 
 export default colors;
