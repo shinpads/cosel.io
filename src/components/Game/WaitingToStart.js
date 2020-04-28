@@ -17,6 +17,8 @@ const styles = {
     fontSize: '2rem',
     width: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   playerList: {
     flexGrow: 1,
@@ -50,6 +52,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  playerCountWarning: {
+    color: 'red',
+    fontSize: '1rem',
+  },
 };
 class WaitingToStart extends Component {
   constructor(props) {
@@ -79,6 +85,7 @@ class WaitingToStart extends Component {
       <>
         <CopyLink url={window.location.href} displayUrl={window.location.host + window.location.pathname} />
         <div className={classes.info}>
+          {users.length < 4 && <div className={classes.playerCountWarning}>This game is meant to be played with atleast 4 players</div>}
           <div className={classes.playerList}>
             {users.map(u => (
               <div className={classes.playerContainer}>

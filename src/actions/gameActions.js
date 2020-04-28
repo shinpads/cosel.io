@@ -54,12 +54,10 @@ export const findGame = (hash) => async (dispatch) => {
           payload: res.data.userSubmittedMap,
         });
       }
-      if (res.data.userReadyMap) {
-        await dispatch({
-          type: SET_USER_READY_MAP,
-          payload: res.data.userReadyMap,
-        });
-      }
+      await dispatch({
+        type: SET_USER_READY_MAP,
+        payload: res.data.userReadyMap || {},
+      });
       await dispatch({
         type: SET_GAME,
         payload: {
