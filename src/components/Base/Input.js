@@ -13,6 +13,7 @@ const styles = {
     outline: 0,
     borderBottom: '1px solid',
     borderBottomColor: colors.primaryContrast,
+    fontFamily: 'Coming Soon',
     '&::placeholder': {
     },
   },

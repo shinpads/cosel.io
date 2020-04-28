@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Select, MenuItem } from '@material-ui/core';
 
-const sizes = [2, 6, 10, 25];
+const sizes = [2, 5, 15, 30];
 
 const styles = {
   size: {

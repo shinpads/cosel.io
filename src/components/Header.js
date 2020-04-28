@@ -34,10 +34,10 @@ const styles = {
     color: '#fff',
     transition: 'all 250ms ease',
     '@media (min-height: 600px)': {
-      fontSize: '6rem',
+      fontSize: '4rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '6rem',
+      fontSize: '4rem',
       color: '#000',
     },
   },
@@ -49,7 +49,7 @@ const styles = {
       fontSize: '4rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '6rem',
+      fontSize: '4rem',
     },
   },
   titleMinimized: {
@@ -59,7 +59,7 @@ const styles = {
       fontSize: '3rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '6rem',
+      fontSize: '4rem',
     },
   },
   headerWrapper: {

@@ -7,7 +7,7 @@ import colors from '../../../colors';
 
 export const BRUSH_SELECTOR_HEIGHT = 32;
 
-const canvasColors = ['#000', colors.canvasColors, 'red', 'orange', 'yellow', 'green', 'blue'];
+const canvasColors = ['#000', colors.canvas, '#c72c2c', 'orange', '#dfe750', 'green', '#2e7dc6', '#5e462f'];
 
 const styles = {
   root: {
@@ -32,6 +32,10 @@ const styles = {
     userSelect: 'none',
     transform: 'scale(1)',
     boxShadow: '0px 0px 0px 0px transparent',
+    '@media(max-width: 400px)': {
+      width: '24px',
+      height: '24px',
+    },
   },
   selected: {
     transform: 'scale(1.1)',

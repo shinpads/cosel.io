@@ -25,6 +25,9 @@ const styles = theme => ({
       border: '2px solid',
       padding: '1.5rem 8rem',
     },
+    '@media (max-width: 400px)': {
+      padding: '1rem', // old, really small iPhones
+    }
   },
   primaryButton: {
     color: colors.primaryContrast,
