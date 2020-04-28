@@ -30,7 +30,7 @@ const styles = {
   title: {
     margin: '0.5rem',
     fontSize: '4rem',
-    fontWeight: 400,
+    fontWeight: 600,
     color: '#fff',
     transition: 'all 250ms ease',
     '@media (min-height: 600px)': {

@@ -90,7 +90,7 @@ class WaitingToStart extends Component {
         </div>
         <div className={classes.buttonContainer}>
           {isReady
-            ? <PrimaryButton onClick={() => this.ready(false)}>Not Ready</PrimaryButton>
+            ? <PrimaryButton onClick={() => this.ready(false)}>Unready</PrimaryButton>
             : <PrimaryButton onClick={() => this.ready(true)}>Ready</PrimaryButton>}
         </div>
       </>

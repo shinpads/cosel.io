@@ -37,14 +37,9 @@ export const createGame = () => async (dispatch) => {
   }
 };
 
-export const findGame = (hash) => async (dispatch, getState) => {
-  const { user } = getState();
+export const findGame = (hash) => async (dispatch) => {
   await dispatch({ type: CLEAR_GAME, payload: '' });
   try {
-    if (!user.loaded) {
-      window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
-      await window.resolveUserPromise;
-    }
     const res = await axios.get(`api/games/${hash}`);
     if (res.data.success) {
       if (res.data.drawingMap) {

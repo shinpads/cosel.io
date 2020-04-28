@@ -3,10 +3,11 @@ import { PropTypes } from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import ChangeSize from './ChangeSize';
+import colors from '../../../colors';
 
 export const BRUSH_SELECTOR_HEIGHT = 32;
 
-const canvasColors = ['#000', 'red', 'orange', 'yellow', 'green', 'blue'];
+const canvasColors = ['#000', colors.canvasColors, 'red', 'orange', 'yellow', 'green', 'blue'];
 
 const styles = {
   root: {

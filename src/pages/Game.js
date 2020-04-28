@@ -104,7 +104,7 @@ class Game extends Component {
       }
     }
 
-    if (showUsernameNotSet) {
+    if (showUsernameNotSet && !query.view) {
       return (
         <div className={classes.root}>
           <Header />
