@@ -56,7 +56,7 @@ const styles = {
     fontSize: '2rem',
     color: '#fff',
     '@media (min-height: 600px)': {
-      fontSize: '3rem',
+      fontSize: '2rem',
     },
     '@media (min-width: 960px)': {
       fontSize: '4rem',

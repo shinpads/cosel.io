@@ -31,6 +31,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
+    marginTop: '1rem',
     [theme.breakpoints.up('sm')]: {
       width: 'unset',
     },
@@ -44,8 +45,9 @@ const styles = theme => ({
   },
   buttonText: {
     marginLeft: '0.5rem',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
     },
   },
   button: {
