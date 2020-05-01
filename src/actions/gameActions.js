@@ -14,8 +14,15 @@ import history from '../history';
 
 let socket;
 
-export const createGame = () => async (dispatch) => {
+export const createGame = () => async (dispatch, getState) => {
   try {
+    const { user } = getState();
+    if (!user.loaded) {
+      if (!window.resolveUserPromise) {
+        window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
+      }
+      await window.resolveUserPromise;
+    }
     const res = await axios.post('/api/games');
     if (res.data.success) {
       dispatch({
@@ -77,8 +84,15 @@ export const findGame = (hash) => async (dispatch) => {
   }
 };
 
-export const getGames = () => async (dispatch) => {
+export const getGames = () => async (dispatch, getState) => {
   try {
+    const { user } = getState();
+    if (!user.loaded) {
+      if (!window.resolveUserPromise) {
+        window.resolveUserPromise = new Promise(resolve => { window.resolveUser = resolve; });
+      }
+      await window.resolveUserPromise;
+    }
     const res = await axios.get('/api/games');
     if (res.data && res.data.success && res.data.games) {
       const { games } = res.data;

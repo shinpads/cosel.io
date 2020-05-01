@@ -3,14 +3,12 @@ import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Done } from '@material-ui/icons';
-import { PrimaryButton } from '../Base/Button';
-import { startGame, sendReady } from '../../actions/gameActions';
+import { LinearProgress } from '@material-ui/core';
 import colors from '../../colors';
 import CopyLink from './CopyLink';
 import { DotDotDot } from '../Base/Loader';
 
-const styles = {
+const styles = theme => ({
   info: {
     flexGrow: 1,
     display: 'flex',
@@ -20,6 +18,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    marginTop: '2rem',
   },
   playerList: {
     flexGrow: 1,
@@ -42,8 +41,8 @@ const styles = {
   playerContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
     width: '100%',
+    justifyContent: 'center',
   },
   playerName: {
     fontSize: '2rem',
@@ -51,56 +50,68 @@ const styles = {
   playerStatus: {
     flexGrow: 1,
     display: 'flex',
-    justifyContent: 'flex-end',
   },
-  playerCountWarning: {
-    color: 'red',
-    fontSize: '1rem',
+  title: {
+    color: 'black',
+    fontSize: '1.5rem',
+    fontStyle: 'italic',
+    fontWeight: '400',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '0.5rem',
+      fontSize: '1rem',
+    },
   },
-};
-class WaitingToStart extends Component {
+  barRoot: {
+    backgroundColor: '#d2d2d2',
+  },
+  bar: {
+    backgroundColor: '#000',
+  },
+  titleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '1rem',
+    marginBottom: '1rem',
+  },
+});
+class WaitingForGame extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  sendStartGame = () => {
-    const { dispatch } = this.props;
-    dispatch(startGame());
-  };
-
-  ready = (ready) => {
-    const { dispatch } = this.props;
-    dispatch(sendReady(ready));
-  }
-
   render() {
     const {
       users,
-      user,
       classes,
-      userReadyMap,
+      game,
     } = this.props;
-    const isReady = !!userReadyMap[user._id];
     return (
-      <DocumentTitle title="cosel.io - Waiting for players">
+      <DocumentTitle title="cosel.io - Waiting for game">
         <>
           <CopyLink url={window.location.href} displayUrl={window.location.host + window.location.pathname} />
+          <div className={classes.titleContainer}>
+            <div className={classes.title}>Waiting for previous round to finish</div>
+            <DotDotDot />
+          </div>
+          <LinearProgress
+            variant="determinate"
+            value={(game.round / (game.rounds + 1)) * 100}
+            classes={{
+              determinate: classes.barRoot,
+              bar1Determinate: classes.bar,
+            }}
+          />
           <div className={classes.info}>
-            {users.length < 4 && <div className={classes.playerCountWarning}>This game is meant to be played with atleast 4 players</div>}
+            <div>Players in game</div>
             <div className={classes.playerList}>
               {users.map(u => (
                 <div className={classes.playerContainer}>
                   <div className={classes.playerName}>{u.username}</div>
-                  <div className={classes.playerStatus}>{userReadyMap[u._id] ? <Done /> : <DotDotDot />}</div>
                 </div>
               ))}
             </div>
-          </div>
-          <div className={classes.buttonContainer}>
-            {isReady
-              ? <PrimaryButton onClick={() => this.ready(false)}>Unready</PrimaryButton>
-              : <PrimaryButton onClick={() => this.ready(true)}>Ready</PrimaryButton>}
           </div>
         </>
       </DocumentTitle>
@@ -108,21 +119,20 @@ class WaitingToStart extends Component {
   }
 }
 
-WaitingToStart.propTypes = {
+WaitingForGame.propTypes = {
   users: PropTypes.array,
-  user: PropTypes.object,
-  dispatch: PropTypes.func,
   classes: PropTypes.object,
-  userReadyMap: PropTypes.func,
+  game: PropTypes.object,
 };
 
 function mapStateToProps(state) {
   return {
     game: state.game.game,
     users: state.game.game.users,
+    playersWaiting: state.game.playersWaiting,
     user: state.user.user,
     userReadyMap: state.game.userReadyMap,
   };
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(WaitingToStart));
+export default withStyles(styles)(connect(mapStateToProps)(WaitingForGame));

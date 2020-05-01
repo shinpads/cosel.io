@@ -9,6 +9,7 @@ import queryString from 'query-string';
 
 import Header from '../components/Header';
 import WaitingToStart from '../components/Game/WaitingToStart';
+import WaitingForGame from '../components/Game/WaitingForGame';
 import GameStep from '../components/Game/GameStep';
 import GameResults from '../components/Game/GameResults';
 import { findGame } from '../actions/gameActions';
@@ -66,6 +67,7 @@ class Game extends Component {
     let gameStep;
     let previousGameStep;
     let gameChain;
+    let isWaiting = false;
 
     const query = queryString.parse(location.search);
     // ERROR
@@ -90,6 +92,11 @@ class Game extends Component {
     }
 
     if (game.state === 'IN_PROGRESS') {
+      if (game.playersWaiting && game.playersWaiting.length) {
+        if (game.playersWaiting.findIndex(u => u._id === userId) !== -1) {
+          isWaiting = true;
+        }
+      }
       // find gameStep
       if (game.gameChains && game.gameChains.length) {
         game.gameChains.forEach(gc => {
@@ -109,6 +116,16 @@ class Game extends Component {
         <div className={classes.root}>
           <Header />
           <SetUsername />
+        </div>
+      );
+    }
+    if (isWaiting) {
+      return (
+        <div className={classes.root}>
+          <Header minimizable />
+          <main>
+            <WaitingForGame />
+          </main>
         </div>
       );
     }

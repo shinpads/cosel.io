@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -84,26 +85,28 @@ class Home extends Component {
       );
     }
     return (
-      <div className={classes.root}>
-        <Header minimizable />
-        <main className={classes.main}>
-          <div className={classes.info}>
-            <div style={{ textAlign: 'center' }}>Draw a picture and have other people guess it</div>
-          </div>
-          <div className={classes.buttonContainer}>
-            <PrimaryButton
-              variant="contained"
-              onClick={this.createNewGame}
-            >
-              Create Game
-            </PrimaryButton>
-          </div>
-          <div className={classes.recentGamesContainer}>
-            <h2 style={{ borderBottom: '1px solid', fontWeight: 500 }}>Recent Games</h2>
-            <RecentGames recentGames={recentGames} />
-          </div>
-        </main>
-      </div>
+      <DocumentTitle title="cosel.io - Broken Telephone Drawing Game">
+        <div className={classes.root}>
+          <Header minimizable />
+          <main className={classes.main}>
+            <div className={classes.info}>
+              <div style={{ textAlign: 'center' }}>Draw a picture and have other people guess it</div>
+            </div>
+            <div className={classes.buttonContainer}>
+              <PrimaryButton
+                variant="contained"
+                onClick={this.createNewGame}
+              >
+                Create Game
+              </PrimaryButton>
+            </div>
+            <div className={classes.recentGamesContainer}>
+              <h2 style={{ borderBottom: '1px solid', fontWeight: 500 }}>Recent Games</h2>
+              <RecentGames recentGames={recentGames} />
+            </div>
+          </main>
+        </div>
+      </DocumentTitle>
     );
   }
 }
