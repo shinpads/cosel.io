@@ -13,7 +13,7 @@ const styles = theme => ({
     cursor: 'pointer',
     textTransform: 'uppercase',
     margin: '1rem',
-    borderRadius: '2rem',
+    borderRadius: '1rem',
     outline: 0,
     userSelect: 'none',
     fontFamily: 'coming soon',
