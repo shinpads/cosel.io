@@ -8,6 +8,7 @@ import {
   SET_USER_SUBMITTED_MAP,
   SET_RECENT_GAMES,
   SET_USER_READY_MAP,
+  SET_RECENT_GAMES_LOADED,
 } from '../actions/actionTypes';
 
 const initalState = {
@@ -75,6 +76,11 @@ export default (state = initalState, action) => {
       return {
         ...state,
         userReadyMap: action.payload,
+      };
+    case SET_RECENT_GAMES_LOADED:
+      return {
+        ...state,
+        recentGamesLoaded: action.payload,
       };
     default:
       return state;

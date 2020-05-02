@@ -82,7 +82,7 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              <Replay width={300} drawData={drawData} key={curStep._id} />
+              <Replay width={300} animate drawData={drawData} key={curStep._id} />
               <div>
                 {gameChain.gameSteps[i + 1].user.username} guessed
               </div>
@@ -98,7 +98,7 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              <Replay width={300} drawData={drawData} key={curStep._id} />
+              <Replay width={300} animate drawData={drawData} key={curStep._id} />
             </div>,
           );
         }

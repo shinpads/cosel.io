@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import colors from '../colors';
 
-const ANIMATE_TIME = 2; // 2 seconds
+const ANIMATE_TIME = 0;
 
 class Replay extends Component {
   constructor(props) {

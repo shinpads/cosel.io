@@ -9,6 +9,7 @@ import {
   SET_USER_SUBMITTED_MAP,
   SET_RECENT_GAMES,
   SET_USER_READY_MAP,
+  SET_RECENT_GAMES_LOADED,
 } from './actionTypes';
 import history from '../history';
 
@@ -86,6 +87,10 @@ export const findGame = (hash) => async (dispatch) => {
 
 export const getGames = () => async (dispatch, getState) => {
   try {
+    dispatch({
+      type: SET_RECENT_GAMES_LOADED,
+      payload: false,
+    });
     const { user } = getState();
     if (!user.loaded) {
       if (!window.resolveUserPromise) {
