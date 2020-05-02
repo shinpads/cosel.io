@@ -45,7 +45,7 @@ class GameResults extends Component {
       nextGameHash = nextGame.hash;
     }
     return (
-      <DocumentTitle title="cosel.io - Waiting for players">
+      <DocumentTitle title="cosel.io - Game Results">
         <div className={classes.root}>
           <CopyLink url={`${window.location.origin}${window.location.pathname}?view=true`} displayUrl={`${window.location.host}${window.location.pathname}`} />
           <h2 className={classes.title}>Results</h2>
