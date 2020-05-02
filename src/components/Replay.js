@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import colors from '../colors';
 
+const ANIMATE_TIME = 2; // 2 seconds
+
 class Replay extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +30,7 @@ class Replay extends Component {
   }
 
   drawFromPointsList = async (pointsObj) => {
+    const { animate } = this.props;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
     const { width } = canvas;
@@ -36,6 +39,7 @@ class Replay extends Component {
     ctx.clearRect(0, 0, width, width);
 
     for (let i = 0; i < pointsObj.strokes.length; i++) {
+      const timePerStroke = ANIMATE_TIME / pointsObj.strokes.length;
       const curStroke = pointsObj.strokes[i];
       ctx.strokeStyle = curStroke.color;
       ctx.lineWidth = curStroke.size;
@@ -46,7 +50,9 @@ class Replay extends Component {
         ctx.moveTo(newX, newY);
       }
       for (let j = 0; j < curStroke.points.length; j++) {
-        await new Promise(resolve => setTimeout(resolve, 0.025));
+        if (animate) {
+          await new Promise(resolve => setTimeout(resolve, timePerStroke / curStroke.points.length));
+        }
         const curPoint = curStroke.points[j];
         const newX = (curPoint.x / oldCanvasWidth) * width;
         const newY = (curPoint.y / oldCanvasWidth) * width;
@@ -84,6 +90,7 @@ Replay.propTypes = {
   drawData: PropTypes.object,
   className: PropTypes.string,
   canvasClassName: PropTypes.string,
+  animate: PropTypes.bool,
 };
 
 export default Replay;

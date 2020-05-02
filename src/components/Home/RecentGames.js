@@ -25,6 +25,7 @@ const styles = theme => ({
   },
   recentGame: {
     overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   recentGameTitle: {
     whiteSpace: 'nowrap',

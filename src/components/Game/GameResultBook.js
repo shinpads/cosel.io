@@ -86,8 +86,11 @@ class GameResultBook extends Component {
               <div>
                 {gameChain.gameSteps[i + 1].user.username} guessed
               </div>
-              <div className={classes.guess}>
-                {gameChain.gameSteps[i + 1].guess}
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center' }}>
+                <div className={classes.guess}>
+                  {gameChain.gameSteps[i + 1].guess}
+                </div>
+                <div style={{ fontSize: '1rem' }}>{' '}{gameChain.gameSteps[i + 1].guessAutoFilled ? '(Auto Filled)' : ''}</div>
               </div>
             </div>,
           );

@@ -129,7 +129,7 @@ class GameStep extends Component {
           {loadingDrawData && <div>Loading...</div>}
           {!loadingDrawData && (
             <div className={classes.replayContainer}>
-              <Replay drawData={drawData} />
+              <Replay animate drawData={drawData} />
             </div>
           )}
           <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
