@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { submitStep } from '../../actions/gameActions';
-import DrawingPage from './DrawingPage';
 import Replay from '../Replay';
 import { getDrawing } from '../../api';
-import { PrimaryButton } from '../Base/Button';
+import { SecondaryButton } from '../Base/Button';
 import { PrimaryInput } from '../Base/Input';
 import WaitingForNextRound from './WaitingForNextRound';
+import GameArea from '../DrawArea/GameArea';
 
 const styles = {
   replayContainer: {
@@ -16,14 +17,39 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     flexGrow: 1,
-    borderTop: '1px solid black',
     borderBottom: '1px solid black',
   },
   info: {
     display: 'grid',
     padding: '0.5rem',
     width: 'calc(100% - 1rem)',
-    gridTemplateColumns: '2fr 1fr',
+    gridTemplateColumns: '1fr 3fr 1fr',
+    borderBottom: '1px solid',
+  },
+  time: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'transform 2000ms ease',
+    fontSize: '1.5rem',
+    transform: 'scale(1)',
+    color: '#000',
+  },
+  timeLow: {
+    transform: 'scale(2)',
+    color: 'red',
+  },
+  buttonContainer: {
+    margin: 'auto',
+    marginRight: '4px',
+  },
+  title: {
+    fontWeight: 600,
+    fontSize: '2rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
 };
 class GameStep extends Component {
@@ -91,15 +117,15 @@ class GameStep extends Component {
     const { dispatch, gameStep } = this.props;
     const { guess } = this.state;
     gameStep.guess = guess;
-    dispatch(submitStep(gameStep));
     this.setState({ submitted: true });
+    dispatch(submitStep(gameStep));
   }
 
   onSubmitDrawing = () => {
     const { dispatch, gameStep } = this.props;
     gameStep.drawData = window.drawData;
-    dispatch(submitStep(gameStep));
     this.setState({ submitted: true });
+    dispatch(submitStep(gameStep));
   }
 
   render() {
@@ -123,8 +149,11 @@ class GameStep extends Component {
       return (
         <>
           <div className={classes.info}>
-            <div>{previousGameStep.user.username} drew:</div>
-            <div style={{ textAlign: 'right' }}>{timeRemaining}s</div>
+            <div className={classNames(classes.time, timeRemaining < 10 ? classes.timeLow : '')}>{timeRemaining}s</div>
+            <div className={classes.title}>{previousGameStep.user.username} drew</div>
+            <div className={classes.buttonContainer}>
+              <SecondaryButton onClick={this.submitGameStep} title="submit" />
+            </div>
           </div>
           {loadingDrawData && <div>Loading...</div>}
           {!loadingDrawData && (
@@ -133,11 +162,8 @@ class GameStep extends Component {
             </div>
           )}
           <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
-            <div style={{ margin: '1rem 2rem' }}>
+            <div style={{ margin: '2rem' }}>
               <PrimaryInput placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <PrimaryButton onClick={this.submitGameStep}>Submit</PrimaryButton>
             </div>
           </form>
         </>
@@ -145,12 +171,19 @@ class GameStep extends Component {
     }
 
     if (gameStep.type === 'DRAWING') {
+      const word = previousGameStep ? previousGameStep.guess : gameChain.originalWord;
       return (
-        <DrawingPage
-          onSubmitDrawing={this.submitGameStep}
-          word={previousGameStep ? previousGameStep.guess : gameChain.originalWord}
-          timeRemaining={timeRemaining}
-        />
+        <>
+          <div className={classes.info}>
+            {/* <div className={classes.round}>{round}/{rounds}</div> */}
+            <div className={classNames(classes.time, timeRemaining < 10 ? classes.timeLow : '')}>{timeRemaining}s</div>
+            <div className={classes.title}>{word}</div>
+            <div className={classes.buttonContainer}>
+              <SecondaryButton onClick={this.submitGameStep} title="submit" />
+            </div>
+          </div>
+          <GameArea style={{ flexGrow: 1 }} />
+        </>
       );
     }
     return <div />;

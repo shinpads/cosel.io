@@ -7,16 +7,25 @@ const styles = theme => ({
   button: {
     width: '100%',
     fontSize: '1.5rem',
-    padding: '1.5rem',
     fontWeight: 600,
-    border: '2px solid',
     cursor: 'pointer',
-    textTransform: 'uppercase',
-    margin: '1rem',
-    borderRadius: '1rem',
     outline: 0,
     userSelect: 'none',
     fontFamily: 'coming soon',
+    color: colors.primaryContrast,
+    transition: 'all 250ms ease',
+  },
+  primaryButton: {
+    textTransform: 'uppercase',
+    margin: '1rem',
+    padding: '1.5rem',
+    borderRadius: '1rem',
+    border: '2px solid',
+    backgroundColor: colors.primary,
+    '&:hover': {
+      color: colors.primary,
+      backgroundColor: colors.primaryContrast,
+    },
     '@media (min-height: 600px)': {
       fontSize: '2rem',
     },
@@ -29,41 +38,52 @@ const styles = theme => ({
       padding: '1rem', // old, really small iPhones
     },
   },
-  primaryButton: {
-    color: colors.primaryContrast,
-    backgroundColor: colors.primary,
-    transition: 'all 250ms ease',
+  secondaryButton: {
+    border: 'none',
+    background: 'none',
+    padding: 0,
+    margin: 0,
+    textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    opacity: 1,
     '&:hover': {
-      color: colors.primary,
-      backgroundColor: colors.primaryContrast,
-    },
-    [theme.breakpoints.up('md')]: {
+      opacity: '0.65',
     },
   },
-  secondaryButton: {
-    backgroundColor: colors.secondary,
-    color: colors.secondaryContrast,
+
+  arrow: {
+    fontSize: '2rem',
+    marginLeft: '0.5rem',
+    lineHeight: '2px',
   },
 });
 
 export const PrimaryButton = withStyles(styles)((props) => {
-  const { classes, children } = props;
-  const { className } = props;
+  const { classes, children, className } = props;
   return (
     <button type="button" {...props} disableRipple className={`${classes.button} ${classes.primaryButton} ${className || ''}`}>{children}</button>
   );
 });
 
 export const SecondaryButton = withStyles(styles)((props) => {
-  const { classes, children } = props;
-  const { className } = props;
+  const { classes, title, className } = props;
   return (
-    <button type="button" {...props} disableRipple className={`${classes.button} ${classes.secondaryButton} ${className || ''}`}>{children}</button>
+    <button type="button" {...props} disableRipple className={`${classes.button} ${classes.secondaryButton} ${className || ''}`}>
+      <div>{title}</div>
+      <div className={classes.arrow}>{'>'}</div>
+    </button>
   );
 });
 
 PrimaryButton.propTypes = {
   classes: PropTypes.object,
   children: PropTypes.object,
+  className: PropTypes.string,
+};
+
+SecondaryButton.propTypes = {
+  classes: PropTypes.object,
+  title: PropTypes.string,
   className: PropTypes.string,
 };

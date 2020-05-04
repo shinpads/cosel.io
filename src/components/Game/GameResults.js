@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import GameResultBook from './GameResultBook';
 import CopyLink from './CopyLink';
-import { PrimaryButton } from '../Base/Button';
+import { PrimaryButton, SecondaryButton } from '../Base/Button';
 import history from '../../history';
 
 const styles = {
@@ -14,11 +14,20 @@ const styles = {
   },
   title: {
     fontSize: '2.5rem',
-    borderBottom: '1px solid #000',
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
+  },
+  titleContainer: {
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    margin: '1rem 0rem',
+    borderBottom: '1px solid #000',
+  },
+  seconaryButtonContainer: {
+    marginRight: '4px',
   },
 };
 
@@ -48,10 +57,15 @@ class GameResults extends Component {
       <DocumentTitle title="cosel.io - Game Results">
         <div className={classes.root}>
           <CopyLink url={`${window.location.origin}${window.location.pathname}?view=true`} displayUrl={`${window.location.host}${window.location.pathname}`} />
-          <h2 className={classes.title}>Results</h2>
+          <div className={classes.titleContainer}>
+            <div className={classes.title}>Results</div>
+            <div className={classes.seconaryButtonContainer}>
+              <SecondaryButton title="Next Round" onClick={() => this.goToNextGame(nextGameHash)} />
+            </div>
+          </div>
           {gameChains.map(gc => <GameResultBook gameChain={gc} />)}
           <div className={classes.buttonContainer}>
-            {!view && nextGameHash && <PrimaryButton onClick={() => this.goToNextGame(nextGameHash)}>Continue</PrimaryButton>}
+            {!view && nextGameHash && <PrimaryButton onClick={() => this.goToNextGame(nextGameHash)}>Next Round</PrimaryButton>}
           </div>
         </div>
       </DocumentTitle>

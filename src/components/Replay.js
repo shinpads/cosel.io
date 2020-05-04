@@ -70,7 +70,6 @@ class Replay extends Component {
       <div
         id="replayArea"
         style={{
-          width: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

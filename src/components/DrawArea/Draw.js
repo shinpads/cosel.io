@@ -14,29 +14,16 @@ export class Draw extends Component {
     this.canvasRef = React.createRef();
   }
 
-
   componentDidMount() {
-    const height = Math.min(document.getElementById('drawArea').parentElement.offsetHeight - BRUSH_SELECTOR_HEIGHT,
-      document.getElementById('drawArea').parentElement.offsetWidth);
-
-    const width = height;
-
+    this.setCanvasWidthAndHeight();
+    setTimeout(this.setCanvasWidthAndHeight, 250);
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
 
     const mouse = { x: 0, y: 0 };
-    window.drawData = {
-      width,
-      strokes: [{
-        points: [],
-        size: '',
-        color: '',
-      }],
-    };
+
     let mouseStatus = 'up';
 
-    canvas.width = width;
-    canvas.height = height;
 
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
@@ -125,6 +112,28 @@ export class Draw extends Component {
           color: '',
         });
       }
+    };
+  }
+
+  setCanvasWidthAndHeight = () => {
+    const height = Math.min(document.getElementById('drawArea').parentElement.offsetHeight - (BRUSH_SELECTOR_HEIGHT * 2),
+      document.getElementById('drawArea').parentElement.offsetWidth);
+
+
+    const width = height;
+
+    const canvas = this.canvasRef.current;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    window.drawData = {
+      width,
+      strokes: [{
+        points: [],
+        size: '',
+        color: '',
+      }],
     };
   }
 
