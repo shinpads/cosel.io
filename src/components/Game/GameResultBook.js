@@ -64,7 +64,7 @@ class GameResultBook extends Component {
   printPages = () => {
     const { gameChain, drawingMap, classes } = this.props;
     const pages = [];
-
+    gameChain.gameSteps = gameChain.gameSteps.filter(gs => gs.submitted);
     for (let i = 0; i < gameChain.gameSteps.length; i++) {
       const curStep = gameChain.gameSteps[i];
 
