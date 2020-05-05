@@ -63,6 +63,7 @@ class GameResultBook extends Component {
 
   printPages = () => {
     const { gameChain, drawingMap, classes } = this.props;
+    const { index } = this.state;
     const pages = [];
     gameChain.gameSteps = gameChain.gameSteps.filter(gs => gs.submitted);
     for (let i = 0; i < gameChain.gameSteps.length; i++) {
@@ -82,7 +83,8 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              <Replay width={300} animate drawData={drawData} key={curStep._id} />
+              {index === Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
+              {index !== Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
               <div>
                 {gameChain.gameSteps[i + 1].user.username} guessed
               </div>
