@@ -50,6 +50,14 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
+    '@media (max-width: 960px)': {
+      fontSize: '1.5rem',
+    },
+  },
+  titleSmall: {
+    '@media (max-width: 960px)': {
+      fontSize: '1rem',
+    },
   },
 };
 class GameStep extends Component {
@@ -150,7 +158,9 @@ class GameStep extends Component {
         <>
           <div className={classes.info}>
             <div className={classNames(classes.time, timeRemaining < 10 ? classes.timeLow : '')}>{timeRemaining}s</div>
-            <div className={classes.title}>{previousGameStep.user.username} drew</div>
+            <div className={classNames(classes.title, previousGameStep.user.username.length > 10 ? classes.titleSmall : '')}>
+              {previousGameStep.user.username} drew
+            </div>
             <div className={classes.buttonContainer}>
               <SecondaryButton onClick={this.submitGameStep} title="submit" />
             </div>
@@ -177,7 +187,9 @@ class GameStep extends Component {
           <div className={classes.info}>
             {/* <div className={classes.round}>{round}/{rounds}</div> */}
             <div className={classNames(classes.time, timeRemaining < 10 ? classes.timeLow : '')}>{timeRemaining}s</div>
-            <div className={classes.title}>{word}</div>
+            <div className={classNames(classes.title, word.length > 10 ? classes.titleSmall : '')}>
+              {word}
+            </div>
             <div className={classes.buttonContainer}>
               <SecondaryButton onClick={this.submitGameStep} title="submit" />
             </div>
