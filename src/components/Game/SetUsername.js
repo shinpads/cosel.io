@@ -61,7 +61,7 @@ class SetUsername extends Component {
           </div>
         </form>
         <div className={classes.buttonContainer}>
-          <PrimaryButton onClick={this.submitUsername}>join game</PrimaryButton>
+          <PrimaryButton maxlength={15} onClick={this.submitUsername}>join game</PrimaryButton>
         </div>
       </>
     );

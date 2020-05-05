@@ -60,7 +60,7 @@ class GameResults extends Component {
           <div className={classes.titleContainer}>
             <div className={classes.title}>Results</div>
             <div className={classes.seconaryButtonContainer}>
-              <SecondaryButton title="Next Round" onClick={() => this.goToNextGame(nextGameHash)} />
+              {!view && nextGameHash && <SecondaryButton title="Next Round" onClick={() => this.goToNextGame(nextGameHash)} />}
             </div>
           </div>
           {gameChains.map(gc => <GameResultBook gameChain={gc} />)}

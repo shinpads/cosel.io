@@ -14,9 +14,9 @@ export class Draw extends Component {
     this.canvasRef = React.createRef();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await new Promise(resolve => setTimeout(resolve, 250));
     this.setCanvasWidthAndHeight();
-    setTimeout(this.setCanvasWidthAndHeight, 250);
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext('2d');
 

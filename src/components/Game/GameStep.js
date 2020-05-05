@@ -173,7 +173,7 @@ class GameStep extends Component {
           )}
           <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
             <div style={{ margin: '2rem' }}>
-              <PrimaryInput placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
+              <PrimaryInput maxlength={25} placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
             </div>
           </form>
         </>
