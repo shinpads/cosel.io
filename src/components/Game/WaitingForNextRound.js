@@ -7,6 +7,7 @@ import classNames from 'classnames';
 
 import { DotDotDot } from '../Base/Loader';
 import colors from '../../colors';
+import MyUsername from '../MyUsername';
 
 const styles = {
   title: {
@@ -51,6 +52,7 @@ class WaitingForNextRound extends Component {
       connectedUsers,
       userSubmittedMap,
       players,
+      user,
     } = this.props;
     return (
       <>
@@ -58,14 +60,18 @@ class WaitingForNextRound extends Component {
           <div className={classes.title}>Waiting for other players</div>
         </div>
         <div className={classes.playerList}>
-          {players.map(user => (
-            <User
-              username={user.username}
-              done={userSubmittedMap[user._id]}
-              classes={classes}
-              connected={connectedUsers.findIndex(u => u._id === user._id) !== -1}
-            />
-          ))}
+          {players.map(us => {
+            const isMe = user._id === us._id;
+            return (
+              <User
+                username={isMe ? user.username : us.username}
+                done={userSubmittedMap[us._id]}
+                classes={classes}
+                connected={connectedUsers.findIndex(u => u._id === us._id) !== -1}
+                isMe={isMe}
+              />
+            );
+          })}
         </div>
       </>
     );
@@ -77,9 +83,12 @@ const User = ({
   done,
   classes,
   connected,
+  isMe,
 }) => (
   <div className={classes.playerContainer}>
-    <div className={classNames(classes.playerName, !connected ? classes.disconnected : '')}>{username}</div>
+    {isMe
+      ? <MyUsername username={username} textClass={classes.playerName} style={{ flexGrow: 1 }} />
+      : <div className={classNames(classes.playerName, !connected ? classes.disconnected : '')}>{username}</div>}
     <div className={classes.playerStatus}>
       {done
         ? <Done style={{ fontSize: '2rem' }} />
@@ -93,6 +102,7 @@ function mapStateToProps(state) {
     connectedUsers: state.game.game.users,
     players: state.game.game.players,
     userSubmittedMap: state.game.userSubmittedMap,
+    user: state.user.user,
   };
 }
 
@@ -101,6 +111,7 @@ WaitingForNextRound.propTypes = {
   players: PropTypes.array,
   classes: PropTypes.object,
   userSubmittedMap: PropTypes.object,
+  user: PropTypes.object,
 };
 
 User.propTypes = {
@@ -108,6 +119,7 @@ User.propTypes = {
   done: PropTypes.bool,
   classes: PropTypes.object,
   connected: PropTypes.bool,
+  isMe: PropTypes.bool,
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(WaitingForNextRound));

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { setUsername } from '../../actions/userActions';
+import { joinGame } from '../../actions/gameActions';
 import { PrimaryButton } from '../Base/Button';
 import { PrimaryInput } from '../Base/Input';
 
@@ -37,10 +38,11 @@ class SetUsername extends Component {
     };
   }
 
-  submitUsername = () => {
+  submitUsername = async () => {
     const { dispatch } = this.props;
     const { username } = this.state;
-    dispatch(setUsername(username));
+    await dispatch(setUsername(username));
+    await dispatch(joinGame());
   }
 
   render() {

@@ -165,7 +165,7 @@ class GameStep extends Component {
               <SecondaryButton onClick={this.submitGameStep} title="submit" />
             </div>
           </div>
-          {loadingDrawData && <div>Loading...</div>}
+          {loadingDrawData && <div>Loading... (If it does not load, try refreshing the page)</div>}
           {!loadingDrawData && (
             <div className={classes.replayContainer}>
               <Replay animate drawData={drawData} />

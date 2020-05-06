@@ -1,7 +1,7 @@
 import axios from '../util/axios';
 
 import { SET_USER, SET_USERNAME_NOT_SET } from './actionTypes';
-import { joinGame } from './gameActions';
+import { sendUpdateUsersRequest } from './gameActions';
 
 export const getUser = () => async (dispatch) => {
   try {
@@ -42,7 +42,7 @@ export const setUsername = (username) => async (dispatch, getState) => {
       type: SET_USERNAME_NOT_SET,
       payload: !res.data.user.username,
     });
-    dispatch(joinGame());
+    dispatch(sendUpdateUsersRequest());
   } catch (err) {
     console.error(err);
   }

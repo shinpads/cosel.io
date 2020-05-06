@@ -206,3 +206,9 @@ export const disconnectSocket = () => (dispatch) => {
     });
   }
 };
+
+export const sendUpdateUsersRequest = () => async () => {
+  if (socket) {
+    socket.emit('update-users');
+  }
+};

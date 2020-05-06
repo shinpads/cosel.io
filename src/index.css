@@ -136,6 +136,7 @@ h2 {
 
 .dotdotdot-container {
   text-align: center;
+  white-space: nowrap;
 }
 
 .dotdotdot {

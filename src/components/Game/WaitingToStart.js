@@ -9,6 +9,7 @@ import { startGame, sendReady } from '../../actions/gameActions';
 import colors from '../../colors';
 import CopyLink from './CopyLink';
 import { DotDotDot } from '../Base/Loader';
+import MyUsername from '../MyUsername';
 
 const styles = {
   info: {
@@ -47,11 +48,14 @@ const styles = {
   },
   playerName: {
     fontSize: '2rem',
+    flexGrow: 1,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   playerStatus: {
-    flexGrow: 1,
     display: 'flex',
     justifyContent: 'flex-end',
+    marginLeft: '2rem',
   },
   playerCountWarning: {
     color: 'red',
@@ -91,7 +95,9 @@ class WaitingToStart extends Component {
             <div className={classes.playerList}>
               {users.map(u => (
                 <div className={classes.playerContainer}>
-                  <div className={classes.playerName}>{u.username}</div>
+                  {u._id === user._id
+                    ? (<MyUsername username={user.username} textClass={classes.playerName} style={{ flexGrow: 1 }} />)
+                    : (<div className={classes.playerName}>{u.username}</div>)}
                   <div className={classes.playerStatus}>{userReadyMap[u._id] ? <Done /> : <DotDotDot />}</div>
                 </div>
               ))}

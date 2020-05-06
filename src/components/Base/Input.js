@@ -7,6 +7,7 @@ const styles = {
   input: {
     fontSize: '1.5rem',
     padding: '0.5rem',
+    paddingBottom: '0rem',
     width: 'calc(100% - 1rem)',
     fontWeight: 600,
     border: 0,
@@ -31,8 +32,8 @@ export const PrimaryInput = withStyles(styles)((props) => {
     classes,
     label,
     labelStyle,
+    className,
   } = props;
-  const { className } = props;
   return (
     <label className={`${classes.label} ${labelStyle || ''}`}>
       {label}
