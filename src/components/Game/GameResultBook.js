@@ -58,12 +58,13 @@ class GameResultBook extends Component {
     super(props);
     this.state = {
       index: 0,
+      maxIndex: 0,
     };
   }
 
   printPages = () => {
     const { gameChain, drawingMap, classes } = this.props;
-    const { index } = this.state;
+    const { maxIndex } = this.state;
     const pages = [];
     gameChain.gameSteps = gameChain.gameSteps.filter(gs => gs.submitted);
     for (let i = 0; i < gameChain.gameSteps.length; i++) {
@@ -83,8 +84,8 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              {index === Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
-              {index !== Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
+              {maxIndex >= Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
+              {maxIndex < Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
               <div>
                 {gameChain.gameSteps[i + 1].user.username} guessed
               </div>
@@ -100,7 +101,8 @@ class GameResultBook extends Component {
           pages.push(
             <div style={styles.carouselItem}>
               <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              <Replay width={300} animate drawData={drawData} key={curStep._id} />
+              {maxIndex >= Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
+              {maxIndex < Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
             </div>,
           );
         }
@@ -128,6 +130,7 @@ class GameResultBook extends Component {
 
   render() {
     const { gameChain, classes } = this.props;
+    const { maxIndex } = this.state;
     return (
       <div className={classes.root}>
         <div className={classes.originalWord}>
@@ -151,7 +154,7 @@ class GameResultBook extends Component {
               </IconButton>
             </div>
           )}
-          onChange={(i) => this.setState({ index: i })}
+          onChange={(i) => this.setState({ index: i, maxIndex: Math.max(i, maxIndex) })}
         >
           {this.printPages()}
         </Carousel>

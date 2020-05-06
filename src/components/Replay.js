@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import colors from '../colors';
 
-const ANIMATE_TIME = 0;
+const ANIMATE_SPEED = 0.5;
 
 class Replay extends Component {
   constructor(props) {
@@ -42,7 +42,6 @@ class Replay extends Component {
       if (!animate) {
         await new Promise(resolve => setTimeout(resolve, 0));
       }
-      const timePerStroke = ANIMATE_TIME / pointsObj.strokes.length;
       const curStroke = pointsObj.strokes[i];
       ctx.strokeStyle = curStroke.color;
       ctx.lineWidth = curStroke.size;
@@ -53,8 +52,8 @@ class Replay extends Component {
         ctx.moveTo(newX, newY);
       }
       for (let j = 0; j < curStroke.points.length; j++) {
-        if (animate && j % Math.floor(Math.log(curStroke.points.length)) === 0) {
-          await new Promise(resolve => setTimeout(resolve, timePerStroke / curStroke.points.length));
+        if (animate && j % Math.floor(Math.log(curStroke.points.length) * ANIMATE_SPEED) === 0) {
+          await new Promise(resolve => setTimeout(resolve, 0));
         }
         const curPoint = curStroke.points[j];
         const newX = (curPoint.x / oldCanvasWidth) * width;
