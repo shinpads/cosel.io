@@ -13,6 +13,7 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
     WARHOL_HOST: 'readonly',
     WARHOL_PORT: 'readonly',
+    ga: 'readonly',
   },
   parserOptions: {
     ecmaFeatures: {

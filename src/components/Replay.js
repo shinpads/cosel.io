@@ -39,6 +39,9 @@ class Replay extends Component {
     ctx.clearRect(0, 0, width, width);
 
     for (let i = 0; i < pointsObj.strokes.length; i++) {
+      if (!animate) {
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
       const timePerStroke = ANIMATE_TIME / pointsObj.strokes.length;
       const curStroke = pointsObj.strokes[i];
       ctx.strokeStyle = curStroke.color;
@@ -50,7 +53,7 @@ class Replay extends Component {
         ctx.moveTo(newX, newY);
       }
       for (let j = 0; j < curStroke.points.length; j++) {
-        if (animate) {
+        if (animate && j % Math.floor(Math.log(curStroke.points.length)) === 0) {
           await new Promise(resolve => setTimeout(resolve, timePerStroke / curStroke.points.length));
         }
         const curPoint = curStroke.points[j];

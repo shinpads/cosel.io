@@ -83,7 +83,7 @@ const RecentGame = ({
         style={{ cursor: 'pointer' }}
       >
         {thumbnail
-          ? <Replay drawData={thumbnail} animate fullWidth className={classes.replay} canvasClassName={classes.canvas} />
+          ? <Replay drawData={thumbnail} fullWidth className={classes.replay} canvasClassName={classes.canvas} />
           : <div>No Preview</div>}
       </div>
       <div className={classes.recentGameDetails}>
