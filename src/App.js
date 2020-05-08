@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import colors from './colors';
 import Home from './pages/Home';
 import Game from './pages/Game';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import HowToPlay from './pages/HowToPlay';
 import { getUser } from './actions/userActions';
 import { disconnectSocket } from './actions/gameActions';
 
@@ -30,6 +33,9 @@ class App extends Component {
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/game/:hash" render={(props) => <Game {...props} key={props.match.params.hash} />} exact />
+        <Route path="/about" component={About} exact />
+        <Route path="/how-to-play" component={HowToPlay} exact />
+        <Route path="/contact" component={Contact} exact />
         <Redirect from="*" to="/" />
       </Switch>
     );

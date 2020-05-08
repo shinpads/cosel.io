@@ -51,11 +51,24 @@ const styles = theme => ({
       opacity: '0.65',
     },
   },
-
   arrow: {
     fontSize: '2rem',
     marginLeft: '0.5rem',
     lineHeight: '2px',
+  },
+  smallButton: {
+    fontSize: '1.5rem',
+    margin: '1rem 0rem',
+    padding: '0.5rem 4rem',
+    borderRadius: '0.5rem',
+    border: '2px solid',
+    color: colors.primary,
+    backgroundColor: colors.primaryContrast,
+    width: 'unset',
+    opacity: 1,
+    '&:hover': {
+      opacity: 0.65,
+    },
   },
 });
 
@@ -65,6 +78,14 @@ export const PrimaryButton = withStyles(styles)((props) => {
     <button type="button" {...props} disableRipple className={`${classes.button} ${classes.primaryButton} ${className || ''}`}>{children}</button>
   );
 });
+
+export const SmallButton = withStyles(styles)((props) => {
+  const { classes, children, className } = props;
+  return (
+    <button type="button" {...props} disableRipple className={`${classes.button} ${classes.smallButton} ${className || ''}`}>{children}</button>
+  );
+});
+
 
 export const SecondaryButton = withStyles(styles)((props) => {
   const { classes, title, className } = props;

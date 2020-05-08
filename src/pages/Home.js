@@ -8,6 +8,7 @@ import { createGame, findGame, getGames } from '../actions/gameActions';
 import { PrimaryButton } from '../components/Base/Button';
 import { Spinner } from '../components/Base/Loader';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import RecentGames from '../components/Home/RecentGames';
 
 const styles = {
@@ -105,6 +106,7 @@ class Home extends Component {
               <RecentGames recentGames={recentGames} />
             </div>
           </main>
+          <Footer />
         </div>
       </DocumentTitle>
     );
