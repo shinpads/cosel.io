@@ -60,6 +60,7 @@ const styles = {
   playerCountWarning: {
     color: 'red',
     fontSize: '1rem',
+    maxWidth: '500px',
   },
 };
 class WaitingToStart extends Component {
@@ -91,7 +92,7 @@ class WaitingToStart extends Component {
         <>
           <CopyLink url={window.location.href} displayUrl={window.location.host + window.location.pathname} />
           <div className={classes.info}>
-            {users.length < 4 && <div className={classes.playerCountWarning}>This game is meant to be played with at least 4 players</div>}
+            {users.length < 4 && <div className={classes.playerCountWarning}>This game is meant to be played with at least 4 players. Copy the link above and send it to your friends for them to join the game.</div>}
             <div className={classes.playerList}>
               {users.map(u => (
                 <div className={classes.playerContainer}>
