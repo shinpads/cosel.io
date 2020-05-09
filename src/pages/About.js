@@ -14,15 +14,20 @@ const styles = {
   },
   main: {
     maxWidth: '1000px',
-    width: '1000px',
     margin: '0 auto',
     flexGrow: 1,
   },
   title: {
     borderBottom: '1px solid',
+    '@media(max-width: 600px)': {
+      padding: '0rem 1rem',
+    },
   },
   content: {
     fontSize: '1.5rem',
+    '@media(max-width: 600px)': {
+      padding: '0rem 1rem',
+    },
   },
 };
 

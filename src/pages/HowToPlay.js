@@ -16,15 +16,20 @@ const styles = {
   },
   main: {
     maxWidth: '1000px',
-    width: '1000px',
     margin: '0 auto',
     flexGrow: 1,
   },
   title: {
     borderBottom: '1px solid',
+    '@media(max-width: 600px)': {
+      padding: '0rem 1rem',
+    },
   },
   content: {
     fontSize: '1.5rem',
+    '@media(max-width: 600px)': {
+      padding: '0rem 1rem',
+    },
   },
   imageContainer: {
     display: 'flex',
@@ -33,6 +38,8 @@ const styles = {
   },
   image: {
     boxShadow: '2px 2px 8px 0px #d2d2d2',
+    width: '100%',
+    maxWidth: '500px',
   },
 };
 
@@ -63,7 +70,7 @@ class HowToPlay extends Component {
               <h3>Setup</h3>
               <p> Create a game and share the link with your friends for them to join the game.</p>
               <div className={classes.imageContainer}>
-                <img className={classes.image} width={500} src={setupScreenshot} alt="setup" />
+                <img className={classes.image} src={setupScreenshot} alt="setup" />
               </div>
               <p>Once everyone has pressed the ready button, the game will begin.</p>
               <h3>Playing</h3>
@@ -71,7 +78,7 @@ class HowToPlay extends Component {
                 Once the game has started, it will prompt you eith to draw something, or guess something.
               </p>
               <div className={classes.imageContainer}>
-                <img className={classes.image} width={500} src={drawingScreenshot} alt="setup" />
+                <img className={classes.image} src={drawingScreenshot} alt="setup" />
               </div>
               <p>This repeats over and over until the game is finished</p>
             </div>

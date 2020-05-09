@@ -67,8 +67,9 @@ const styles = theme => ({
     },
   },
   snackbarContent: {
-    backgroundColor: colors.primaryContrast,
-    color: colors.primary,
+    color: colors.primaryContrast,
+    backgroundColor: colors.primary,
+    fontWeight: 600,
   },
 });
 

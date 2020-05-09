@@ -10,6 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { postContactMessage } from '../api';
 import { DotDotDot } from '../components/Base/Loader';
+import colors from '../colors';
 
 const styles = {
   root: {
@@ -19,21 +20,39 @@ const styles = {
   },
   main: {
     maxWidth: '1000px',
-    width: '1000px',
     margin: '0 auto',
     flexGrow: 1,
   },
   title: {
     borderBottom: '1px solid',
+    '@media(max-width: 600px)': {
+      padding: '0rem 1rem',
+    },
   },
   content: {
     fontSize: '1.5rem',
+    '@media(max-width: 600px)': {
+      padding: '0rem 1rem',
+    },
   },
   nameEmailContainer: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
+    '@media(max-width: 600px)': {
+      gridTemplateColumns: '1fr',
+    },
     gridGap: '2rem',
     margin: '1rem 0',
+  },
+  button: {
+    '@media(max-width: 600px)': {
+      width: '100%',
+    },
+  },
+  snackbarContent: {
+    color: colors.primaryContrast,
+    backgroundColor: colors.primary,
+    fontWeight: 600,
   },
 };
 
@@ -154,7 +173,7 @@ class Contact extends Component {
                     required
                   />
                 </div>
-                <SmallButton type="submit">
+                <SmallButton type="submit" className={classes.button}>
                   {submitting
                     ? <DotDotDot />
                     : 'Send'}

@@ -22,6 +22,9 @@ const styles = {
     textAlign: 'center',
     fontWeight: 600,
     color: '#000',
+    '@media(max-width: 600px)': {
+      fontSize: '1rem',
+    },
   },
   socialContainer: {
     display: 'flex',
@@ -31,6 +34,7 @@ const styles = {
   pages: {
     display: 'flex',
     justifyContent: 'center',
+    textAlign: 'center',
   },
   page: {
     margin: '0 1rem',
