@@ -25,8 +25,13 @@ class App extends Component {
     const { location, dispatch } = this.props;
     if (prevProps.location.pathname !== location.pathname) {
       dispatch(disconnectSocket());
-      ga('set', 'page', location.pathname + location.search);
-      ga('send', 'pageview');
+      ga(() => {
+        const tracker = ga.getAll()[0];
+        if (tracker) {
+          ga('set', 'page', location.pathname + location.search);
+          ga('send', 'pageview');
+        }
+      });
     }
   }
 
