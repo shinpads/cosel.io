@@ -28,8 +28,8 @@ class App extends Component {
       ga(() => {
         const tracker = ga.getAll()[0];
         if (tracker) {
-          ga('set', 'page', location.pathname + location.search);
-          ga('send', 'pageview');
+          tracker.set('page', location.pathname + location.search);
+          tracker.send('pageview');
         }
       });
     }
