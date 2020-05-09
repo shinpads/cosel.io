@@ -21,13 +21,13 @@ const styles = {
   },
   title: {
     borderBottom: '1px solid',
-    '@media(max-width: 600px)': {
+    '@media(max-width: 1000px)': {
       padding: '0rem 1rem',
     },
   },
   content: {
     fontSize: '1.5rem',
-    '@media(max-width: 600px)': {
+    '@media(max-width: 1000px)': {
       padding: '0rem 1rem',
     },
   },
