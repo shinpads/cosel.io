@@ -15,6 +15,9 @@ const styles = {
     fontFamily: 'Coming Soon',
     '&::placeholder': {
     },
+    '&:error': {
+
+    },
   },
   label: {
     fontSize: '1.5rem',

@@ -94,7 +94,7 @@ class CopyLink extends Component {
         <Snackbar
           open={snackbarOpen}
           onClose={() => this.setState({ snackbarOpen: false })}
-          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           message="Link copied to clipboard"
           ContentProps={{ className: classes.snackbarContent }}
         />
