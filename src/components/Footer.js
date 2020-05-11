@@ -35,6 +35,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     textAlign: 'center',
+    '@media(max-width: 600px)': {
+      flexDirection: 'column',
+      flexGrow: 1,
+    },
   },
   page: {
     margin: '0 1rem',
@@ -76,6 +80,7 @@ class Footer extends Component {
             <NavLink className={classes.page} to="/about">About</NavLink>
             <NavLink className={classes.page} to="/how-to-play">How To Play</NavLink>
             <NavLink className={classes.page} to="/contact">Contact</NavLink>
+            <NavLink className={classes.page} to="/terms-of-service">Terms Of Service</NavLink>
           </div>
         </div>
       </footer>

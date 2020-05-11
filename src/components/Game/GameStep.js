@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -83,6 +84,8 @@ class GameStep extends Component {
       this.setState({ submitted: true });
       return;
     }
+    const timeRemaining = moment(gameStep.timeDue).diff(moment(), 's');
+    this.setState({ timeRemaining });
     if (gameStep.type === 'GUESS') {
       // get drawing
       if (previousGameStep && previousGameStep.drawing) {
@@ -91,9 +94,13 @@ class GameStep extends Component {
       } else {
         console.error('PREVIOUS GAME STEP DOESNT HAVE DRAWING');
       }
-      this.setState({ timeRemaining: guessTimeLimit });
+      if (guessTimeLimit - timeRemaining < 2) {
+        this.setState({ timeRemaining: guessTimeLimit });
+      }
     } else if (gameStep.type === 'DRAWING') {
-      this.setState({ timeRemaining: drawTimeLimit });
+      if (drawTimeLimit - timeRemaining < 2) {
+        this.setState({ timeRemaining: drawTimeLimit });
+      }
     }
     this.interval = setInterval(() => {
       this.setState(prevState => {
@@ -210,6 +217,7 @@ GameStep.propTypes = {
   gameChain: PropTypes.object,
   guessTimeLimit: PropTypes.number,
   drawTimeLimit: PropTypes.number,
+  timeDue: PropTypes.number,
 };
 
 function mapStateToProps(state) {

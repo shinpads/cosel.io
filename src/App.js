@@ -11,6 +11,7 @@ import Game from './pages/Game';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import HowToPlay from './pages/HowToPlay';
+import TermsOfService from './pages/TermsOfService';
 import { getUser } from './actions/userActions';
 import { disconnectSocket } from './actions/gameActions';
 
@@ -43,6 +44,7 @@ class App extends Component {
         <Route path="/about" component={About} exact />
         <Route path="/how-to-play" component={HowToPlay} exact />
         <Route path="/contact" component={Contact} exact />
+        <Route path="/terms-of-service" component={TermsOfService} exact />
         <Redirect from="*" to="/" />
       </Switch>
     );
