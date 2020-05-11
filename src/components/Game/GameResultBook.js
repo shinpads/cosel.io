@@ -24,9 +24,20 @@ const styles = {
     fontWeight: 600,
     fontSize: '2rem',
   },
+  guessContainer: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   guess: {
     fontWeight: 600,
-    fontSize: '1.5rem',
+    fontSize: '2rem',
+  },
+  guessTitle: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
   },
   indicator: {
     width: '8px',
@@ -50,6 +61,13 @@ const styles = {
     zIndex: 10,
     padding: '2px',
   },
+  drawingNotAvailable: {
+    width: '100%',
+    minHeight: '300px',
+    fontSize: '1rem',
+    fontStyle: 'italic',
+    paddingTop: '2rem',
+  },
 };
 
 
@@ -66,7 +84,7 @@ class GameResultBook extends Component {
     const { gameChain, drawingMap, classes } = this.props;
     const { maxIndex } = this.state;
     const pages = [];
-    gameChain.gameSteps = gameChain.gameSteps.filter(gs => gs.submitted);
+    gameChain.gameSteps = gameChain.gameSteps.filter(gs => gs.submitted || gs.autoFilled);
     for (let i = 0; i < gameChain.gameSteps.length; i++) {
       const curStep = gameChain.gameSteps[i];
 
@@ -80,32 +98,30 @@ class GameResultBook extends Component {
           wordToDraw = gameChain.gameSteps[i - 1].guess;
         }
 
-        if (i + 1 < gameChain.gameSteps.length) {
-          pages.push(
-            <div style={styles.carouselItem}>
-              <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              {maxIndex >= Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
-              {maxIndex < Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
-              <div>
-                {gameChain.gameSteps[i + 1].user.username} guessed
+        pages.push(
+          <div className={classes.carouselItem}>
+            <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
+            {drawData && maxIndex >= Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
+            {drawData && maxIndex < Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
+            {!drawData && (
+              <div className={classes.drawingNotAvailable}>
+                Could not get drawing
               </div>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center' }}>
-                <div className={classes.guess}>
-                  {gameChain.gameSteps[i + 1].guess}
-                </div>
-                <div style={{ fontSize: '1rem' }}>{' '}{gameChain.gameSteps[i + 1].guessAutoFilled ? '(Auto Filled)' : ''}</div>
-              </div>
-            </div>,
-          );
-        } else {
-          pages.push(
-            <div style={styles.carouselItem}>
-              <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              {maxIndex >= Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
-              {maxIndex < Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
-            </div>,
-          );
-        }
+            )}
+          </div>,
+        );
+      } else if (curStep.type === 'GUESS') {
+        pages.push(
+          <div className={classes.carouselItem}>
+            <div className={classes.guessTitle}>
+              {curStep.user.username} guessed
+            </div>
+            <div className={classes.guessContainer}>
+              <div className={classes.guess}>{curStep.guess}</div>
+              {curStep.autoFilled && <div style={{ fontSize: '1rem' }}>{' '}(Auto Filled)</div>}
+            </div>
+          </div>,
+        );
       }
     }
     return pages;
@@ -158,7 +174,7 @@ class GameResultBook extends Component {
         >
           {this.printPages()}
         </Carousel>
-        {this.renderIndicators(Math.ceil(gameChain.gameSteps.length / 2))}
+        {this.renderIndicators(gameChain.gameSteps.length)}
       </div>
     );
   }
