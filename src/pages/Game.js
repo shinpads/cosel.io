@@ -50,8 +50,7 @@ class Game extends Component {
   componentDidMount() {
     const { match, dispatch } = this.props;
     const { hash } = match.params;
-    hash.toUpperCase();
-    dispatch(findGame(hash));
+    dispatch(findGame(hash.toUpperCase()));
   }
 
   render() {

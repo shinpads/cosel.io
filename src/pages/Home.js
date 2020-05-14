@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import colors from '../colors';
-import { createGame, findGame, getGames } from '../actions/gameActions';
+import { createGame, getGames } from '../actions/gameActions';
+import { getPublicGame } from '../api';
 import { PrimaryButton } from '../components/Base/Button';
 import { Spinner } from '../components/Base/Loader';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecentGames from '../components/Home/RecentGames';
+import history from '../history';
 import artSvg from '../../public/art.svg';
 import globeSvg from '../../public/globe.svg';
 import friendsSvg from '../../public/friends.svg';
@@ -130,7 +132,6 @@ class Home extends Component {
     this.state = {
 
     };
-    window.scrollTo(0, 0);
   }
 
   componentDidMount() {
@@ -143,9 +144,13 @@ class Home extends Component {
     dispatch(createGame());
   }
 
-  findGame = () => {
-    const { dispatch } = this.props;
-    dispatch(findGame());
+  findPublicGame = async () => {
+    const game = await getPublicGame();
+    if (game && game.hash) {
+      history.push(`/game/${game.hash}`);
+    } else {
+      // TODO: do some error or something
+    }
   }
 
   render() {
@@ -203,7 +208,7 @@ class Home extends Component {
                 <PrimaryButton
                   variant="contained"
                   fullWidth
-                  onClick={this.createNewGame}
+                  onClick={this.findPublicGame}
                   style={{ width: '100%', margin: 0 }}
                 >
                   Join Game
