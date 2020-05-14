@@ -10,6 +10,9 @@ import { Spinner } from '../components/Base/Loader';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecentGames from '../components/Home/RecentGames';
+import artSvg from '../../public/art.svg';
+import globeSvg from '../../public/globe.svg';
+import friendsSvg from '../../public/friends.svg';
 
 const styles = {
   root: {
@@ -25,17 +28,19 @@ const styles = {
     flexGrow: 1,
     maxWidth: '1000px',
     margin: '0 auto',
+    width: '100%',
+    '@media(max-width: 1000px)': {
+      maxWidth: '100%',
+    },
   },
   info: {
-    minHeight: '40vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
     color: colors.backgroundContrast,
-    fontSize: '2rem',
     padding: '1rem',
-    '@media (min-height: 600px)': {
-      fontSize: '3rem',
+    marginBottom: '3rem',
+    display: 'flex',
+    '@media(max-width: 600px)': {
+      marginBottom: '1rem',
     },
   },
   buttonContainer: {
@@ -48,7 +53,74 @@ const styles = {
     alignItems: 'center',
   },
   recentGamesContainer: {
-    margin: '1rem 2rem',
+    marginTop: '2rem',
+    '@media(max-width: 960px)': {
+      padding: '0 2rem',
+    },
+  },
+  actionsContainer: {
+    display: 'grid',
+    textAlign: 'center',
+    gridTemplateColumns: '1fr 0fr 1fr',
+    marginBottom: '2rem',
+    '@media(max-width: 600px)': {
+      gridTemplateColumns: '1fr',
+    },
+    '@media(max-width: 960px)': {
+      padding: '0 2rem',
+    },
+  },
+  middleSeperator: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '0 2rem',
+    flexGrow: 1,
+    width: '1px',
+    borderRight: '2px dashed #000',
+    '@media(max-width: 600px)': {
+      flexDirection: 'row',
+      alignItems: 'center',
+      margin: '2rem 0rem',
+      height: '1px',
+      borderBottom: '2px dashed #000',
+      width: 'unset',
+      borderRight: 0,
+    },
+  },
+  art: {
+    justifySelf: 'center',
+    '@media (max-width: 960px)': {
+      display: 'none',
+    },
+  },
+  gameTypeHeader: {
+    whiteSpace: 'nowrap',
+  },
+  titleContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 0fr 1fr',
+    alignItems: 'center',
+    '@media(max-width: 960px)': {
+      display: 'block',
+    },
+  },
+  gameTypeIcon: {
+    justifySelf: 'center',
+  },
+  mainHeader: {
+    whiteSpace: 'nowrap',
+    '@media(max-width: 600px)': {
+      whiteSpace: 'unset',
+    },
+  },
+  gameTypeContainer: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  greyText: {
+    color: colors.darkGrey,
   },
 };
 
@@ -91,18 +163,55 @@ class Home extends Component {
           <Header minimizable />
           <main className={classes.main}>
             <div className={classes.info}>
-              <div style={{ textAlign: 'center' }}>Draw a picture and have other people guess it</div>
+              <div style={{ flexGrow: 1 }}>
+                <div className={classes.titleContainer}>
+                  <img className={classes.art} alt="" width={100} src={artSvg} />
+                  <h2 className={classes.mainHeader}>Communicate using only drawings</h2>
+                </div>
+                <div className={classes.greyText}>
+                  A drawing version of the broken telephone game. Try and communicate a word through a group of friends using drawings. Play with friends online!
+                </div>
+              </div>
             </div>
-            <div className={classes.buttonContainer}>
-              <PrimaryButton
-                variant="contained"
-                onClick={this.createNewGame}
-              >
-                Create Game
-              </PrimaryButton>
+            <div className={classes.actionsContainer}>
+              <div className={classes.gameTypeContainer}>
+                <div className={classes.titleContainer}>
+                  <img className={classes.gameTypeIcon} alt="" width={50} src={friendsSvg} />
+                  <h3 className={classes.gameTypeHeader}>Create a private game</h3>
+                </div>
+                <div className={classes.greyText} style={{ marginBottom: '2rem' }}>
+                  Create a new game and invite your friends using the link
+                </div>
+                <PrimaryButton
+                  variant="contained"
+                  fullWidth
+                  onClick={this.createNewGame}
+                  style={{ width: '100%', margin: 0 }}
+                >
+                  Create Game
+                </PrimaryButton>
+              </div>
+              <div className={classes.middleSeperator} />
+              <div className={classes.gameTypeContainer}>
+                <div className={classes.titleContainer}>
+                  <img className={classes.gameTypeIcon} alt="" width={50} src={globeSvg} />
+                  <h3 className={classes.gameTypeHeader}>Join public game</h3>
+                </div>
+                <div className={classes.greyText} style={{ marginBottom: '2rem', flexGrow: 1 }}>
+                  Play with random people from around the world
+                </div>
+                <PrimaryButton
+                  variant="contained"
+                  fullWidth
+                  onClick={this.createNewGame}
+                  style={{ width: '100%', margin: 0 }}
+                >
+                  Join Game
+                </PrimaryButton>
+              </div>
             </div>
             <div className={classes.recentGamesContainer}>
-              <h2 style={{ borderBottom: '1px solid', fontWeight: 500 }}>Recent Games</h2>
+              <h3 style={{ borderBottom: '2px dashed' }}>Recent Games</h3>
               <RecentGames recentGames={recentGames} />
             </div>
           </main>

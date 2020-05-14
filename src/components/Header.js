@@ -18,10 +18,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     zIndex: 1000,
-    '@media (min-width: 960px)': {
-      color: '#000',
-      backgroundColor: '#fff',
-    },
   },
   rootMinimized: {
     // boxShadow: '0px 1px 10px',
@@ -29,16 +25,15 @@ const styles = {
   },
   title: {
     margin: '0.5rem',
-    fontSize: '4rem',
+    fontSize: '3rem',
     fontWeight: 600,
     color: '#fff',
     transition: 'all 250ms ease',
     '@media (min-height: 600px)': {
-      fontSize: '4rem',
+      fontSize: '3rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '4rem',
-      color: '#000',
+      fontSize: '3rem',
     },
   },
   link: {
@@ -46,10 +41,10 @@ const styles = {
   },
   titleSmall: {
     '@media (min-height: 600px)': {
-      fontSize: '4rem',
+      fontSize: '3rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '4rem',
+      fontSize: '3rem',
     },
   },
   titleMinimized: {
@@ -59,7 +54,7 @@ const styles = {
       fontSize: '2rem',
     },
     '@media (min-width: 960px)': {
-      fontSize: '4rem',
+      fontSize: '2rem',
     },
   },
   headerWrapper: {

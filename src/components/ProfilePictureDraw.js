@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
-import colors from '../../colors';
-import { BRUSH_SELECTOR_HEIGHT } from './BrushOptions/BrushSelector';
+import PropTypes from 'prop-types';
 
-const canvasStyle = {
-  borderLeft: '1px dashed',
-  borderRight: '1px dashed',
-  backgroundColor: colors.canvas,
-  cursor: 'crosshair',
-};
-
-export class Draw extends Component {
+class ProfilePictureDraw extends Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
+    this.drawData = {};
   }
 
   async componentDidMount() {
-    await new Promise(resolve => setTimeout(resolve, 250));
-    this.setCanvasWidthAndHeight();
+    const { width, size, color } = this.props;
     const canvas = this.canvasRef.current;
+    console.log(this.props);
+    canvas.width = width;
+    canvas.height = width;
+
+    this.drawData = {
+      width,
+      strokes: [{
+        points: [],
+        size: '',
+        color: '',
+      }],
+    };
+
     const ctx = canvas.getContext('2d');
-
     const mouse = { x: 0, y: 0 };
-
     let mouseStatus = 'up';
 
-
-    ctx.lineWidth = 3;
+    ctx.lineWidth = size;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = color;
 
     const startStroke = (event) => {
       let e;
@@ -42,9 +44,9 @@ export class Draw extends Component {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - Math.round(rect.left);
       mouse.y = e.clientY - Math.round(rect.top);
-      const numStrokes = window.drawData.strokes.length;
+      const numStrokes = this.drawData.strokes.length;
 
-      window.drawData.strokes[numStrokes - 1] = {
+      this.drawData.strokes[numStrokes - 1] = {
         points: [{ x: mouse.x, y: mouse.y }, { x: mouse.x, y: mouse.y }],
         size: ctx.lineWidth,
         color: ctx.strokeStyle,
@@ -58,12 +60,17 @@ export class Draw extends Component {
 
       mouseStatus = 'down';
     };
-
     const endStroke = () => {
       mouseStatus = 'up';
-      finishLine();
+      const numStrokes = this.drawData.strokes.length;
+      if (this.drawData.strokes[numStrokes - 1].points.length > 0) {
+        this.drawData.strokes.push({
+          points: [],
+          size: '',
+          color: '',
+        });
+      }
     };
-
     const movePosition = (event) => {
       let e;
       if (event.touches) {
@@ -78,10 +85,10 @@ export class Draw extends Component {
       mouse.y = e.clientY - Math.round(rect.top);
 
       if (mouseStatus === 'down') {
-        const numStrokes = window.drawData.strokes.length;
-        if (window.drawData.strokes[numStrokes - 1].points.length >= 2) {
-          window.drawData.strokes[numStrokes - 1].points.push({ x: mouse.x, y: mouse.y });
-          const curStroke = window.drawData.strokes[numStrokes - 1];
+        const numStrokes = this.drawData.strokes.length;
+        if (this.drawData.strokes[numStrokes - 1].points.length >= 2) {
+          this.drawData.strokes[numStrokes - 1].points.push({ x: mouse.x, y: mouse.y });
+          const curStroke = this.drawData.strokes[numStrokes - 1];
           const pointsLen = curStroke.points.length;
           const lastPoint = curStroke.points[pointsLen - 2];
           const curPoint = curStroke.points[pointsLen - 1];
@@ -103,39 +110,6 @@ export class Draw extends Component {
 
     canvas.addEventListener('mousedown', startStroke, false);
     canvas.addEventListener('touchstart', startStroke, { passive: false });
-
-    const finishLine = () => {
-      const numStrokes = window.drawData.strokes.length;
-      if (window.drawData.strokes[numStrokes - 1].points.length > 0) {
-        window.drawData.strokes.push({
-          points: [],
-          size: '',
-          color: '',
-        });
-      }
-    };
-  }
-
-  setCanvasWidthAndHeight = () => {
-    const height = Math.min(document.getElementById('drawArea').parentElement.offsetHeight - (BRUSH_SELECTOR_HEIGHT * 2),
-      document.getElementById('drawArea').parentElement.offsetWidth);
-
-
-    const width = height;
-
-    const canvas = this.canvasRef.current;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    window.drawData = {
-      width,
-      strokes: [{
-        points: [],
-        size: '',
-        color: '',
-      }],
-    };
   }
 
   changeColor = (color) => {
@@ -150,10 +124,33 @@ export class Draw extends Component {
     ctx.lineWidth = size;
   }
 
+  getData = () => this.drawData;
+
+  clear = () => {
+    const { width } = this.props;
+    this.drawData = {
+      width,
+      strokes: [{
+        points: [],
+        size: '',
+        color: '',
+      }],
+    };
+  }
+
   render() {
+    const { canvasProps } = this.props;
     return (
-      <canvas id="canvas" ref={this.canvasRef} style={canvasStyle} />
+      <canvas id="canvas" ref={this.canvasRef} {...canvasProps} />
     );
   }
 }
-export default Draw;
+
+ProfilePictureDraw.propTypes = {
+  color: PropTypes.string,
+  size: PropTypes.number,
+  width: PropTypes.number,
+  canvasProps: PropTypes.object,
+};
+
+export default ProfilePictureDraw;

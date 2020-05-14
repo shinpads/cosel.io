@@ -29,13 +29,13 @@ const styles = theme => ({
   },
   recentGameTitle: {
     whiteSpace: 'nowrap',
-    fontWeight: 600,
     fontSize: '1.5rem',
     textAlign: 'center',
     color: colors.primaryContrast,
   },
   recentGameDetails: {
     whiteSpace: 'nowrap',
+    color: colors.darkGrey,
   },
   canvas: {
     transform: 'scale(1.0)',

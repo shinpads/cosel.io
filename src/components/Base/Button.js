@@ -21,18 +21,19 @@ const styles = theme => ({
     padding: '1.5rem',
     borderRadius: '1rem',
     border: '2px solid',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primaryContrast,
+    color: colors.primary,
     '&:hover': {
-      color: colors.primary,
-      backgroundColor: colors.primaryContrast,
+      backgroundColor: colors.primary,
+      color: colors.primaryContrast,
     },
     '@media (min-height: 600px)': {
-      fontSize: '2rem',
+      fontSize: '1.5rem',
     },
     [theme.breakpoints.up('md')]: {
       width: 'unset',
       border: '2px solid',
-      padding: '1.5rem 8rem',
+      padding: '1rem 4rem',
     },
     '@media (max-width: 400px)': {
       padding: '1rem', // old, really small iPhones

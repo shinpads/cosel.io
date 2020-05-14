@@ -100,9 +100,12 @@ class GameResultBook extends Component {
 
         pages.push(
           <div className={classes.carouselItem}>
-            <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-            {drawData && maxIndex >= Math.ceil(i / 2) && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
-            {drawData && maxIndex < Math.ceil(i / 2) && <div style={{ width: 300, height: 300 }} />}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
+              {curStep.autoFilled && <div style={{ fontSize: '1rem' }}>{' '}(Auto Filled)</div>}
+            </div>
+            {drawData && maxIndex >= i && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
+            {drawData && maxIndex < i && <div style={{ width: 300, height: 300 }} />}
             {!drawData && (
               <div className={classes.drawingNotAvailable}>
                 Could not get drawing

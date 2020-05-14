@@ -14,13 +14,24 @@ const styles = {
     display: 'flex',
     height: `${BRUSH_SELECTOR_HEIGHT}px`,
   },
+  rootVertical: {
+    width: `${BRUSH_SELECTOR_HEIGHT}px`,
+    height: 'unset',
+    flexDirection: 'column',
+  },
   colorsContainer: {
     display: 'flex',
     flexGrow: 1,
   },
+  colorsContainerVertical: {
+    flexDirection: 'column',
+  },
   brushContainer: {
     display: 'flex',
     marginRight: '4px',
+  },
+  brushContainerVertical: {
+
   },
   color: {
     width: '32px',
@@ -36,6 +47,9 @@ const styles = {
       width: '24px',
       height: '24px',
     },
+  },
+  colorVertical: {
+    margin: '4px 0px',
   },
   selected: {
     transform: 'scale(1.1)',
@@ -65,21 +79,29 @@ class BrushSelector extends Component {
       changeSize,
       color,
       size,
+      vertical,
+      hideSizeChanger,
     } = this.props;
     return (
-      <div className={classes.root}>
-        <div className={classes.colorsContainer}>
+      <div className={classNames(classes.root, vertical ? classes.rootVertical : '')}>
+        <div className={classNames(classes.colorsContainer, vertical ? classes.colorsContainerVertical : '')}>
           {canvasColors.map((c, i) => (
             <Color
               color={c}
               onClick={this.setColor(i)}
-              className={classNames(classes.color, c === color ? classes.selected : '')}
+              className={classNames(
+                classes.color,
+                vertical ? classes.colorVertical : '',
+                c === color ? classes.selected : '',
+              )}
             />
           ))}
         </div>
-        <div className={classes.brushContainer}>
-          <ChangeSize changeSize={changeSize} size={size} />
-        </div>
+        {!hideSizeChanger && (
+          <div className={classNames(classes.brushContainer, vertical ? classes.brushContainerVertical : '')}>
+            <ChangeSize changeSize={changeSize} size={size} />
+          </div>
+        )}
       </div>
     );
   }
@@ -105,6 +127,8 @@ BrushSelector.propTypes = {
   color: PropTypes.string,
   size: PropTypes.number,
   classes: PropTypes.object,
+  vertical: PropTypes.bool,
+  hideSizeChanger: PropTypes.bool,
 };
 
 Color.propTypes = {
