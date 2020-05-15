@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import ArrowForwardIcon from '@material-ui/icons/ChevronRight';
 import ArrowBackIcon from '@material-ui/icons/ChevronLeft';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Replay from '../Replay';
 import colors from '../../colors';
 
@@ -102,7 +103,7 @@ class GameResultBook extends Component {
           <div className={classes.carouselItem}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div>{curStep.user.username}{` drew ${wordToDraw}`}</div>
-              {curStep.autoFilled && <div style={{ fontSize: '1rem' }}>{' '}(Auto Filled)</div>}
+              {curStep.autoFilled && <AutoFilled />}
             </div>
             {drawData && maxIndex >= i && <Replay width={300} animate drawData={drawData} key={curStep._id} />}
             {drawData && maxIndex < i && <div style={{ width: 300, height: 300 }} />}
@@ -121,7 +122,7 @@ class GameResultBook extends Component {
             </div>
             <div className={classes.guessContainer}>
               <div className={classes.guess}>{curStep.guess}</div>
-              {curStep.autoFilled && <div style={{ fontSize: '1rem' }}>{' '}(Auto Filled)</div>}
+              {curStep.autoFilled && <AutoFilled />}
             </div>
           </div>,
         );
@@ -182,6 +183,18 @@ class GameResultBook extends Component {
     );
   }
 }
+
+const AutoFilled = () => (
+  <Tooltip placement="bottom" title="This player either disconnected or did not submit a guess/drawing">
+    <div style={{
+      fontSize: '1rem',
+      color: 'red',
+    }}
+    >
+      (Auto-Filled)
+    </div>
+  </Tooltip>
+);
 
 GameResultBook.propTypes = {
   gameChain: PropTypes.object,

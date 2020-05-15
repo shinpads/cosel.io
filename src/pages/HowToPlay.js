@@ -75,12 +75,12 @@ class HowToPlay extends Component {
               <p>Once everyone has pressed the ready button, the game will begin.</p>
               <h3>Playing</h3>
               <p>
-                Once the game has started, it will prompt you eith to draw something, or guess something.
+                Once the game has started, it will prompt you either to draw something, or guess something.
               </p>
               <div className={classes.imageContainer}>
                 <img className={classes.image} src={drawingScreenshot} alt="setup" />
               </div>
-              <p>This repeats over and over until the game is finished</p>
+              <p>This repeats over and over until the game is finished. It will then show you the results.</p>
             </div>
           </main>
           <Footer />

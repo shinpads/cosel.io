@@ -81,9 +81,9 @@ class CopyLink extends Component {
     };
   }
 
-  copyUrl = () => {
+  copyUrl = async () => {
     const { url } = this.props;
-    copyTextToClipboard(url);
+    await copyTextToClipboard(url);
     this.setState({ snackbarOpen: true });
   }
 

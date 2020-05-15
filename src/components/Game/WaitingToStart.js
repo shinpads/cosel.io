@@ -17,10 +17,13 @@ const styles = {
     display: 'flex',
     color: colors.backgroundsContrast,
     fontSize: '2rem',
-    width: '100%',
+    maxWidth: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    '@media(max-width: 600px)': {
+      padding: '0 1rem',
+    },
   },
   playerList: {
     flexGrow: 1,
@@ -61,6 +64,7 @@ const styles = {
     color: 'red',
     fontSize: '1rem',
     maxWidth: '500px',
+    textAlign: 'center',
   },
 };
 class WaitingToStart extends Component {
