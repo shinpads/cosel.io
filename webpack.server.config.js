@@ -1,6 +1,8 @@
+/* eslint-disable */
 const path = require('path')
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
+const CopyPlugin = require('copy-webpack-plugin');
 
  module.exports = (env, argv) => {
    const SERVER_PATH = './server/server.js';
@@ -30,8 +32,19 @@ const nodeExternals = require('webpack-node-externals')
            use: {
              loader: "babel-loader"
            }
-         }
+         },
+         {
+           test: /\.txt$/,
+           use: { loader: 'raw-loader' },
+         },
        ]
-     }
+     },
+     plugins: [
+       new CopyPlugin({
+         patterns: [
+           { from: 'public/ads.txt', to: '' },
+         ],
+       })
+     ],
    })
  }
