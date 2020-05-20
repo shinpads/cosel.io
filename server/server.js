@@ -9,14 +9,15 @@ const log = debug('cosel:sever');
 
 const app = express();
 const html = path.join(__dirname, 'index.html');
+// const ads = path.join(__dirname, 'ads.txt');
 
 app.use(compression());
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use('/static', express.static(__dirname));
 app.use('*/js', express.static(__dirname));
+app.use('*/txt', express.static(__dirname));
 app.enable('trust proxy', true);
-
 
 app.all('*', sendHtml);
 app.all('/', sendHtml);

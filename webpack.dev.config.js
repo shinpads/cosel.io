@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+
 const outputDirectory = 'dist';
 module.exports = {
   watch: true,
@@ -24,6 +25,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
+      },
+      {
+        test: /\.txt$/,
+        use: 'raw-loader',
       },
       {
         // Loads the javacript into html template provided.
@@ -59,7 +64,7 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new webpack.DefinePlugin({
-      WARHOL_HOST: JSON.stringify('http://127.0.0.1'),
+      WARHOL_HOST: JSON.stringify('http://192.168.0.100'),
       WARHOL_PORT: JSON.stringify('3030'),
     }),
   ],
