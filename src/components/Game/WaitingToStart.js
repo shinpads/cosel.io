@@ -10,6 +10,7 @@ import colors from '../../colors';
 import CopyLink from './CopyLink';
 import { DotDotDot } from '../Base/Loader';
 import MyUsername from '../MyUsername';
+import { BannerAd } from '../Ads/Ad';
 
 const styles = {
   info: {
@@ -113,6 +114,7 @@ class WaitingToStart extends Component {
               ? <PrimaryButton onClick={() => this.ready(false)}>Unready</PrimaryButton>
               : <PrimaryButton onClick={() => this.ready(true)}>Ready</PrimaryButton>}
           </div>
+          <BannerAd />
         </>
       </DocumentTitle>
     );

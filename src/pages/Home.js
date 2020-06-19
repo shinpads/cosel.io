@@ -15,6 +15,7 @@ import history from '../history';
 import artSvg from '../../public/art.svg';
 import globeSvg from '../../public/globe.svg';
 import friendsSvg from '../../public/friends.svg';
+import { BannerAd } from '../components/Ads/Ad';
 
 const styles = {
   root: {
@@ -220,6 +221,7 @@ class Home extends Component {
               <RecentGames recentGames={recentGames} />
             </div>
           </main>
+          <BannerAd />
           <Footer />
         </div>
       </DocumentTitle>

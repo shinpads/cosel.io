@@ -9,3 +9,6 @@ export const SET_USER_READY_MAP = 'SET_USER_READY_MAP';
 
 export const SET_USER = 'SET_USER';
 export const SET_USERNAME_NOT_SET = 'SET_USERNAME_NOT_SET';
+
+export const SET_VIDEO_AD_SHOWING = 'SET_VIDEO_AD_SHOWING';
+export const SET_IS_FIRST_PAGE = 'SET_IS_FIRST_PAGE';

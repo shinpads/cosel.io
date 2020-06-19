@@ -15,12 +15,25 @@ import TermsOfService from './pages/TermsOfService';
 import Credits from './pages/Credits';
 import { getUser } from './actions/userActions';
 import { disconnectSocket } from './actions/gameActions';
+import { VideoAd } from './components/Ads/Ad';
+import { SET_IS_FIRST_PAGE } from './actions/actionTypes';
 
 class App extends Component {
   componentDidMount() {
-    document.body.style.background = colors.background;
     const { dispatch } = this.props;
+    document.body.style.background = colors.background;
     dispatch(getUser());
+    dispatch({
+      type: SET_IS_FIRST_PAGE,
+      payload: true,
+    });
+    // this is for disabling video ads for the first 3 seconds of page load
+    setTimeout(() => {
+      dispatch({
+        type: SET_IS_FIRST_PAGE,
+        payload: false,
+      });
+    }, 3000);
   }
 
   componentDidUpdate(prevProps) {
@@ -39,16 +52,19 @@ class App extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/game/:hash" render={(props) => <Game {...props} key={props.match.params.hash} />} exact />
-        <Route path="/about" component={About} exact />
-        <Route path="/how-to-play" component={HowToPlay} exact />
-        <Route path="/contact" component={Contact} exact />
-        <Route path="/terms-of-service" component={TermsOfService} exact />
-        <Route path="/credits" component={Credits} exact />
-        <Redirect from="*" to="/" />
-      </Switch>
+      <>
+        <VideoAd key={window.location.pathname} />
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/game/:hash" render={(props) => <Game {...props} key={props.match.params.hash} />} exact />
+          <Route path="/about" component={About} exact />
+          <Route path="/how-to-play" component={HowToPlay} exact />
+          <Route path="/contact" component={Contact} exact />
+          <Route path="/terms-of-service" component={TermsOfService} exact />
+          <Route path="/credits" component={Credits} exact />
+          <Redirect from="*" to="/" />
+        </Switch>
+      </>
     );
   }
 }

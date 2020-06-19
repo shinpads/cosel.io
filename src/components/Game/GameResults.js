@@ -7,6 +7,7 @@ import GameResultBook from './GameResultBook';
 import CopyLink from './CopyLink';
 import { PrimaryButton, SecondaryButton } from '../Base/Button';
 import history from '../../history';
+import { BannerAd } from '../Ads/Ad';
 
 const styles = {
   root: {
@@ -54,21 +55,24 @@ class GameResults extends Component {
       nextGameHash = nextGame.hash;
     }
     return (
-      <DocumentTitle title="cosel.io - Game Results">
-        <div className={classes.root}>
-          <CopyLink url={`${window.location.origin}${window.location.pathname}?view=true`} displayUrl={`${window.location.host}${window.location.pathname}`} />
-          <div className={classes.titleContainer}>
-            <div className={classes.title}>Results</div>
-            <div className={classes.seconaryButtonContainer}>
-              {!view && nextGameHash && <SecondaryButton title="Next Round" onClick={() => this.goToNextGame(nextGameHash)} />}
+      <>
+        <DocumentTitle title="cosel.io - Game Results">
+          <div className={classes.root}>
+            <CopyLink url={`${window.location.origin}${window.location.pathname}?view=true`} displayUrl={`${window.location.host}${window.location.pathname}`} />
+            <div className={classes.titleContainer}>
+              <div className={classes.title}>Results</div>
+              <div className={classes.seconaryButtonContainer}>
+                {!view && nextGameHash && <SecondaryButton title="Next Round" onClick={() => this.goToNextGame(nextGameHash)} />}
+              </div>
+            </div>
+            {gameChains.map(gc => <GameResultBook gameChain={gc} />)}
+            <div className={classes.buttonContainer}>
+              {!view && nextGameHash && <PrimaryButton onClick={() => this.goToNextGame(nextGameHash)}>Next Round</PrimaryButton>}
             </div>
           </div>
-          {gameChains.map(gc => <GameResultBook gameChain={gc} />)}
-          <div className={classes.buttonContainer}>
-            {!view && nextGameHash && <PrimaryButton onClick={() => this.goToNextGame(nextGameHash)}>Next Round</PrimaryButton>}
-          </div>
-        </div>
-      </DocumentTitle>
+        </DocumentTitle>
+        <BannerAd />
+      </>
     );
   }
 }
