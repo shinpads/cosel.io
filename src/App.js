@@ -53,7 +53,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <VideoAd key={window.location.pathname} />
+        <VideoAd />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/game/:hash" render={(props) => <Game {...props} key={props.match.params.hash} />} exact />
