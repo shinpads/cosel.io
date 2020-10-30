@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
-import { copyTextToClipboard } from '../../util/helperFunctions';
 import queryString from 'query-string';
+import { copyTextToClipboard } from '../../util/helperFunctions';
 
 import colors from '../../colors';
 import { Copy } from '../Base/Icons';
