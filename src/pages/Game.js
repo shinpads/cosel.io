@@ -49,10 +49,17 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    const { match, dispatch, isFirstPage } = this.props;
+    const {
+      match,
+      dispatch,
+      isFirstPage,
+      location,
+    } = this.props;
     const { hash } = match.params;
+    const query = queryString.parse(location.search);
+
     dispatch(findGame(hash.toUpperCase()));
-    if (!isFirstPage) {
+    if (!isFirstPage && !query.view) {
       playVideoAd();
     }
   }
@@ -127,7 +134,7 @@ class Game extends Component {
       return (
         <div className={classes.root}>
           <Header />
-          <SetUsername />
+          <SetUsername username={query.name} />
         </div>
       );
     }

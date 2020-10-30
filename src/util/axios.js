@@ -16,7 +16,7 @@ if (!window.localStorage.getItem('sessionId')) {
 
 const axiosInstance = axios.create({
   baseURL: `${WARHOL_HOST}:${WARHOL_PORT}`,
-  timeout: 5000,
+  timeout: 7000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json; charset=utf-8',

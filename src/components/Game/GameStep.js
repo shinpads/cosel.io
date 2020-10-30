@@ -11,6 +11,7 @@ import { SecondaryButton } from '../Base/Button';
 import { PrimaryInput } from '../Base/Input';
 import WaitingForNextRound from './WaitingForNextRound';
 import GameArea from '../DrawArea/GameArea';
+import { SideBoxAd } from '../Ads/Ad';
 
 const styles = {
   replayContainer: {
@@ -183,6 +184,7 @@ class GameStep extends Component {
               <PrimaryInput maxlength={25} placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
             </div>
           </form>
+          <SideBoxAd />
         </>
       );
     }
@@ -202,6 +204,7 @@ class GameStep extends Component {
             </div>
           </div>
           <GameArea style={{ flexGrow: 1 }} />
+          <SideBoxAd />
         </>
       );
     }

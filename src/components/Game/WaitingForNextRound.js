@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { DotDotDot } from '../Base/Loader';
 import colors from '../../colors';
 import MyUsername from '../MyUsername';
-import { BannerAd } from '../Ads/Ad';
+import { BannerAd, SideBoxAd } from '../Ads/Ad';
 
 const styles = {
   title: {
@@ -75,6 +75,7 @@ class WaitingForNextRound extends Component {
           })}
         </div>
         <BannerAd />
+        <SideBoxAd />
       </>
     );
   }

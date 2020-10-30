@@ -18,6 +18,17 @@ const styles = {
     background: '#fff',
     zIndex: 100000,
   },
+  sideBoxAd: {
+    position: 'fixed',
+    top: 'calc(50% - 300px)',
+    right: 'calc((100% - 1600px) / 4)',
+    width: '300px',
+    height: '600px',
+  },
+  bannerAd: {
+    display: 'flex',
+    justifyContent: 'center',
+  }
 };
 
 class VideoAdComponent extends Component {
@@ -68,15 +79,16 @@ export function playVideoAd () {
   }
 }
 
-export class BannerAd extends Component {
+export class BannerAdComponent extends Component {
   componentDidMount() {
     if (window.aipDisplayTag) {
       window.aipDisplayTag.display('cosel-io_970x90');
     }
   }
   render() {
+    const { classes } = this.props;
     return (
-      <div style={{ margin: 'auto' }} id="cosel-io_970x90" />
+      <div className={classes.bannerAd} id="cosel-io_970x90" />
     );
   }
 }
@@ -89,9 +101,32 @@ export class BoxAd extends Component {
   }
   render() {
     return (
-      <div id="cosel-io_300x600" />
+      <div style={{ margin: 'auto' }} id="cosel-io_300x600" />
     );
   }
 }
 
+class SideBoxAdComponent extends Component {
+  constructor(props) {
+    super(props);
+    const SIDE_BOX_AD_MIN_SCREEN_WIDTH = 1600;
+    this.show = false;
+    if (window && window.innerWidth >= SIDE_BOX_AD_MIN_SCREEN_WIDTH) {
+      this.show = true;
+    }
+  }
+
+  render () {
+    const { classes } = this.props;
+    if (!this.show) return null;
+    return (
+      <div className={classes.sideBoxAd}>
+        <BoxAd />
+      </div>
+    );
+  }
+}
+
+export const SideBoxAd = withStyles(styles)(SideBoxAdComponent);
+export const BannerAd = withStyles(styles)(BannerAdComponent);
 export const VideoAd = withStyles(styles)(VideoAdComponent);

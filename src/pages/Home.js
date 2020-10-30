@@ -15,7 +15,7 @@ import history from '../history';
 import artSvg from '../../public/art.svg';
 import globeSvg from '../../public/globe.svg';
 import friendsSvg from '../../public/friends.svg';
-import { BannerAd } from '../components/Ads/Ad';
+import { BannerAd, SideBoxAd } from '../components/Ads/Ad';
 
 const styles = {
   root: {
@@ -216,12 +216,13 @@ class Home extends Component {
                 </PrimaryButton>
               </div>
             </div>
+            <BannerAd />
             <div className={classes.recentGamesContainer}>
               <h3 style={{ borderBottom: '2px dashed' }}>Recent Games</h3>
               <RecentGames recentGames={recentGames} />
             </div>
+            <SideBoxAd />
           </main>
-          <BannerAd />
           <Footer />
         </div>
       </DocumentTitle>

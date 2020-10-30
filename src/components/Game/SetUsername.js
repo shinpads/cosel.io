@@ -38,6 +38,13 @@ class SetUsername extends Component {
     };
   }
 
+  async componentDidMount() {
+    const { username, dispatch } = this.props;
+
+    await dispatch(setUsername(username));
+    await dispatch(joinGame());
+  }
+
   submitUsername = async () => {
     const { dispatch } = this.props;
     const { username } = this.state;
@@ -73,6 +80,7 @@ class SetUsername extends Component {
 SetUsername.propTypes = {
   classes: PropTypes.object,
   dispatch: PropTypes.func,
+  username: PropTypes.string,
 };
 
 

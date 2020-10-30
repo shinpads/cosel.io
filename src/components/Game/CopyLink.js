@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import { copyTextToClipboard } from '../../util/helperFunctions';
+import queryString from 'query-string';
 
 import colors from '../../colors';
 import { Copy } from '../Base/Icons';
@@ -90,6 +91,10 @@ class CopyLink extends Component {
   render() {
     const { snackbarOpen } = this.state;
     const { classes, displayUrl } = this.props;
+    const query = queryString.parse(window.location.search);
+    if (query.rocketCrab) {
+      return <div style={{ width: '100%', height: '2rem' }} />;
+    }
     return (
       <>
         <Snackbar
