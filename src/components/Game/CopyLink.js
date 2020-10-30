@@ -92,7 +92,7 @@ class CopyLink extends Component {
     const { snackbarOpen } = this.state;
     const { classes, displayUrl } = this.props;
     const query = queryString.parse(window.location.search);
-    if (query.rocketCrab) {
+    if (query.rocketcrab) {
       return <div style={{ width: '100%', height: '2rem' }} />;
     }
     return (
