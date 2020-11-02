@@ -69,7 +69,7 @@ const RecentGame = ({
 }) => {
   const { thumbnail } = game;
   const timeAgo = moment(game.endTime ? game.endTime : game.createdAt).fromNow();
-  const title = game.gameChains[0].originalWord;
+  const title = game.gameChains[0].originalWord || game.gameChains[0].gameSteps[0].guess;
   return (
     <div
       key={game._id}
