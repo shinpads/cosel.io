@@ -18,6 +18,7 @@ const styles = {
     padding: '1rem',
     marginTop: '1rem',
     border: '1px dashed',
+    maxWidth: '100%',
   },
   options: {
     fontSize: '22px',
