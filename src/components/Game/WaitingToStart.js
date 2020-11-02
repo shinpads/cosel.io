@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Done } from '@material-ui/icons';
+import { Zoom, Fade } from '@material-ui/core';
 import { PrimaryButton } from '../Base/Button';
 import { startGame, sendReady } from '../../actions/gameActions';
 import colors from '../../colors';
@@ -11,6 +12,7 @@ import CopyLink from './CopyLink';
 import { DotDotDot } from '../Base/Loader';
 import MyUsername from '../MyUsername';
 import { BannerAd, SideBoxAd } from '../Ads/Ad';
+import GameConfiguration from './GameConfiguration';
 
 const styles = {
   info: {
@@ -90,21 +92,28 @@ class WaitingToStart extends Component {
       user,
       classes,
       userReadyMap,
+      game,
     } = this.props;
     const isReady = !!userReadyMap[user._id];
+    const isHost = String(game.host) === String(user._id);
     return (
       <DocumentTitle title="cosel.io - Waiting for players">
         <>
           <CopyLink url={window.location.href} displayUrl={window.location.host + window.location.pathname} />
           <div className={classes.info}>
             {users.length < 4 && <div className={classes.playerCountWarning}>This game is meant to be played with at least 4 players. Copy the link above and send it to your friends for them to join the game.</div>}
+            {isHost && <GameConfiguration />}
             <div className={classes.playerList}>
-              {users.map(u => (
+              {users.map((u, i) => (
                 <div className={classes.playerContainer}>
-                  {u._id === user._id
-                    ? (<MyUsername username={user.username} textClass={classes.playerName} style={{ flexGrow: 1 }} />)
-                    : (<div className={classes.playerName}>{u.username}</div>)}
-                  <div className={classes.playerStatus}>{userReadyMap[u._id] ? <Done /> : <DotDotDot />}</div>
+                  <Zoom in style={{ transitionDelay: `${200 * i}ms` }}>
+                    {u._id === user._id
+                      ? (<MyUsername username={user.username} textClass={classes.playerName} style={{ flexGrow: 1 }} />)
+                      : (<div className={classes.playerName}>{u.username}</div>)}
+                  </Zoom>
+                  <Fade in style={{ transitionDelay: `${200 * (i + 1)}ms` }}>
+                    <div className={classes.playerStatus}>{userReadyMap[u._id] ? <Done /> : <DotDotDot />}</div>
+                  </Fade>
                 </div>
               ))}
             </div>
@@ -128,6 +137,7 @@ WaitingToStart.propTypes = {
   dispatch: PropTypes.func,
   classes: PropTypes.object,
   userReadyMap: PropTypes.func,
+  game: PropTypes.object,
 };
 
 function mapStateToProps(state) {

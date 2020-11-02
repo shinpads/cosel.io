@@ -197,6 +197,25 @@ export const sendReady = (ready) => async () => {
   }
 };
 
+export const updateConfig = (update) => async (dispatch, getState) => {
+  if (socket) {
+    socket.emit('update-config', update);
+  }
+
+  const { game } = getState();
+
+  dispatch({
+    type: SET_GAME,
+    payload: {
+      ...game,
+      config: {
+        ...game.config,
+        [update.key]: update.value,
+      },
+    },
+  });
+};
+
 export const disconnectSocket = () => (dispatch) => {
   if (socket) {
     socket.disconnect();

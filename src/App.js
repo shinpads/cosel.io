@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import colors from './colors';
 import Home from './pages/Home';
@@ -17,6 +18,13 @@ import { getUser } from './actions/userActions';
 import { disconnectSocket } from './actions/gameActions';
 import { VideoAd } from './components/Ads/Ad';
 import { SET_IS_FIRST_PAGE } from './actions/actionTypes';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'coming soon, cursive',
+    fontSize: 18,
+  },
+});
 
 class App extends Component {
   componentDidMount() {
@@ -52,7 +60,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <MuiThemeProvider theme={theme}>
         <VideoAd />
         <Switch>
           <Route path="/" component={Home} exact />
@@ -64,7 +72,7 @@ class App extends Component {
           <Route path="/credits" component={Credits} exact />
           <Redirect from="*" to="/" />
         </Switch>
-      </>
+      </MuiThemeProvider>
     );
   }
 }

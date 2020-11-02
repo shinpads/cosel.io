@@ -19,6 +19,7 @@ const styles = {
   carouselItem: {
     backgroundColor: colors.canvas,
     height: '100%',
+    minHeight: '150px',
   },
   originalWord: {
     textAlign: 'center',
@@ -93,7 +94,7 @@ class GameResultBook extends Component {
         let wordToDraw = '';
         const drawData = drawingMap[String(curStep.drawing)];
 
-        if (i < 2) {
+        if (i === 0) {
           wordToDraw = gameChain.originalWord;
         } else {
           wordToDraw = gameChain.gameSteps[i - 1].guess;
@@ -119,6 +120,18 @@ class GameResultBook extends Component {
           <div className={classes.carouselItem}>
             <div className={classes.guessTitle}>
               {curStep.user.username} guessed
+            </div>
+            <div className={classes.guessContainer}>
+              <div className={classes.guess}>{curStep.guess}</div>
+              {curStep.autoFilled && <AutoFilled />}
+            </div>
+          </div>,
+        );
+      } else if (curStep.type === 'WORD') {
+        pages.push(
+          <div className={classes.carouselItem}>
+            <div className={classes.guessTitle}>
+              {curStep.user.username} started with
             </div>
             <div className={classes.guessContainer}>
               <div className={classes.guess}>{curStep.guess}</div>

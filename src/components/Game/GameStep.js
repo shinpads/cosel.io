@@ -126,6 +126,8 @@ class GameStep extends Component {
       this.onSubmitGuess();
     } else if (gameStep.type === 'DRAWING') {
       this.onSubmitDrawing();
+    } else if (gameStep.type === 'WORD') {
+      this.onSubmitWord();
     }
   }
 
@@ -144,6 +146,14 @@ class GameStep extends Component {
     dispatch(submitStep(gameStep));
   }
 
+  onSubmitWord = () => {
+    const { dispatch, gameStep } = this.props;
+    const { word } = this.state;
+    gameStep.guess = word;
+    this.setState({ submitted: true });
+    dispatch(submitStep(gameStep));
+  }
+
   render() {
     const {
       gameStep,
@@ -153,6 +163,7 @@ class GameStep extends Component {
     } = this.props;
     const {
       guess,
+      word,
       submitted,
       loadingDrawData,
       drawData,
@@ -181,7 +192,7 @@ class GameStep extends Component {
           )}
           <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
             <div style={{ margin: '2rem' }}>
-              <PrimaryInput maxlength={25} placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
+              <PrimaryInput maxlength={40} placeholder="Guess" value={guess} onChange={e => this.setState({ guess: e.target.value })} />
             </div>
           </form>
           <SideBoxAd />
@@ -190,14 +201,14 @@ class GameStep extends Component {
     }
 
     if (gameStep.type === 'DRAWING') {
-      const word = previousGameStep ? previousGameStep.guess : gameChain.originalWord;
+      const prevWord = previousGameStep ? previousGameStep.guess : gameChain.originalWord;
       return (
         <>
           <div className={classes.info}>
             {/* <div className={classes.round}>{round}/{rounds}</div> */}
             <div className={classNames(classes.time, timeRemaining < 10 ? classes.timeLow : '')}>{timeRemaining}s</div>
-            <div className={classNames(classes.title, word.length > 10 ? classes.titleSmall : '')}>
-              {word}
+            <div className={classNames(classes.title, prevWord.length > 10 ? classes.titleSmall : '')}>
+              {prevWord}
             </div>
             <div className={classes.buttonContainer}>
               <SecondaryButton onClick={this.submitGameStep} title="submit" />
@@ -208,6 +219,30 @@ class GameStep extends Component {
         </>
       );
     }
+
+    if (gameStep.type === 'WORD') {
+      return (
+        <>
+          <div className={classes.info}>
+            <div className={classNames(classes.time, timeRemaining < 10 ? classes.timeLow : '')}>{timeRemaining}s</div>
+            <div />
+            <div className={classes.buttonContainer}>
+              <SecondaryButton onClick={this.submitGameStep} title="submit" />
+            </div>
+          </div>
+          <form style={{ display: 'contents' }} onSubmit={e => { e.preventDefault(); this.submitGameStep(); }}>
+            <div style={{ margin: '2rem' }}>
+              <PrimaryInput maxlength={40} placeholder="Anything" value={word} onChange={e => this.setState({ word: e.target.value })} />
+            </div>
+          </form>
+          <div style={{ padding: '1rem', textAlign: 'center' }}>
+            Type in any word or phrase. This is what the next player will draw.
+          </div>
+          <SideBoxAd />
+        </>
+      );
+    }
+
     return <div />;
   }
 }
@@ -225,8 +260,8 @@ GameStep.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    drawTimeLimit: state.game.game.drawTimeLimit,
-    guessTimeLimit: state.game.game.guessTimeLimit,
+    drawTimeLimit: state.game.game.config.drawTimeLimit,
+    guessTimeLimit: state.game.game.config.guessTimeLimit,
   };
 }
 
